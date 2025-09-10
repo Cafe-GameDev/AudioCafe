@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2pijgg1eb8sg"]
 
-[ext_resource type="Script" path="res://addons/AudioCafe/scripts/audio_panel.gd" id="1_wixt7"]
+[ext_resource type="Script" uid="uid://d2qybkm7aby25" path="res://addons/AudioCafe/scripts/audio_panel.gd" id="1_wixt7"]
 [ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_mi0lv"]
 
 [node name="AudioPanel" type="VBoxContainer"]
@@ -22,12 +22,12 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="GenerateAssetsButton" type="Button" parent="CollapsibleContent/HBoxContainer"]
+[node name="AudioManifest" type="Button" parent="CollapsibleContent/HBoxContainer"]
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Generates audio resources (.tres files) from your source asset folders."
-text = "Generate Audio Assets"
+tooltip_text = "Generates the AudioManifest.tres file."
+text = "Generate Audio Manifest"
 autowrap_mode = 3
 
 [node name="DocsButton" type="Button" parent="CollapsibleContent/HBoxContainer"]
@@ -38,11 +38,11 @@ size_flags_vertical = 0
 text = "Docs"
 icon = ExtResource("2_mi0lv")
 
-[node name="GenerationProgressBar" type="ProgressBar" parent="CollapsibleContent"]
+[node name="ManifestProgressBar" type="ProgressBar" parent="CollapsibleContent"]
 visible = false
 layout_mode = 2
 
-[node name="GenerationStatusLabel" type="Label" parent="CollapsibleContent"]
+[node name="ManifestStatusLabel" type="Label" parent="CollapsibleContent"]
 visible = false
 layout_mode = 2
 horizontal_alignment = 1
@@ -50,70 +50,462 @@ horizontal_alignment = 1
 [node name="HSeparator" type="HSeparator" parent="CollapsibleContent"]
 layout_mode = 2
 
+[node name="SFXFolderDialog" type="FileDialog" parent="CollapsibleContent"]
+title = "Open a Directory"
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="MusicFolderDialog" type="FileDialog" parent="CollapsibleContent"]
+title = "Open a Directory"
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
 [node name="TabContainer" type="TabContainer" parent="CollapsibleContent"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
+current_tab = 0
+tabs_rearrange_group = 0
 
-[node name="Config" type="ScrollContainer" parent="CollapsibleContent/TabContainer"]
+[node name="Paths" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+custom_minimum_size = Vector2(0, 232)
 layout_mode = 2
-horizontal_scroll_mode = 0
+theme_override_constants/separation = 10
+metadata/_tab_index = 0
 
-[node name="ConfigVBox" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Config"]
+[node name="MusicPathsSection" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Paths"]
+layout_mode = 2
+
+[node name="MusicPathsLabel" type="Label" parent="CollapsibleContent/TabContainer/Paths/MusicPathsSection"]
+layout_mode = 2
+text = "Music Paths:"
+
+[node name="MusicPathsGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Paths/MusicPathsSection"]
+layout_mode = 2
+
+[node name="AddMusicPathButton" type="Button" parent="CollapsibleContent/TabContainer/Paths/MusicPathsSection"]
+layout_mode = 2
+text = "Add Music Path"
+
+[node name="SFXPathsSection" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Paths"]
+layout_mode = 2
+
+[node name="SFXPathsLabel" type="Label" parent="CollapsibleContent/TabContainer/Paths/SFXPathsSection"]
+layout_mode = 2
+text = "SFX Paths:"
+
+[node name="SFXPathsGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Paths/SFXPathsSection"]
+layout_mode = 2
+
+[node name="AddSFXPathButton" type="Button" parent="CollapsibleContent/TabContainer/Paths/SFXPathsSection"]
+layout_mode = 2
+text = "Add SFX Path"
+
+[node name="Keys" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 232)
+layout_mode = 2
+theme_override_constants/separation = 10
+metadata/_tab_index = 1
+
+[node name="VolumeGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Keys"]
+layout_mode = 2
+columns = 3
+
+[node name="MasterVolumeLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Master Volume:"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 12
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
 
-[node name="PathMappingsLabel" type="Label" parent="CollapsibleContent/TabContainer/Config/ConfigVBox"]
+[node name="MasterVolumeValueLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
+custom_minimum_size = Vector2(42, 0)
 layout_mode = 2
-text = "Path Mappings"
-theme_type_variation = &"HeaderSmall"
+text = "100%"
+horizontal_alignment = 2
 
-[node name="PathMappingsContainer" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Config/ConfigVBox"]
+[node name="SFXVolumeLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "SFX Volume:"
+
+[node name="SFXVolumeSlider" type="HSlider" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SFXVolumeValueLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="MusicVolumeLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+text = "Music Volume:"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="MusicVolumeValueLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/VolumeGridContainer"]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="HSeparator" parent="CollapsibleContent/TabContainer/Keys"]
 layout_mode = 2
 
-[node name="AddNewMappingButton" type="Button" parent="CollapsibleContent/TabContainer/Config/ConfigVBox"]
+[node name="DefaultKeyGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Keys"]
 layout_mode = 2
-text = "Add New Category Mapping"
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 2
 
-[node name="Audio Assets" type="ScrollContainer" parent="CollapsibleContent/TabContainer"]
+[node name="DefaultClickKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for UI click events."
+mouse_filter = 1
+text = "Default Click Key:"
+
+[node name="DefaultClickKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for UI click events."
+text = "ui_click"
+placeholder_text = "ui_click"
+
+[node name="DefaultSliderKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+text = "Default Slider Key:"
+
+[node name="DefaultSliderKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for value change events in sliders and similar UI elements."
+text = "ui_slider_changed"
+placeholder_text = "ui_slider_changed"
+
+[node name="DefaultHoverKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+text = "Default Hover Key:"
+
+[node name="DefaultHoverKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for UI hover events."
+text = "ui_rollover"
+placeholder_text = "ui_hover"
+
+[node name="DefaultConfirmKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for confirmation events (e.g., dialogs)."
+mouse_filter = 1
+text = "Default Confirm Key:"
+
+[node name="DefaultConfirmKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for confirmation events (e.g., dialogs)."
+text = "interface_confirmation"
+placeholder_text = "interface_confirmation"
+
+[node name="DefaultCancelKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for cancellation events (e.g., closing dialogs)."
+mouse_filter = 1
+text = "Default Cancel Key:"
+
+[node name="DefaultCancelKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for cancellation events (e.g., closing dialogs)."
+text = "interface_back"
+placeholder_text = "interface_back"
+
+[node name="DefaultToggleKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for toggle events (e.g., checkboxes, switches)."
+mouse_filter = 1
+text = "Default Toggle Key:"
+
+[node name="DefaultToggleKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for toggle events (e.g., checkboxes, switches)."
+text = "interface_toggle"
+placeholder_text = "interface_toggle"
+
+[node name="DefaultSelectKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for selection events (e.g., item lists, option buttons)."
+mouse_filter = 1
+text = "Default Select Key:"
+
+[node name="DefaultSelectKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for selection events (e.g., item lists, option buttons)."
+text = "interface_select"
+placeholder_text = "interface_select"
+
+[node name="DefaultTextInputKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for text input events."
+mouse_filter = 1
+text = "Default Text Input Key:"
+
+[node name="DefaultTextInputKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for text input events."
+text = "interface_type"
+placeholder_text = "interface_type"
+
+[node name="DefaultScrollKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for scrolling events."
+mouse_filter = 1
+text = "Default Scroll Key:"
+
+[node name="DefaultScrollKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for scrolling events."
+text = "interface_scroll"
+placeholder_text = "interface_scroll"
+
+[node name="DefaultFocusKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for focus change events."
+mouse_filter = 1
+text = "Default Focus Key:"
+
+[node name="DefaultFocusKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for focus change events."
+text = "interface_focus"
+placeholder_text = "interface_focus"
+
+[node name="DefaultErrorKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for error events."
+mouse_filter = 1
+text = "Default Error Key:"
+
+[node name="DefaultErrorKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for error events."
+text = "interface_error"
+placeholder_text = "interface_error"
+
+[node name="DefaultWarningKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for warning events."
+mouse_filter = 1
+text = "Default Warning Key:"
+
+[node name="DefaultWarningKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for warning events."
+text = "interface_warning"
+placeholder_text = "interface_warning"
+
+[node name="DefaultSuccessKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for success events."
+mouse_filter = 1
+text = "Default Success Key:"
+
+[node name="DefaultSuccessKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for success events."
+text = "interface_success"
+placeholder_text = "interface_success"
+
+[node name="DefaultOpenKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for opening elements (e.g., menus, dialogs)."
+mouse_filter = 1
+text = "Default Open Key:"
+
+[node name="DefaultOpenKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for opening elements (e.g., menus, dialogs)."
+text = "interface_open"
+placeholder_text = "interface_open"
+
+[node name="DefaultCloseKeyLabel" type="Label" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+custom_minimum_size = Vector2(146, 0)
+layout_mode = 2
+tooltip_text = "The default SFX key for closing elements (e.g., menus, dialogs)."
+mouse_filter = 1
+text = "Default Close Key:"
+
+[node name="DefaultCloseKeyLineEdit" type="LineEdit" parent="CollapsibleContent/TabContainer/Keys/DefaultKeyGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The default SFX key for closing elements (e.g., menus, dialogs)."
+text = "interface_close"
+placeholder_text = "interface_close"
+
+[node name="MusicList" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
 visible = false
 layout_mode = 2
+theme_override_constants/separation = 10
+metadata/_tab_index = 2
 
-[node name="AssetsVBox" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Audio Assets"]
+[node name="MusicKeysRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/MusicList"]
+custom_minimum_size = Vector2(0, 232)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_vertical = 0
+fit_content = true
 
-[node name="PlaylistsHeader" type="Label" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+[node name="SFXList" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
 layout_mode = 2
-text = "Playlists"
-theme_type_variation = &"HeaderSmall"
+theme_override_constants/separation = 10
+metadata/_tab_index = 3
 
-[node name="PlaylistsContainer" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+[node name="SFXKeysRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/SFXList"]
+custom_minimum_size = Vector2(0, 232)
 layout_mode = 2
+size_flags_vertical = 2
 
-[node name="HSeparator" type="HSeparator" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+[node name="Signals" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
 layout_mode = 2
+metadata/_tab_index = 4
 
-[node name="SyncHeader" type="Label" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+[node name="ManagerSignalsLabel" type="Label" parent="CollapsibleContent/TabContainer/Signals"]
 layout_mode = 2
-text = "Synchronized Streams"
-theme_type_variation = &"HeaderSmall"
+text = "CafeAudioManager Signals:"
 
-[node name="SyncContainer" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+[node name="ManagerSignalsRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Signals"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
+text = "CafeAudioManager.music_started.emit(key)
+Emitted when a music track starts playing. The 'key' parameter is the unique identifier of the music track.
 
-[node name="HSeparator2" type="HSeparator" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+CafeAudioManager.music_stopped.emit(key)
+Emitted when a music track stops playing. The 'key' parameter is the unique identifier of the music track.
+
+CafeAudioManager.sfx_played.emit(key)
+Emitted when an SFX is played. The 'key' parameter is the unique identifier of the SFX.
+
+CafeAudioManager.volume_changed.emit(bus_name, volume)
+Emitted when a volume bus changes. 'bus_name' is the name of the audio bus (e.g., 'Master', 'SFX', 'Music') and 'volume' is the new volume value (0.0 to 1.0).
+"
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="CollapsibleContent/TabContainer/Signals"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="InteractiveHeader" type="Label" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+[node name="PositionSignalsLabel" type="Label" parent="CollapsibleContent/TabContainer/Signals"]
 layout_mode = 2
-text = "Interactive Streams"
-theme_type_variation = &"HeaderSmall"
+text = "AudioPosition (2D/3D) Signals:"
 
-[node name="InteractiveContainer" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+[node name="PositionSignalsRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Signals"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
+text = "To use AudioPosition signals, you must attach a script to your AudioPosition node and assign it a 'class_name'. Then, you can emit signals directly from the node instance or connect to them.
 
-[node name="SaveFileDialog" type="FileDialog" parent="."]
-title = "Save Converted Resource"
-ok_button_text = "Save"
+YourAudioPositionNode.audio_entered_zone.emit(zone_name)
+Emitted when the AudioPosition enters an AudioZone. 'zone_name' is the unique identifier of the AudioZone.
+
+YourAudioPositionNode.audio_exited_zone.emit(zone_name)
+Emitted when the AudioPosition exits an AudioZone. 'zone_name' is the unique identifier of the AudioZone.
+
+YourAudioPositionNode.audio_state_changed.emit(new_state)
+Emitted when the AudioPosition's internal state changes (e.g., for character movement sounds). 'new_state' is the new state of the AudioPosition.
+"
+fit_content = true
+
+[node name="HSeparator2" type="HSeparator" parent="CollapsibleContent/TabContainer/Signals"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ZoneSignalsLabel" type="Label" parent="CollapsibleContent/TabContainer/Signals"]
+layout_mode = 2
+text = "AudioZone (2D/3D) Signals:"
+
+[node name="ZoneSignalsRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Signals"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+text = "To use AudioZone signals, you must attach a script to your AudioZone node and assign it a 'class_name'. Then, you can emit signals directly from the node instance or connect to them.
+
+YourAudioZoneNode.player_entered_zone.emit()
+Emitted when the player's AudioPosition enters this zone.
+
+YourAudioZoneNode.player_exited_zone.emit()
+Emitted when the player's AudioPosition exits this zone.
+
+YourAudioZoneNode.zone_activated.emit()
+Emitted when the zone becomes active.
+
+YourAudioZoneNode.zone_deactivated.emit()
+Emitted when the zone becomes inactive.
+"
+fit_content = true
+
+[node name="MusicTrackFileDialog" type="FileDialog" parent="CollapsibleContent"]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
 access = 2
+filters = PackedStringArray("*.ogg,*.wav")
+
+[node name="SaveFeedbackLabel" type="Label" parent="CollapsibleContent"]
+visible = false
+layout_mode = 2
+text = "Saved!"
+horizontal_alignment = 1
+
+[node name="SaveFeedbackTimer" type="Timer" parent="CollapsibleContent"]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="pressed" from="HeaderButton" to="." method="_on_header_button_pressed"]
+[connection signal="pressed" from="CollapsibleContent/HBoxContainer/AudioManifest" to="." method="_on_audio_manifest_pressed"]
+[connection signal="pressed" from="CollapsibleContent/HBoxContainer/DocsButton" to="." method="_on_docs_button_pressed"]
+[connection signal="timeout" from="CollapsibleContent/SaveFeedbackTimer" to="." method="_on_save_feedback_timer_timeout"]
