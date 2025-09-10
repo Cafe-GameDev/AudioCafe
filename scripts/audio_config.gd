@@ -4,8 +4,6 @@ class_name AudioConfig
 
 signal config_changed
 
-# Array de Dicionários para mapear categorias, fontes e destinos.
-# Exemplo de entrada: { "category": "Player", "source": "res://assets/player/", "target": "res://audio/generated/player/" }
 @export var path_mappings: Array[Dictionary] = []
 
 @export_group("Generation Defaults")
@@ -30,10 +28,7 @@ signal config_changed
 			music_volume = value
 			_save_and_emit_changed()
 
-# Dicionário que cataloga as playlists geradas.
-# Chave: nome da playlist (ex: player_footsteps), Valor: caminho para o recurso .tres
 var generated_playlists: Dictionary = {}
-
 
 func _save_and_emit_changed():
 	if self.resource_path and not self.resource_path.is_empty():

@@ -18,23 +18,19 @@ func _run():
 	_total_files = 0
 	audio_config.generated_playlists.clear()
 
-	# Fase 1: Contar todos os arquivos para a barra de progresso
 	for mapping in audio_config.path_mappings:
 		var source_path = mapping.get("source", "")
 		if not source_path.is_empty():
 			_count_files_in_dir(source_path)
 
-	# Fase 2: Gerar as playlists
 	for mapping in audio_config.path_mappings:
 		var source_path = mapping.get("source", "")
 		var target_path = mapping.get("target", "")
 		if source_path.is_empty() or target_path.is_empty():
-			push_warning("Skipping invalid path mapping: %s" % mapping)
 			continue
 		
 		_generate_playlists_for_mapping(source_path, source_path, target_path)
 
-	# Salva o AudioConfig com o novo dicionário de playlists
 	ResourceSaver.save(audio_config, audio_config.resource_path)
 	emit_signal("generation_finished", true, "Audio assets generated successfully.")
 
@@ -51,7 +47,6 @@ func _count_files_in_dir(path: String):
 func _generate_playlists_for_mapping(base_source_path: String, current_source_path: String, base_target_path: String):
 	var dir = DirAccess.open(current_source_path)
 	if not dir:
-		push_error("Failed to open directory: %s" % current_source_path)
 		return
 
 	var audio_files_in_current_dir: Array[String] = []
@@ -59,7 +54,6 @@ func _generate_playlists_for_mapping(base_source_path: String, current_source_pa
 		if file_name.ends_with(".ogg") or file_name.ends_with(".wav"):
 			audio_files_in_current_dir.append(current_source_path.path_join(file_name))
 
-	# Se encontrarmos arquivos de áudio, criamos uma playlist para este diretório
 	if not audio_files_in_current_dir.is_empty():
 		var playlist = AudioStreamPlaylist.new()
 		playlist.loop = audio_config.default_playlist_loop
@@ -85,9 +79,6 @@ func _generate_playlists_for_mapping(base_source_path: String, current_source_pa
 		var error = ResourceSaver.save(playlist, save_path)
 		if error == OK:
 			audio_config.generated_playlists[key] = save_path
-		else:
-			push_error("Failed to save playlist: %s" % save_path)
 
-	# Continua a varredura recursivamente para os subdiretórios
 	for sub_dir_name in dir.get_directories():
 		_generate_playlists_for_mapping(base_source_path, current_source_path.path_join(sub_dir_name), base_target_path)
