@@ -1,7 +1,7 @@
 # Lei da Documentação Pública (v2.0)
 
 **Status:** Proposta
-**Documento:** `docs/leis/documentation.md`
+**Documento:** `docs/laws_projects/documentation.md`
 
 ---
 
@@ -17,21 +17,11 @@ Fica mandatória a revisão e reescrita de todos os arquivos `.md` na pasta `doc
 
 *   **Seção 1.1: `index.md` (Página Inicial):** A seção "Funcionalidades Principais" será atualizada para destacar o novo foco do AudioCafe como uma camada de workflow e gerenciamento sobre os recursos nativos da Godot.
 
-*   **Seção 1.2: `AudioManager.md`:** Será reescrito para explicar o novo papel do manager como um "orquestrador". A explicação da lógica de playlist customizada será removida e substituída pela explicação do novo sistema de acesso de camada dupla (v2 com fallback para v1).
+*   **Seção 1.2: `AudioConfig.md`:** Será reescrito para detalhar as novas propriedades, como `generated_assets_path` e o catálogo `generated_playlists`.
 
-*   **Seção 1.3: `AudioPosition.md`:** Será completamente reescrito. O foco será 100% no novo workflow: associar um recurso `AudioStreamInteractive` à propriedade `interactive_stream` e controlá-lo via código com o método `travel()`.
+*   **Seção 1.3: `AudioPanel.md`:** Será atualizado com novas screenshots e descrições que reflitam a interface redesenhada, incluindo a nova aba "Audio Assets" e as ferramentas de conversão.
 
-*   **Seção 1.4: `AudioManifest.md` e `ManifestGeneration.md`:** Ambos os documentos serão fundidos ou atualizados para explicar o novo sistema de geração em duas fases: a criação do catálogo de UIDs (v1) e a geração paralela dos recursos `AudioStreamPlaylist` (`.tres`).
-
-*   **Seção 1.5: `AudioPanel.md`:** Será atualizado com novas screenshots e descrições que reflitam a interface redesenhada, incluindo as novas abas "Config" e "Audio Assets" e os botões de criação de recursos.
-
-*   **Seção 1.6: `Controls.md`:** O conteúdo principal será mantido, pois a funcionalidade do usuário não muda. Será adicionada uma nota sobre o refatoramento interno para uma classe base, destacando a melhoria na manutenibilidade.
-
-*   **Seção 1.7: `Signals.md`:** A lista de sinais será atualizada para corresponder exatamente ao definido na "Lei dos Sinais", com os novos parâmetros e sinais, e a remoção dos obsoletos.
-
-*   **Seção 1.8: `StateMachineIntegration.md`:** Este guia será completamente reescrito para seguir a nova "Lei da Integração com Máquinas de Estado", demonstrando o uso do método `travel()`.
-
-*   **Seção 1.9: `AdvancedUsage.md`:** Será revisado para atualizar exemplos, como o uso do novo `AmbianceHandler` como a prática recomendada para áudio ambiental.
+*   **Seção 1.4: `ManifestGeneration.md`:** Será reescrito para explicar o novo processo de geração de `AudioStreamPlaylist` e o papel do `AudioManifest` como camada de compatibilidade opcional.
 
 ---
 
@@ -39,17 +29,13 @@ Fica mandatória a revisão e reescrita de todos os arquivos `.md` na pasta `doc
 
 *   **Seção 2.1: Guia de Migração:**
     *   **Diretriz 2.1.1:** Fica mandatória a criação de um novo arquivo: `docs/MigrationFromV1.md`.
-    *   **Diretriz 2.1.2:** Este guia deverá fornecer um passo a passo claro e com exemplos de código sobre como um usuário da v1 pode atualizar seu projeto para a v2.0, com foco na conversão da lógica de `AudioPosition` para o novo sistema `AudioStreamInteractive`.
+    *   **Diretriz 2.1.2:** Este guia deverá fornecer um passo a passo claro sobre como um usuário da v1 pode atualizar seu projeto para a v2.0, focando em como substituir a lógica de `CafeAudioManager` pelo uso direto dos `AudioStreamPlayer`s com os novos recursos gerados.
 
-*   **Seção 2.2: Documentação dos Handlers:**
-    *   **Diretriz 2.2.1:** Fica mandatória a criação de um novo arquivo: `docs/Handlers.md`.
-    *   **Diretriz 2.2.2:** Este documento explicará o conceito de `Handlers` como um padrão de design e incluirá um tutorial detalhado sobre como usar o novo `AmbianceHandler`.
-
----
-
-### **Artigo III: Limpeza da Documentação**
-
-*   **Seção 3.1:** Após a conclusão da fase legislativa, o arquivo `docs/leis/exemplo.md` será removido para manter a pasta de documentação final limpa e focada no conteúdo relevante para o usuário.
+*   **Seção 2.2: Novos Tutoriais:**
+    *   **Diretriz 2.2.1:** Novos tutoriais serão criados em `docs/tutorials/` para cobrir o novo workflow:
+        1.  `01-generating-playlists.md`: Como organizar pastas e gerar `AudioStreamPlaylist`s.
+        2.  `02-interactive-music.md`: Como usar a ferramenta de conversão para criar um `AudioStreamInteractive` para música de combate/exploração.
+        3.  `03-layered-music.md`: Como usar a ferramenta de conversão para criar um `AudioStreamSynchronized` para música em camadas.
 
 ---
 

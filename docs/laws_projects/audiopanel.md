@@ -1,58 +1,58 @@
 # Lei da Central de Gerenciamento de Áudio (AudioPanel v2.0)
 
 **Status:** Proposta
-**Documento:** `docs/leis/audiopanel.md`
+**Documento:** `docs/laws_projects/audiopanel.md`
 
 ---
 
 ### **Preâmbulo**
 
-Com a evolução do AudioCafe para uma camada de workflow sobre os recursos nativos da Godot, o `AudioPanel` transcende sua função original de um simples configurador. Esta lei estabelece o redesenho do `AudioPanel` para se tornar uma **Central de Gerenciamento de Áudio** completa, uma interface de alto nível que não apenas configura o plugin, mas também acelera a criação e o gerenciamento dos recursos `AudioStreamPlaylist` e `AudioStreamInteractive`.
+Com a evolução do AudioCafe para uma camada de workflow sobre os recursos nativos da Godot, o `AudioPanel` se torna uma **Central de Gerenciamento de Áudio** completa. Esta lei detalha sua nova interface, focada no gerenciamento de mapeamentos de caminho e na conversão de ativos de áudio.
 
 ---
 
-### **Artigo I: Redesenho da Interface e Funcionalidades Principais**
+### **Artigo I: Redesenho da Interface**
 
-*   **Seção 1.1: Foco na Criação e Gerenciamento de Ativos:** O painel deve capacitar o usuário a criar e gerenciar os novos recursos de áudio com o mínimo de atrito.
-    *   **Diretriz 1.1.1:** O botão **"Generate Audio Manifest"** será mantido como a ação principal para sincronizar o projeto, acionando tanto a geração do manifesto v1 quanto a geração dos recursos de playlist v2.
-    *   **Diretriz 1.1.2:** O painel incluirá um botão **"New Audio Playlist"** para criar manualmente um novo recurso `AudioStreamPlaylist` (`.tres`).
-    *   **Diretriz 1.1.3:** Da mesma forma, um botão **"New Interactive Audio"** será adicionado para criar um novo recurso `AudioStreamInteractive`.
-    *   **Diretriz 1.1.4:** O painel proverá **ferramentas de conversão**, acessíveis através da aba "Audio Assets", para transformar `AudioStreamPlaylist`s gerados em recursos `AudioStreamInteractive` ou `AudioStreamSynchronized`, conforme a "Lei das Ferramentas de Conversão de Áudio".
+*   **Seção 1.1: Reestruturação das Abas:**
+    *   **Aba "Config":** Esta aba será redesenhada para gerenciar os novos mapeamentos de caminho.
+    *   **Aba "Audio Assets":** Esta se torna a aba principal para visualização e interação com os recursos de áudio gerados.
 
-*   **Seção 1.2: Reestruturação das Abas:** A organização do painel será simplificada e tornada mais intuitiva.
-    *   **Aba "Config":** As abas "Paths" e "Keys" serão fundidas em uma única aba "Config". Esta aba conterá as configurações globais: os caminhos de busca de áudio (`music_paths`, `sfx_paths`), os volumes globais e todas as chaves de SFX padrão para os nós de UI.
-    *   **Aba "Audio Assets":** As abas "Music List" e "SFX List" serão substituídas por uma nova e poderosa aba chamada "Audio Assets".
+*   **Seção 1.2: Funcionalidades Principais:**
+    *   **Diretriz 1.2.1:** O botão **"Generate Audio Assets"** continua sendo a ação principal para acionar o processo de geração.
+    *   **Diretriz 1.2.2:** Botões para **"New Audio Playlist"** e **"New Interactive Audio"** serão mantidos para criação manual de recursos.
 
 ---
 
-### **Artigo II: A Nova Aba "Audio Assets"**
+### **Artigo II: A Nova Aba "Config"**
 
-Esta aba será a principal interface para interagir com todos os sons do projeto.
+Esta aba será dedicada ao gerenciamento dos mapeamentos de caminho definidos no `AudioConfig`.
 
-*   **Seção 2.1: Visualização em Árvore Unificada:** A aba exibirá uma `Tree` que lista todas as chaves de áudio catalogadas. A lista será populada lendo as chaves do `AudioManifest.tres` (para SFX simples) e do dicionário `generated_playlists` no `AudioConfig.tres` (para os recursos de playlist). A estrutura em árvore permitirá agrupar os ativos por tipo.
+*   **Seção 2.1: Interface de Mapeamento:**
+    *   **Diretriz 2.1.1:** A aba exibirá uma lista dos `AudioPathMapping`s existentes.
+    *   **Diretriz 2.1.2:** Para cada mapeamento na lista, haverá campos para editar:
+        *   `Category Name`
+        *   `Source Path` (com um botão "Browse...")
+        *   `Target Path` (com um botão "Browse...")
+    *   **Diretriz 2.1.3:** Um botão **"Add New Category"** permitirá ao usuário criar um novo `AudioPathMapping` vazio na lista.
+    *   **Diretriz 2.1.4:** Cada entrada terá um botão **"Remove"** para excluir o mapeamento.
 
-*   **Seção 2.2: Identificação Visual:** Cada item na árvore terá um ícone para identificar rapidamente seu tipo:
-    *   **SFX Simples:** Um ícone de "nota musical".
-    *   **AudioStreamPlaylist:** Um ícone de "lista de reprodução".
-    *   **AudioStreamInteractive:** Um ícone de "grafo" ou "nós conectados".
-
-*   **Seção 2.3: Ações de Contexto:** Um menu de contexto (clique direito) ou botões ao lado de cada item na lista fornecerão ações rápidas:
-    *   **"Copy Key":** Copia o nome da chave (ex: `sfx_ui_click`) para a área de transferência.
-    *   **"Open Resource":** (Para Playlists e Interactive) Abre o arquivo `.tres` correspondente diretamente no Inspector do Godot.
-    *   **"Show in FileSystem":** Revela o arquivo de áudio (`.ogg`) ou o recurso (`.tres`) no painel `FileSystem` do Godot.
-    *   **"Convert to Interactive Audio":** (Apenas para Playlists) Aciona a ferramenta de conversão para `AudioStreamInteractive`.
-    *   **"Convert to Synchronized Audio":** (Apenas para Playlists) Aciona a ferramenta de conversão para `AudioStreamSynchronized`.
+*   **Seção 2.2: Configurações Globais:** A aba também conterá os sliders de volume globais (Master, Music, SFX) e as configurações padrão para a geração de playlists (ex: `Default Loop`).
 
 ---
 
-### **Artigo III: Melhorias no Processo de Geração**
+### **Artigo III: A Aba "Audio Assets"**
 
-*   **Seção 3.1: Feedback Visual Aprimorado:** Ao clicar em "Generate Audio Manifest", a barra de progresso e o rótulo de status fornecerão feedback claro sobre as fases do processo: "Fase 1: Escaneando arquivos...", "Fase 2: Gerando playlists...".
+Esta aba permanece como a principal interface para interagir com os sons do projeto, com as seguintes funcionalidades mantidas:
 
-*   **Seção 3.2: Recarregamento Automático:** Após a conclusão bem-sucedida da geração, a árvore na aba "Audio Assets" será automaticamente recarregada para refletir todas as novas chaves e recursos criados.
+*   **Seção 3.1: Visualização em Árvore:** Exibirá uma `Tree` com todas as chaves de áudio catalogadas no `AudioConfig`.
+*   **Seção 3.2: Ações de Contexto:** O menu de contexto em cada item permitirá:
+    *   Copiar a chave.
+    *   Abrir o recurso no Inspector.
+    *   Mostrar no FileSystem.
+    *   **Converter** para `AudioStreamInteractive` ou `AudioStreamSynchronized`.
 
 ---
 
 ### **Conclusão**
 
-O novo `AudioPanel` será o pilar da experiência do AudioCafe v2.0. Ele evolui de um painel de configurações para uma ferramenta de produtividade completa, capacitando os desenvolvedores a gerenciar, criar e utilizar os recursos de áudio nativos da Godot com uma velocidade e facilidade sem precedentes. Esta central de gerenciamento é o que solidificará a proposta de valor do AudioCafe como a camada de workflow essencial para o áudio no Godot.
+O novo `AudioPanel` se alinha perfeitamente com a arquitetura flexível do `AudioConfig` v2.0. Ao fornecer uma interface clara para gerenciar mapeamentos de categorias, ele capacita os desenvolvedores a moldar o workflow de geração de áudio exatamente às necessidades de seus projetos, desde os mais simples aos mais complexos.
