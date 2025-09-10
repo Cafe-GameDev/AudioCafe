@@ -30,11 +30,8 @@ signal config_changed
 			music_volume = value
 			_save_and_emit_changed()
 
-# For v1 compatibility and intermediate generation steps
-var music_data: Dictionary = {}
-var sfx_data: Dictionary = {}
-
-# For v2 asset management
+# Dicionário que cataloga as playlists geradas.
+# Chave: nome da playlist (ex: player_footsteps), Valor: caminho para o recurso .tres
 var generated_playlists: Dictionary = {}
 
 

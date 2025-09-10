@@ -3,12 +3,10 @@ extends EditorScript
 signal progress_updated(current: int, total: int)
 signal generation_finished(success: bool, message: String)
 
-const MANIFEST_SAVE_PATH = "res://addons/AudioCafe/resources/audio_manifest.tres"
-
 @export var audio_config: AudioConfig
 
-var _total_files_to_scan = 0
 var _files_scanned = 0
+var _total_files = 0
 
 func _run():
 	if not audio_config:
@@ -16,121 +14,80 @@ func _run():
 		emit_signal("generation_finished", false, "AudioConfig not loaded.")
 		return
 
-	_total_files_to_scan = 0
 	_files_scanned = 0
-	
-	var v1_manifest = _generate_v1_manifest()
-	if not v1_manifest:
-		emit_signal("generation_finished", false, "Failed to generate v1 compatibility manifest.")
-		return
-	
-	var success = _generate_v2_playlists(v1_manifest)
-	if success:
-		emit_signal("generation_finished", true, "Audio assets generated successfully.")
-	else:
-		emit_signal("generation_finished", false, "Failed during v2 playlist generation.")
+	_total_files = 0
+	audio_config.generated_playlists.clear()
 
-func _generate_v1_manifest() -> AudioManifest:
-	var audio_manifest = preload("res://addons/AudioCafe/scripts/audio_manifest.gd").new()
-	
-	var all_source_paths = []
+	# Fase 1: Contar todos os arquivos para a barra de progresso
 	for mapping in audio_config.path_mappings:
 		var source_path = mapping.get("source", "")
-		if not source_path.is_empty() and not all_source_paths.has(source_path):
-			all_source_paths.append(source_path)
-			
-	for path in all_source_paths:
-		_scan_and_populate_v1_manifest(path, audio_manifest)
-		
-	var error = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_PATH)
-	if error != OK:
-		push_error("Failed to save v1 AudioManifest: %s" % error)
-		return null
-	
-	return audio_manifest
+		if not source_path.is_empty():
+			_count_files_in_dir(source_path)
 
-func _scan_and_populate_v1_manifest(current_path: String, manifest: AudioManifest):
-	var dir = DirAccess.open(current_path)
+	# Fase 2: Gerar as playlists
+	for mapping in audio_config.path_mappings:
+		var source_path = mapping.get("source", "")
+		var target_path = mapping.get("target", "")
+		if source_path.is_empty() or target_path.is_empty():
+			push_warning("Skipping invalid path mapping: %s" % mapping)
+			continue
+		
+		_generate_playlists_for_mapping(source_path, source_path, target_path)
+
+	# Salva o AudioConfig com o novo dicionário de playlists
+	ResourceSaver.save(audio_config, audio_config.resource_path)
+	emit_signal("generation_finished", true, "Audio assets generated successfully.")
+
+func _count_files_in_dir(path: String):
+	var dir = DirAccess.open(path)
 	if not dir:
-		push_error("Failed to open directory: %s" % current_path)
+		return
+	for item in dir.get_files():
+		if item.ends_with(".ogg") or item.ends_with(".wav"):
+			_total_files += 1
+	for item in dir.get_directories():
+		_count_files_in_dir(path.path_join(item))
+
+func _generate_playlists_for_mapping(base_source_path: String, current_source_path: String, base_target_path: String):
+	var dir = DirAccess.open(current_source_path)
+	if not dir:
+		push_error("Failed to open directory: %s" % current_source_path)
 		return
 
-	dir.list_dir_begin()
-	var file_or_dir_name = dir.get_next()
-	while file_or_dir_name != "":
-		var full_path = current_path.path_join(file_or_dir_name)
-		if dir.current_is_dir():
-			_scan_and_populate_v1_manifest(full_path, manifest)
-		elif file_or_dir_name.ends_with(".ogg") or file_or_dir_name.ends_with(".wav"):
-			var uid = ResourceLoader.get_resource_uid(full_path)
-			if uid != -1:
-				var key = full_path.get_base_dir().get_file().to_lower()
-				if not manifest.sfx_data.has(key):
-					manifest.sfx_data[key] = []
-				manifest.sfx_data[key].append(str(uid))
-		file_or_dir_name = dir.get_next()
+	var audio_files_in_current_dir: Array[String] = []
+	for file_name in dir.get_files():
+		if file_name.ends_with(".ogg") or file_name.ends_with(".wav"):
+			audio_files_in_current_dir.append(current_source_path.path_join(file_name))
 
-func _generate_v2_playlists(v1_manifest: AudioManifest) -> bool:
-	audio_config.generated_playlists.clear()
-	
-	var all_keys = v1_manifest.sfx_data.keys()
-	all_keys.append_array(v1_manifest.music_data.keys())
-	
-	_total_files_to_scan = all_keys.size()
-	_files_scanned = 0
-
-	for key in all_keys:
-		_files_scanned += 1
-		emit_signal("progress_updated", _files_scanned, _total_files_to_scan)
-		
-		var uids = v1_manifest.sfx_data.get(key, [])
-		if uids.is_empty():
-			uids = v1_manifest.music_data.get(key, [])
-
+	# Se encontrarmos arquivos de áudio, criamos uma playlist para este diretório
+	if not audio_files_in_current_dir.is_empty():
 		var playlist = AudioStreamPlaylist.new()
 		playlist.loop = audio_config.default_playlist_loop
 		
-		for uid_str in uids:
-			var uid_int = uid_str.replace("uid://", "").to_int()
-			var res_path = ResourceUID.get_id_path(uid_int)
-			if not res_path.is_empty():
-				var stream = load(res_path)
-				if stream:
-					playlist.add_stream(stream)
+		for file_path in audio_files_in_current_dir:
+			var stream = load(file_path)
+			if stream:
+				playlist.add_stream(stream)
+			_files_scanned += 1
+			emit_signal("progress_updated", _files_scanned, _total_files)
 
-		var source_dir = ResourceUID.get_id_path(uids[0].replace("uid://", "").to_int()).get_base_dir()
-		var target_mapping = _find_mapping_for_path(source_dir)
-		
-		if not target_mapping:
-			push_warning("No target path mapping found for source: %s" % source_dir)
-			continue
+		var key = current_source_path.replace(base_source_path, "").trim_prefix("/").replace("/", "_").to_lower()
+		if key.is_empty():
+			key = current_source_path.get_file().to_lower()
 
-		var relative_path = source_dir.replace(target_mapping["source"], "")
-		var save_path = target_mapping["target"].path_join(relative_path).path_join(key + ".tres")
-		
-		var dir = save_path.get_base_dir()
-		if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
-			DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
-			
+		var relative_path = current_source_path.replace(base_source_path, "")
+		var save_path = base_target_path.path_join(relative_path).path_join(key + ".tres")
+
+		var save_dir = save_path.get_base_dir()
+		if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
+			DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))
+
 		var error = ResourceSaver.save(playlist, save_path)
-		if error != OK:
-			push_error("Failed to save playlist resource '%s': %s" % [save_path, error])
-			return false
-		
-		audio_config.generated_playlists[key] = save_path
+		if error == OK:
+			audio_config.generated_playlists[key] = save_path
+		else:
+			push_error("Failed to save playlist: %s" % save_path)
 
-	ResourceSaver.save(audio_config, audio_config.resource_path)
-	return true
-
-func _find_mapping_for_path(path: String) -> Dictionary:
-	var best_match: Dictionary = {}
-	var longest_path = -1
-	
-	for mapping in audio_config.path_mappings:
-		var source_path = mapping.get("source", "")
-		if path.begins_with(source_path):
-			if source_path.length() > longest_path:
-				longest_path = source_path.length()
-				best_match = mapping
-				
-	return best_match
+	# Continua a varredura recursivamente para os subdiretórios
+	for sub_dir_name in dir.get_directories():
+		_generate_playlists_for_mapping(base_source_path, current_source_path.path_join(sub_dir_name), base_target_path)
