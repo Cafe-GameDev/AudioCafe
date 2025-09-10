@@ -29,6 +29,8 @@ signal config_changed
 			_save_and_emit_changed()
 
 var generated_playlists: Dictionary = {}
+var generated_synchronized: Dictionary = {}
+var generated_interactive: Dictionary = {}
 
 func _save_and_emit_changed():
 	if self.resource_path and not self.resource_path.is_empty():

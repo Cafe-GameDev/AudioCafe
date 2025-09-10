@@ -1,0 +1,119 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2pijgg1eb8sg"]
+
+[ext_resource type="Script" path="res://addons/AudioCafe/scripts/audio_panel.gd" id="1_wixt7"]
+[ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_mi0lv"]
+
+[node name="AudioPanel" type="VBoxContainer"]
+offset_right = 400.0
+offset_bottom = 353.0
+script = ExtResource("1_wixt7")
+
+[node name="HeaderButton" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+text = "AudioCafe"
+flat = true
+alignment = 0
+
+[node name="CollapsibleContent" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="GenerateAssetsButton" type="Button" parent="CollapsibleContent/HBoxContainer"]
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Generates audio resources (.tres files) from your source asset folders."
+text = "Generate Audio Assets"
+autowrap_mode = 3
+
+[node name="DocsButton" type="Button" parent="CollapsibleContent/HBoxContainer"]
+custom_minimum_size = Vector2(78, 36)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Docs"
+icon = ExtResource("2_mi0lv")
+
+[node name="GenerationProgressBar" type="ProgressBar" parent="CollapsibleContent"]
+visible = false
+layout_mode = 2
+
+[node name="GenerationStatusLabel" type="Label" parent="CollapsibleContent"]
+visible = false
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CollapsibleContent"]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="CollapsibleContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Config" type="ScrollContainer" parent="CollapsibleContent/TabContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ConfigVBox" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Config"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="PathMappingsLabel" type="Label" parent="CollapsibleContent/TabContainer/Config/ConfigVBox"]
+layout_mode = 2
+text = "Path Mappings"
+theme_type_variation = &"HeaderSmall"
+
+[node name="PathMappingsContainer" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Config/ConfigVBox"]
+layout_mode = 2
+
+[node name="AddNewMappingButton" type="Button" parent="CollapsibleContent/TabContainer/Config/ConfigVBox"]
+layout_mode = 2
+text = "Add New Category Mapping"
+
+[node name="Audio Assets" type="ScrollContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="AssetsVBox" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Audio Assets"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlaylistsHeader" type="Label" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+layout_mode = 2
+text = "Playlists"
+theme_type_variation = &"HeaderSmall"
+
+[node name="PlaylistsContainer" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+layout_mode = 2
+
+[node name="SyncHeader" type="Label" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+layout_mode = 2
+text = "Synchronized Streams"
+theme_type_variation = &"HeaderSmall"
+
+[node name="SyncContainer" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+layout_mode = 2
+
+[node name="InteractiveHeader" type="Label" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+layout_mode = 2
+text = "Interactive Streams"
+theme_type_variation = &"HeaderSmall"
+
+[node name="InteractiveContainer" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Audio Assets/AssetsVBox"]
+layout_mode = 2
+
+[node name="SaveFileDialog" type="FileDialog" parent="."]
+title = "Save Converted Resource"
+ok_button_text = "Save"
+access = 2
