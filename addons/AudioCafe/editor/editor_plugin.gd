@@ -124,3 +124,4 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	
 	push_error("Não foi possível carregar a cena do grupo: " + group_name)
 	return null
+	
