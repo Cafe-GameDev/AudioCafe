@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ufiej")
-is_panel_expanded = false
+is_panel_expanded = true
 music_data = {}
 sfx_data = {}
 sfx_paths = Array[String](["res://addons/AudioCafe/assets/sfx"])
