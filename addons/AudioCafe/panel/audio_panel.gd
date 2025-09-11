@@ -1,5 +1,8 @@
 extends VBoxContainer
 
+@onready var header_button: Button = $HeaderButton
+@onready var tab_container: TabContainer = $CollapsibleContent/TabContainer
+
 @export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
 @export var docs : String = "https://cafegame.dev/plugins/audiocafe"
 
@@ -9,33 +12,39 @@ extends VBoxContainer
 @onready var manifest_progress_bar: ProgressBar = $CollapsibleContent/ManifestProgressBar
 @onready var manifest_status_label: Label = $CollapsibleContent/ManifestStatusLabel
 
-@onready var rest_folder_dialog: FileDialog = $CollapsibleContent/RestFolderDialog
+@onready var assets_folder_dialog: FileDialog = $CollapsibleContent/AssetsFolderDialog
+@onready var dist_folder_dialog: FileDialog = $CollapsibleContent/DistFolderDialog
 @onready var save_feedback_label: Label = $CollapsibleContent/SaveFeedbackLabel
 @onready var save_feedback_timer: Timer = $CollapsibleContent/SaveFeedbackTimer
 
 @onready var assets_paths_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AssetsPathsGridContainer
 @onready var add_assets_path_button: Button = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AddAssetsPathButton
 
-@onready var rest_path_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/RestPathSection/RestPathGridContainer
-@onready var add_rest_path_button: Button = $CollapsibleContent/TabContainer/Settings/RestPathSection/AddRestPathButton
+@onready var dist_path_line_edit: LineEdit = $CollapsibleContent/TabContainer/Settings/DistPathSection/DistPathLineEdit
+@onready var add_dist_path_button: Button = $CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton
 
-@onready var default_click_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultClickKeyLineEdit
-@onready var default_slider_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultSliderKeyLineEdit
-@onready var default_hover_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultHoverKeyLineEdit
-@onready var default_confirm_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultConfirmKeyLineEdit
-@onready var default_cancel_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultCancelKeyLineEdit
-@onready var default_toggle_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultToggleKeyLineEdit
-@onready var default_select_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultSelectKeyLineEdit
-@onready var default_text_input_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultTextInputKeyLineEdit
-@onready var default_scroll_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultScrollKeyLineEdit
-@onready var default_focus_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultFocusKeyLineEdit
-@onready var default_error_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultErrorKeyLineEdit
-@onready var default_warning_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultWarningKeyLineEdit
-@onready var default_success_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultSuccessKeyLineEdit
-@onready var default_open_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultOpenKeyLineEdit
-@onready var default_close_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Keys/DefaultCloseKeyLineEdit
+@onready var default_click_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultClickKeyLineEdit
+@onready var default_slider_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultSliderKeyLineEdit
+@onready var default_hover_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultHoverKeyLineEdit
+@onready var default_confirm_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultConfirmKeyLineEdit
+@onready var default_cancel_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultCancelKeyLineEdit
+@onready var default_toggle_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultToggleKeyLineEdit
+@onready var default_select_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultSelectKeyLineEdit
+@onready var default_text_input_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultTextInputKeyLineEdit
+@onready var default_scroll_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultScrollKeyLineEdit
+@onready var default_focus_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultFocusKeyLineEdit
+@onready var default_error_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultErrorKeyLineEdit
+@onready var default_warning_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultWarningKeyLineEdit
+@onready var default_success_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultSuccessKeyLineEdit
+@onready var default_open_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultOpenKeyLineEdit
+@onready var default_close_key_line_edit: LineEdit = $CollapsibleContent/TabContainer/Defaults/DefaultCloseKeyLineEdit
 
-
+@onready var master_volume_slider: HSlider = $CollapsibleContent/TabContainer/Defaults/VolumeGridContainer/MasterVolumeSlider
+@onready var master_volume_value_label: Label = $CollapsibleContent/TabContainer/Defaults/VolumeGridContainer/MasterVolumeValueLabel
+@onready var sfx_volume_slider: HSlider = $CollapsibleContent/TabContainer/Defaults/VolumeGridContainer/SFXVolumeSlider
+@onready var sfx_volume_value_label: Label = $CollapsibleContent/TabContainer/Defaults/VolumeGridContainer/SFXVolumeValueLabel
+@onready var music_volume_slider: HSlider = $CollapsibleContent/TabContainer/Defaults/VolumeGridContainer/MusicVolumeSlider
+@onready var music_volume_value_label: Label = $CollapsibleContent/TabContainer/Defaults/VolumeGridContainer/MusicVolumeValueLabel
 
 var _is_expanded: bool = false
 var _expanded_height: float = 0.0
@@ -50,6 +59,7 @@ func set_audio_config(config: AudioConfig):
 	audio_config = config
 	if audio_config:
 		audio_config.connect("config_changed", Callable(self, "_show_save_feedback"))
+	_load_config_to_ui()
 
 func _show_save_feedback():
 	save_feedback_label.visible = true
@@ -60,15 +70,16 @@ func _ready():
 		await ready
 	
 	if Engine.is_editor_hint():
+		_connect_ui_signals()
+		_load_config_to_ui()
 		call_deferred("_initialize_panel_state")
 
 func _initialize_panel_state():
-	if not has_node("HeaderButton") or not has_node("CollapsibleContent"):
+	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
 		push_error("HeaderButton or CollapsibleContent node not found. Please ensure they exist and are correctly named.")
 		return
 
 	var collapsible_content_node = get_node("CollapsibleContent")
-	var header_button_node = get_node("HeaderButton")
 
 	collapsible_content_node.visible = true
 	collapsible_content_node.custom_minimum_size.y = -1 
@@ -81,26 +92,22 @@ func _initialize_panel_state():
 		collapsible_content_node.visible = _is_expanded
 		if _is_expanded:
 			collapsible_content_node.custom_minimum_size.y = _expanded_height
-			header_button_node.icon = editor_interface.get_base_control().get_theme_icon("ArrowUp", "EditorIcons") if editor_interface else null
+			header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowUp", "EditorIcons") if editor_interface else null
 		else:
 			collapsible_content_node.custom_minimum_size.y = 0
-			header_button_node.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface else null
+			header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface else null
 	else:
 		_is_expanded = false
 		collapsible_content_node.visible = false
 		collapsible_content_node.custom_minimum_size.y = 0
-		header_button_node.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface else null
+		header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface else null
 
 func _on_header_button_pressed():
-	if not is_node_ready():
-		await ready
-
-	if not has_node("CollapsibleContent") or not has_node("HeaderButton"):
-		push_error("CollapsibleContent or HeaderButton node not found. Please ensure they exist and are correctly named.")
+	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
+		push_error("HeaderButton or CollapsibleContent node not found. Please ensure they exist and are correctly named.")
 		return
 
 	var collapsible_content_node = get_node("CollapsibleContent")
-	var header_button_node = get_node("HeaderButton")
 
 	_is_expanded = not _is_expanded
 
@@ -114,19 +121,263 @@ func _on_header_button_pressed():
 	if _is_expanded:
 		collapsible_content_node.visible = true
 		tween.tween_property(collapsible_content_node, "custom_minimum_size:y", _expanded_height, 0.3)
-		header_button_node.text = "AudioCafe" 
-		header_button_node.icon = editor_interface.get_base_control().get_theme_icon("ArrowUp", "EditorIcons")
+		header_button.text = "AudioCafe" 
+		header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowUp", "EditorIcons")
 	else:
 		tween.tween_property(collapsible_content_node, "custom_minimum_size:y", 0, 0.3)
 		tween.tween_callback(Callable(collapsible_content_node, "set_visible").bind(false))
-		header_button_node.text = "AudioCafe"
-		header_button_node.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons")
+		header_button.text = "AudioCafe"
+		header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons")
 
 func _on_generate_playlists_pressed() -> void:
-	pass
+	pass # Not implemented in this phase
 
 func _on_docs_button_pressed() -> void:
 	OS.shell_open(docs)
 
 func _on_save_feedback_timer_timeout():
 	save_feedback_label.visible = false
+
+func _load_config_to_ui():
+	if not is_instance_valid(tab_container): return
+	if audio_config:
+		# Load Assets Paths
+		_clear_grid_container(assets_paths_grid_container)
+		for path in audio_config.assets_paths:
+			_create_path_entry(path, assets_paths_grid_container, true) # true for assets_path
+
+		# Load Dist Path
+		dist_path_line_edit.text = audio_config.dist_path
+		_validate_path_line_edit(dist_path_line_edit, false) # false for dist_path
+
+		# Load Default Keys (existing logic)
+		default_click_key_line_edit.text = audio_config.default_click_key
+		default_slider_key_line_edit.text = audio_config.default_slider_key
+		default_hover_key_line_edit.text = audio_config.default_hover_key
+		default_confirm_key_line_edit.text = audio_config.default_confirm_key
+		default_cancel_key_line_edit.text = audio_config.default_cancel_key
+		default_toggle_key_line_edit.text = audio_config.default_toggle_key
+		default_select_key_line_edit.text = audio_config.default_select_key
+		default_text_input_key_line_edit.text = audio_config.default_text_input_key
+		default_scroll_key_line_edit.text = audio_config.default_scroll_key
+		default_focus_key_line_edit.text = audio_config.default_focus_key
+		default_error_key_line_edit.text = audio_config.default_error_key
+		default_warning_key_line_edit.text = audio_config.default_warning_key
+		default_success_key_line_edit.text = audio_config.default_success_key
+		default_open_key_line_edit.text = audio_config.default_open_key
+		default_close_key_line_edit.text = audio_config.default_close_key
+
+		# Load Volume Settings (existing logic)
+		master_volume_slider.value = audio_config.master_volume
+		_update_volume_label(master_volume_value_label, audio_config.master_volume)
+		sfx_volume_slider.value = audio_config.sfx_volume
+		_update_volume_label(sfx_volume_value_label, audio_config.sfx_volume)
+		music_volume_slider.value = audio_config.music_volume
+		_update_volume_label(music_volume_value_label, audio_config.music_volume)
+
+		# Placeholder for old manifest data (will be removed later)
+		# var current_music_keys_rich_text_label = tab_container.get_node("MusicList/MusicKeysRichTextLabel")
+		# var current_sfx_keys_rich_text_label = tab_container.get_node("SFXList/SFXKeysRichTextLabel")
+
+		# if current_music_keys_rich_text_label: current_music_keys_rich_text_label.clear()
+		# if current_sfx_keys_rich_text_label: current_sfx_keys_rich_text_label.clear()
+
+		# var loaded_manifest = ResourceLoader.load(MANIFEST_SAVE_PATH, "", ResourceLoader.CacheMode.CACHE_MODE_REPLACE)
+		# if loaded_manifest and loaded_manifest is AudioManifest:
+		# 	if current_music_keys_rich_text_label:
+		# 		var music_keys = loaded_manifest.music_data.keys()
+		# 		music_keys.sort()
+		# 		for key in music_keys:
+		# 			var count = loaded_manifest.music_data[key].size()
+		# 			current_music_keys_rich_text_label.append_text(key + " [%d]" % count + "\n")
+		# 	else:
+		# 		push_error("current_music_keys_rich_text_label is null when trying to add item.")
+
+		# 	if current_sfx_keys_rich_text_label:
+		# 		var sfx_keys = loaded_manifest.sfx_data.keys()
+		# 		sfx_keys.sort()
+		# 		for key in sfx_keys:
+		# 			var count = loaded_manifest.sfx_data[key].size()
+		# 			current_sfx_keys_rich_text_label.append_text(key + " [%d]" % count + "\n")
+		# 	else:
+		# 		push_error("current_sfx_keys_rich_text_label is null when trying to add item.")
+		# else:
+		# 	push_error("Falha ao carregar AudioManifest.tres em _load_config_to_ui.")
+
+func _connect_ui_signals():
+	header_button.pressed.connect(Callable(self, "_on_header_button_pressed"))
+
+	# Connect Assets Paths buttons
+	add_assets_path_button.pressed.connect(Callable(self, "_on_add_assets_path_button_pressed"))
+	assets_folder_dialog.dir_selected.connect(Callable(self, "_on_assets_folder_dialog_dir_selected"))
+
+	# Connect Dist Path button
+	add_dist_path_button.pressed.connect(Callable(self, "_on_add_dist_path_button_pressed"))
+	dist_folder_dialog.dir_selected.connect(Callable(self, "_on_dist_folder_dialog_dir_selected"))
+
+	# Connect Default Keys (existing logic)
+	default_click_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_click_key"))
+	default_slider_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_slider_key"))
+	default_hover_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_hover_key"))
+	default_confirm_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_confirm_key"))
+	default_cancel_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_cancel_key"))
+	default_toggle_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_toggle_key"))
+	default_select_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_select_key"))
+	default_text_input_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_text_input_key"))
+	default_scroll_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_scroll_key"))
+	default_focus_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_focus_key"))
+	default_error_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_error_key"))
+	default_warning_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_warning_key"))
+	default_success_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_success_key"))
+	default_open_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_open_key"))
+	default_close_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_close_key"))
+
+	# Connect Volume Sliders (existing logic)
+	master_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "Master", master_volume_value_label, "master_volume"))
+	sfx_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "SFX", sfx_volume_value_label, "sfx_volume"))
+	music_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "Music", music_volume_value_label, "music_volume"))
+
+func _on_config_text_changed(new_text: String, config_property: String):
+	if audio_config:
+		var line_edit: LineEdit = get_node_or_null("%" + config_property.capitalize() + "LineEdit")
+		var is_valid = true
+		var error_message = ""
+
+		if new_text.is_empty():
+			is_valid = false
+			error_message = "Key cannot be empty."
+
+		if is_valid:
+			if line_edit:
+				line_edit.add_theme_color_override("font_color", _get_valid_color())
+				line_edit.tooltip_text = ""
+			audio_config.set(config_property, new_text)
+		else:
+			if line_edit:
+				line_edit.add_theme_color_override("font_color", _get_invalid_color())
+				line_edit.tooltip_text = error_message
+
+func _on_volume_slider_value_changed(new_value: float, bus_name: String, value_label: Label, config_property: String):
+	if audio_config:
+		audio_config.set(config_property, new_value)
+		_update_volume_label(value_label, new_value)
+
+func _update_volume_label(label: Label, volume_value: float):
+	label.text = str(int(volume_value * 100)) + "%"
+
+func _create_path_entry(path_value: String, grid_container: GridContainer, is_assets_path: bool):
+	var path_entry = HBoxContainer.new()
+	path_entry.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+
+	var line_edit = LineEdit.new()
+	line_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	line_edit.text = path_value
+	line_edit.placeholder_text = "res://path/to/folder"
+	line_edit.text_changed.connect(Callable(self, "_on_path_line_edit_text_changed").bind(line_edit, is_assets_path))
+	path_entry.add_child(line_edit)
+
+	_validate_path_line_edit(line_edit, is_assets_path)
+
+	var browse_button = Button.new()
+	browse_button.text = "..."
+	browse_button.pressed.connect(Callable(self, "_on_browse_button_pressed").bind(line_edit, is_assets_path))
+	path_entry.add_child(browse_button)
+
+	var remove_button = Button.new()
+	remove_button.text = "X"
+	remove_button.pressed.connect(Callable(self, "_on_remove_path_button_pressed").bind(path_entry, is_assets_path))
+	path_entry.add_child(remove_button)
+
+	grid_container.add_child(path_entry)
+
+func _on_add_assets_path_button_pressed():
+	_create_path_entry("", assets_paths_grid_container, true) # true for assets_path
+	_update_audio_config_paths()
+
+func _on_add_dist_path_button_pressed():
+	# For dist_path, we only allow one entry, so we clear existing ones
+	_clear_grid_container(dist_path_grid_container)
+	_create_path_entry("", dist_path_grid_container, false) # false for dist_path
+	_update_audio_config_paths()
+
+func _on_browse_button_pressed(line_edit: LineEdit, is_assets_path: bool):
+	if is_assets_path:
+		assets_folder_dialog.current_dir = line_edit.text if not line_edit.text.is_empty() else "res://"
+		assets_folder_dialog.popup_centered()
+		assets_folder_dialog.set_meta("target_line_edit", line_edit)
+	else:
+		dist_folder_dialog.current_dir = line_edit.text if not line_edit.text.is_empty() else "res://"
+		dist_folder_dialog.popup_centered()
+		dist_folder_dialog.set_meta("target_line_edit", line_edit)
+
+func _on_assets_folder_dialog_dir_selected(dir: String):
+	var target_line_edit: LineEdit = assets_folder_dialog.get_meta("target_line_edit")
+	if target_line_edit:
+		var localized_path = ProjectSettings.localize_path(dir)
+		target_line_edit.text = localized_path
+		_update_audio_config_paths()
+
+func _on_dist_folder_dialog_dir_selected(dir: String):
+	var target_line_edit: LineEdit = dist_folder_dialog.get_meta("target_line_edit")
+	if target_line_edit:
+		var localized_path = ProjectSettings.localize_path(dir)
+		target_line_edit.text = localized_path
+		_update_audio_config_paths()
+
+func _on_path_line_edit_text_changed(new_text: String, line_edit: LineEdit, is_assets_path: bool):
+	_validate_path_line_edit(line_edit, is_assets_path)
+	_update_audio_config_paths()
+
+func _validate_path_line_edit(line_edit: LineEdit, is_assets_path: bool):
+	var is_valid = true
+	var error_message = ""
+
+	if line_edit.text.is_empty():
+		is_valid = false
+		error_message = "Path cannot be empty."
+	elif not line_edit.text.begins_with("res://"):
+		is_valid = false
+		error_message = "Path must start with 'res://'."
+
+	if is_valid:
+		line_edit.add_theme_color_override("font_color", _get_valid_color())
+		line_edit.tooltip_text = ""
+	else:
+		line_edit.add_theme_color_override("font_color", _get_invalid_color())
+		line_edit.tooltip_text = error_message
+
+func _on_remove_path_button_pressed(path_entry: HBoxContainer, is_assets_path: bool):
+	path_entry.get_parent().remove_child(path_entry)
+	path_entry.queue_free()
+	_update_audio_config_paths()
+
+func _update_audio_config_paths():
+	if not audio_config:
+		return
+
+	# Update Assets Paths
+	var new_assets_paths: Array[String] = []
+	for child in assets_paths_grid_container.get_children():
+		if child is HBoxContainer:
+			var line_edit: LineEdit = child.get_child(0)
+			if is_instance_valid(line_edit) and not line_edit.text.is_empty() and line_edit.text.begins_with("res://"):
+				new_assets_paths.append(line_edit.text)
+	audio_config.assets_paths = new_assets_paths
+
+	# Update Dist Path (single entry)
+	var new_dist_path: String = ""
+	if dist_path_grid_container.get_child_count() > 0:
+		var line_edit: LineEdit = dist_path_grid_container.get_child(0).get_child(0)
+		if is_instance_valid(line_edit) and not line_edit.text.is_empty() and line_edit.text.begins_with("res://"):
+			new_dist_path = line_edit.text
+	audio_config.dist_path = new_dist_path
+
+func _clear_grid_container(grid_container: GridContainer):
+	for child in grid_container.get_children():
+		child.queue_free()
+
+func _get_valid_color() -> Color:
+	return Color(1.0, 1.0, 1.0, 1.0) # White
+
+func _get_invalid_color() -> Color:
+	return Color(1.0, 0.2, 0.2, 1.0) # Red
