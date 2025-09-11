@@ -9,7 +9,7 @@
 
 Considerando a constante evolução do Godot Engine e a introdução de recursos de áudio nativos mais robustos e eficientes a partir da versão 4.3;
 Considerando a necessidade de otimizar o fluxo de trabalho no desenvolvimento de projetos, garantindo maior performance e aproveitamento das funcionalidades intrínsecas do motor;
-**Reconhecendo que o sistema de manifesto customizado atualmente em uso, embora funcional, apresenta incompatibilidades e limitações conceituais perante as capacidades e o design otimizado dos recursos de áudio nativos introduzidos a partir do Godot Engine 4.3, tornando-o, de fato, obsoleto e subótimo para o desenvolvimento moderno;**
+**Reconhecendo que o sistema de manifesto customizado atualmente em uso, embora funcional, vai contra os princípios fundamentais e a "constituição" do Godot Engine, especialmente no que tange à utilização de seus recursos de áudio nativos otimizados introduzidos a partir da versão 4.3, tornando-o, de fato, obsoleto e subótimo para o desenvolvimento moderno;**
 Considerando a oportunidade de aprimorar o plugin AudioCafe, alinhando-o às melhores práticas e capacidades oferecidas pelo Godot;
 Propõe-se a presente Lei para estabelecer as diretrizes de refatoração do plugin AudioCafe.
 
