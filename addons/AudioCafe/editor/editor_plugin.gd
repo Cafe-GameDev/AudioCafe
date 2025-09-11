@@ -51,6 +51,7 @@ func _create_plugin_panel():
 	# Se não existir, cria um novo
 	plugin_panel = ScrollContainer.new()
 	plugin_panel.name = "CafeEngine"
+	plugin_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	plugin_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	plugin_panel.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	plugin_panel.set_follow_focus(true)
