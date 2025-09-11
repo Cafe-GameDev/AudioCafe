@@ -8,11 +8,9 @@ var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
 func _enter_tree():
-	# Carrega script do manifest
 	generate_manifest_script_instance = EditorScript.new()
 	generate_manifest_script_instance.set_script(load("res://addons/AudioCafe/scripts/generate_audio_manifest.gd"))
 
-	# Cria o painel e o grupo
 	_create_plugin_panel()
 
 
@@ -20,7 +18,6 @@ func _exit_tree():
 	if is_instance_valid(group_panel):
 		group_panel.free()
 
-	# Se o container do painel principal ficar vazio, remove ele também
 	if is_instance_valid(plugin_panel):
 		var content_container = plugin_panel.get_node_or_null("VBoxContainer")
 		if content_container and content_container.get_child_count() == 0:
@@ -30,13 +27,11 @@ func _exit_tree():
 
 
 func _create_plugin_panel():
-	# Procura por um painel existente
 	plugin_panel = get_editor_interface().get_base_control().find_child("CafeEngine", true, false)
 	if plugin_panel:
-		_ensure_group("AudioCafe") # Garante que o grupo seja criado se não existir
+		_ensure_group("AudioCafe")
 		return
 
-	# Se não existir, cria um novo
 	plugin_panel = ScrollContainer.new()
 	plugin_panel.name = "CafeEngine"
 	plugin_panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -48,12 +43,12 @@ func _create_plugin_panel():
 	vbox_container.name = "VBoxContainer"
 	vbox_container.set_v_size_flags(Control.SIZE_EXPAND_FILL)
 	vbox_container.set_h_size_flags(Control.SIZE_EXPAND_FILL)
-	vbox_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT) # Ensure it fills the ScrollContainer
+	vbox_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	
 	plugin_panel.add_child(vbox_container)
 
 	add_control_to_dock(DOCK_SLOT_RIGHT_UL, plugin_panel)
-	_ensure_group("AudioCafe") # Cria o grupo no painel novo
+	_ensure_group("AudioCafe")
 
 
 func _ensure_group(group_name: String) -> VBoxContainer:
@@ -66,26 +61,21 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		push_error("O painel 'CafeEngine' não contém o 'VBoxContainer' esperado.")
 		return null
 
-	# Procura pelo grupo existente
 	group_panel = content_container.find_child(group_name, false)
 	if group_panel:
-		# Garante que referências importantes sejam passadas, caso o editor tenha recarregado
 		if group_panel.has_method("set_editor_interface"):
-			group_panel.call_deferred("set_editor_interface", get_editor_interface()) # call_deferred
+			group_panel.call_deferred("set_editor_interface", get_editor_interface())
 		return group_panel
 
-	# Se não existir, cria um novo
 	var group_scene = load(GROUP_SCENE_PATH)
 	if group_scene and group_scene is PackedScene:
 		group_panel = group_scene.instantiate()
-		content_container.add_child(group_panel) # ADDED: Add to scene tree before deferred calls
+		content_container.add_child(group_panel)
 		group_panel.name = group_name
 		
-		# Passa a referência do EditorInterface para o grupo
 		if group_panel.has_method("set_editor_interface"):
-			group_panel.call_deferred("set_editor_interface", get_editor_interface()) # call_deferred
+			group_panel.call_deferred("set_editor_interface", get_editor_interface())
 
-		# Carrega ou cria o audio_config.tres e passa para o grupo
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 
@@ -100,7 +90,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
 		
 		if audio_config_res and group_panel.has_method("set_audio_config"):
-			group_panel.call_deferred("set_audio_config", audio_config_res) # call_deferred
+			group_panel.call_deferred("set_audio_config", audio_config_res)
 		else:
 			push_error("audio_config.tres could not be loaded/created or set_audio_config is not available.")
 
