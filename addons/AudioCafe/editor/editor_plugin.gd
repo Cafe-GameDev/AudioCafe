@@ -71,7 +71,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	if group_panel:
 		# Garante que referências importantes sejam passadas, caso o editor tenha recarregado
 		if group_panel.has_method("set_editor_interface"):
-			group_panel.set_editor_interface(get_editor_interface())
+			group_panel.call_deferred("set_editor_interface", get_editor_interface()) # call_deferred
 		return group_panel
 
 	# Se não existir, cria um novo
@@ -82,7 +82,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		
 		# Passa a referência do EditorInterface para o grupo
 		if group_panel.has_method("set_editor_interface"):
-			group_panel.set_editor_interface(get_editor_interface())
+			group_panel.call_deferred("set_editor_interface", get_editor_interface()) # call_deferred
 
 		# Carrega ou cria o audio_config.tres e passa para o grupo
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
@@ -99,7 +99,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
 		
 		if audio_config_res and group_panel.has_method("set_audio_config"):
-			group_panel.set_audio_config(audio_config_res)
+			group_panel.call_deferred("set_audio_config", audio_config_res) # call_deferred
 		else:
 			push_error("audio_config.tres could not be loaded/created or set_audio_config is not available.")
 
