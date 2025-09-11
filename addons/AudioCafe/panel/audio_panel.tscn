@@ -83,16 +83,16 @@ text = "Add Asset Path"
 [node name="DistPathSection" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Settings"]
 layout_mode = 2
 
-[node name="RestPathLabel" type="Label" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
+[node name="DistPathLabel" type="Label" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
 layout_mode = 2
-text = "Rest / Playlists Path:"
+text = "Dist / Playlists Path:"
 
-[node name="RestPathGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
+[node name="DistPathGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
 layout_mode = 2
 
-[node name="AddRestPathButton" type="Button" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
+[node name="AddDistPathButton" type="Button" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
 layout_mode = 2
-text = "Add Rest Path"
+text = "Add Dist Path"
 
 [node name="Keys" type="GridContainer" parent="CollapsibleContent/TabContainer"]
 visible = false

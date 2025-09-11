@@ -147,8 +147,9 @@ func _load_config_to_ui():
 			_create_path_entry(path, assets_paths_grid_container, true) # true for assets_path
 
 		# Load Dist Path
-		dist_path_line_edit.text = audio_config.dist_path
-		_validate_path_line_edit(dist_path_line_edit, false) # false for dist_path
+		_clear_grid_container(dist_path_grid_container) # Clear existing before adding
+		if not audio_config.dist_path.is_empty():
+			_create_path_entry(audio_config.dist_path, dist_path_grid_container, false) # false for dist_path
 
 		# Load Default Keys (existing logic)
 		default_click_key_line_edit.text = audio_config.default_click_key
@@ -174,35 +175,6 @@ func _load_config_to_ui():
 		_update_volume_label(sfx_volume_value_label, audio_config.sfx_volume)
 		music_volume_slider.value = audio_config.music_volume
 		_update_volume_label(music_volume_value_label, audio_config.music_volume)
-
-		# Placeholder for old manifest data (will be removed later)
-		# var current_music_keys_rich_text_label = tab_container.get_node("MusicList/MusicKeysRichTextLabel")
-		# var current_sfx_keys_rich_text_label = tab_container.get_node("SFXList/SFXKeysRichTextLabel")
-
-		# if current_music_keys_rich_text_label: current_music_keys_rich_text_label.clear()
-		# if current_sfx_keys_rich_text_label: current_sfx_keys_rich_text_label.clear()
-
-		# var loaded_manifest = ResourceLoader.load(MANIFEST_SAVE_PATH, "", ResourceLoader.CacheMode.CACHE_MODE_REPLACE)
-		# if loaded_manifest and loaded_manifest is AudioManifest:
-		# 	if current_music_keys_rich_text_label:
-		# 		var music_keys = loaded_manifest.music_data.keys()
-		# 		music_keys.sort()
-		# 		for key in music_keys:
-		# 			var count = loaded_manifest.music_data[key].size()
-		# 			current_music_keys_rich_text_label.append_text(key + " [%d]" % count + "\n")
-		# 	else:
-		# 		push_error("current_music_keys_rich_text_label is null when trying to add item.")
-
-		# 	if current_sfx_keys_rich_text_label:
-		# 		var sfx_keys = loaded_manifest.sfx_data.keys()
-		# 		sfx_keys.sort()
-		# 		for key in sfx_keys:
-		# 			var count = loaded_manifest.sfx_data[key].size()
-		# 			current_sfx_keys_rich_text_label.append_text(key + " [%d]" % count + "\n")
-		# 	else:
-		# 		push_error("current_sfx_keys_rich_text_label is null when trying to add item.")
-		# else:
-		# 	push_error("Falha ao carregar AudioManifest.tres em _load_config_to_ui.")
 
 func _connect_ui_signals():
 	header_button.pressed.connect(Callable(self, "_on_header_button_pressed"))
@@ -296,7 +268,7 @@ func _on_add_assets_path_button_pressed():
 
 func _on_add_dist_path_button_pressed():
 	# For dist_path, we only allow one entry, so we clear existing ones
-	_clear_grid_container(dist_path_grid_container)
+	_clear_grid_container(dist_path_grid_container) # Corrected variable name
 	_create_path_entry("", dist_path_grid_container, false) # false for dist_path
 	_update_audio_config_paths()
 
@@ -367,7 +339,7 @@ func _update_audio_config_paths():
 	# Update Dist Path (single entry)
 	var new_dist_path: String = ""
 	if dist_path_grid_container.get_child_count() > 0:
-		var line_edit: LineEdit = dist_path_grid_container.get_child(0).get_child(0)
+		var line_edit: LineEdit = dist_path_grid_container.get_child(0).get_child(0) # Corrected path to LineEdit
 		if is_instance_valid(line_edit) and not line_edit.text.is_empty() and line_edit.text.begins_with("res://"):
 			new_dist_path = line_edit.text
 	audio_config.dist_path = new_dist_path
