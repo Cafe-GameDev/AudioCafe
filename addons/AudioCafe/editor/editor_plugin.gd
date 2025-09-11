@@ -1,9 +1,6 @@
 @tool
 extends EditorPlugin
 
-const AUTOLOAD_NAME = "CafeAudioManager"
-const AUTOLOAD_PATH = "res://addons/AudioCafe/scenes/cafe_audio_manager.tscn"
-
 const GROUP_SCENE_PATH = "res://addons/AudioCafe/scenes/audio_panel.tscn"
 
 var generate_manifest_script_instance: EditorScript
@@ -11,11 +8,6 @@ var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
 func _enter_tree():
-	# Adiciona autoload
-	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
-		add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
-		print("CafeAudioManager Plugin: Autoload '%s' added." % AUTOLOAD_NAME)
-
 	# Carrega script do manifest
 	generate_manifest_script_instance = EditorScript.new()
 	generate_manifest_script_instance.set_script(load("res://addons/AudioCafe/scripts/generate_audio_manifest.gd"))

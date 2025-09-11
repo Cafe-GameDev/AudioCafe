@@ -78,9 +78,6 @@ func _ready():
 	if not is_node_ready():
 		await ready
 
-	if CafeAudioManager:
-		CafeAudioManager.audio_config_updated.connect(Callable(self, "_on_audio_config_updated"))
-
 	var manifest_script_res = load("res://addons/AudioCafe/scripts/generate_audio_manifest.gd")
 	if manifest_script_res:
 		generate_manifest_script_instance = manifest_script_res.new()
@@ -262,7 +259,6 @@ func _on_volume_slider_value_changed(new_value: float, bus_name: String, value_l
 	if audio_config:
 		audio_config.set(config_property, new_value)
 		_update_volume_label(value_label, new_value)
-		CafeAudioManager.apply_volume_to_bus(bus_name, new_value)
 		print("Volume atualizado para %s: %s" % [bus_name, new_value])
 
 func _update_volume_label(label: Label, volume_value: float):
