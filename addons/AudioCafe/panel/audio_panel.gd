@@ -49,15 +49,12 @@ func _ready():
 	
 	if Engine.is_editor_hint():
 		_connect_ui_signals()
-		# _load_config_to_ui() will be called by _initialize_panel_state
 		pass
 
 func _initialize_panel_state(editor_interface_param: EditorInterface, audio_config_param: AudioConfig):
-	# Set the references passed from editor_plugin.gd
 	editor_interface_ref = editor_interface_param
 	audio_config = audio_config_param
 
-	# Now call _load_config_to_ui() and the rest of the initialization
 	_load_config_to_ui()
 
 	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
@@ -115,7 +112,7 @@ func _on_header_button_pressed():
 		header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowDown", "EditorIcons")
 
 func _on_generate_playlists_pressed() -> void:
-	pass # Not implemented in this phase
+	pass 
 
 func _on_docs_button_pressed() -> void:
 	OS.shell_open(docs)
@@ -126,24 +123,20 @@ func _on_save_feedback_timer_timeout():
 func _load_config_to_ui():
 	if not is_instance_valid(tab_container): return
 	if audio_config:
-		# Load Assets Paths
 		_clear_grid_container(assets_paths_grid_container)
 		for path in audio_config.assets_paths:
-			_create_path_entry(path, assets_paths_grid_container, true) # true for assets_path
+			_create_path_entry(path, assets_paths_grid_container, true)
 
-		# Load Dist Path
-		_clear_grid_container(dist_path_grid_container) # Clear existing before adding
+		_clear_grid_container(dist_path_grid_container) 
 		if not audio_config.dist_path.is_empty():
-			_create_path_entry(audio_config.dist_path, dist_path_grid_container, false) # false for dist_path
+			_create_path_entry(audio_config.dist_path, dist_path_grid_container, false)
 
 func _connect_ui_signals():
 	header_button.pressed.connect(Callable(self, "_on_header_button_pressed"))
 
-	# Connect Assets Paths buttons
 	add_assets_path_button.pressed.connect(Callable(self, "_on_add_assets_path_button_pressed"))
 	assets_folder_dialog.dir_selected.connect(Callable(self, "_on_assets_folder_dialog_dir_selected"))
 
-	# Connect Dist Path button
 	add_dist_path_button.pressed.connect(Callable(self, "_on_add_dist_path_button_pressed"))
 	dist_folder_dialog.dir_selected.connect(Callable(self, "_on_dist_folder_dialog_dir_selected"))
 
@@ -173,13 +166,12 @@ func _create_path_entry(path_value: String, grid_container: GridContainer, is_as
 	grid_container.add_child(path_entry)
 
 func _on_add_assets_path_button_pressed():
-	_create_path_entry("", assets_paths_grid_container, true) # true for assets_path
+	_create_path_entry("", assets_paths_grid_container, true)
 	_update_audio_config_paths()
 
 func _on_add_dist_path_button_pressed():
-	# For dist_path, we only allow one entry, so we clear existing ones
 	_clear_grid_container(dist_path_grid_container)
-	_create_path_entry("", dist_path_grid_container, false) # false for dist_path
+	_create_path_entry("", dist_path_grid_container, false)
 	_update_audio_config_paths()
 
 func _on_browse_button_pressed(line_edit: LineEdit, is_assets_path: bool):
@@ -237,7 +229,6 @@ func _update_audio_config_paths():
 	if not audio_config:
 		return
 
-	# Update Assets Paths
 	var new_assets_paths: Array[String] = []
 	for child in assets_paths_grid_container.get_children():
 		if child is HBoxContainer:
@@ -246,7 +237,6 @@ func _update_audio_config_paths():
 				new_assets_paths.append(line_edit.text)
 	audio_config.assets_paths = new_assets_paths
 
-	# Update Dist Path (single entry)
 	var new_dist_path: String = ""
 	if dist_path_grid_container.get_child_count() > 0:
 		var line_edit: LineEdit = dist_path_grid_container.get_child(0).get_child(0)
@@ -259,7 +249,7 @@ func _clear_grid_container(grid_container: GridContainer):
 		child.queue_free()
 
 func _get_valid_color() -> Color:
-	return Color(1.0, 1.0, 1.0, 1.0) # White
+	return Color(1.0, 1.0, 1.0, 1.0)
 
 func _get_invalid_color() -> Color:
-	return Color(1.0, 0.2, 0.2, 1.0) # Red
+	return Color(1.0, 0.2, 0.2, 1.0)
