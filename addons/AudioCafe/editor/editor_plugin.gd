@@ -3,7 +3,6 @@ extends EditorPlugin
 
 const AUTOLOAD_NAME = "CafeAudioManager"
 const AUTOLOAD_PATH = "res://addons/AudioCafe/scenes/cafe_audio_manager.tscn"
-const PANEL_SCENE_PATH = "res://addons/AudioCafe/scenes/cafe_panel.tscn"
 const GROUP_SCENE_PATH = "res://addons/AudioCafe/scenes/audio_panel.tscn"
 
 var generate_manifest_script_instance: EditorScript
@@ -54,15 +53,22 @@ func _create_plugin_panel():
 		return
 
 	# Se não existir, cria um novo
-	var panel_scene := load(PANEL_SCENE_PATH)
-	if panel_scene is PackedScene:
-		plugin_panel = panel_scene.instantiate()
-		plugin_panel.name = "CafeEngine"
-		add_control_to_dock(DOCK_SLOT_RIGHT_UL, plugin_panel)
-		print("Painel 'CafeEngine' criado.")
-		_ensure_group("AudioCafe") # Cria o grupo no painel novo
-	else:
-		push_error("Não foi possível carregar a cena do painel principal do CafeEngine.")
+	plugin_panel = ScrollContainer.new()
+	plugin_panel.name = "CafeEngine"
+	plugin_panel.set_h_scroll_mode(ScrollContainer.SCROLL_MODE_DISABLED)
+	plugin_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	plugin_panel.set_follow_focus(true)
+
+	var vbox_container = VBoxContainer.new()
+	vbox_container.set_name("VBoxContainer")
+	vbox_container.set_layout_mode(Control.LAYOUT_MODE_CONTAINER)
+	vbox_container.set_h_size_flags(Control.SIZE_EXPAND_FILL)
+	vbox_container.set_v_size_flags(Control.SIZE_EXPAND_FILL)
+	plugin_panel.add_child(vbox_container)
+
+	add_control_to_dock(DOCK_SLOT_RIGHT_UL, plugin_panel)
+	print("Painel 'CafeEngine' criado dinamicamente.")
+	_ensure_group("AudioCafe") # Cria o grupo no painel novo
 
 
 func _ensure_group(group_name: String) -> VBoxContainer:
