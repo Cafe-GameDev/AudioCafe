@@ -41,8 +41,6 @@ func _exit_tree():
 				remove_control_from_docks(plugin_panel)
 			plugin_panel.free()
 
-	_unregister_custom_types()
-
 
 func _create_plugin_panel():
 	# Procura por um painel existente
@@ -126,65 +124,3 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	
 	push_error("Não foi possível carregar a cena do grupo: " + group_name)
 	return null
-
-
-func _register_custom_types():
-	add_custom_type("AudioCafe", "Node", preload("res://addons/AudioCafe/scripts/audiocafe.gd"), null)
-	add_custom_type("SFXAcceptDialog", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_accept_dialog.gd"), null)
-	add_custom_type("SFXButton", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_button.gd"), null)
-	add_custom_type("SFXCheckButton", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_check_button.gd"), null)
-	add_custom_type("SFXColorPickerButton", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_color_picker_button.gd"), null)
-	add_custom_type("SFXColorPicker", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_color_picker.gd"), null)
-	add_custom_type("SFXConfirmationDialog", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_confirmation_dialog.gd"), null)
-	add_custom_type("SFXFileDialog", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_file_dialog.gd"), null)
-	add_custom_type("SFXItemList", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_item_list.gd"), null)
-	add_custom_type("SFXLineEdit", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_line_edit.gd"), null)
-	add_custom_type("SFXLinkButton", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_link_button.gd"), null)
-	add_custom_type("SFXMenuButton", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_menu_button.gd"), null)
-	add_custom_type("SFXOptionButton", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_option_button.gd"), null)
-	add_custom_type("SFXPopupMenu", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_popup_menu.gd"), null)
-	add_custom_type("SFXProgressBar", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_progress_bar.gd"), null)
-	add_custom_type("SFXScrollContainer", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_scroll_container.gd"), null)
-	add_custom_type("SFXSlider", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_slider.gd"), null)
-	add_custom_type("SFXSpinBox", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_spin_box.gd"), null)
-	add_custom_type("SFXTabContainer", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_tab_container.gd"), null)
-	add_custom_type("SFXTextEdit", "TextAudioCafeEdit", preload("res://addons/AudioCafe/nodes/Control/sfx_text_edit.gd"), null)
-	add_custom_type("SFXTextureProgressBar", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_texture_progress_bar.gd"), null)
-	add_custom_type("SFXTree", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_tree.gd"), null)
-	add_custom_type("SFXVolumeSlider", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_volume_slider.gd"), null)
-	add_custom_type("SFXWindow", "AudioCafe", preload("res://addons/AudioCafe/nodes/Control/sfx_window.gd"), null)
-	add_custom_type("AudioPosition2D", "AudioStreamPlayer2D", preload("res://addons/AudioCafe/nodes/2D/audio_position_2d.gd"), null)
-	add_custom_type("AudioPosition3D", "AudioStreamPlayer3D", preload("res://addons/AudioCafe/nodes/3D/audio_position_3d.gd"), null)
-	add_custom_type("AudioZone2D", "Area2D", preload("res://addons/AudioCafe/nodes/2D/audio_zone_2d.gd"), null)
-	add_custom_type("AudioZone3D", "Area3D", preload("res://addons/AudioCafe/nodes/3D/audio_zone_3d.gd"), null)
-
-
-func _unregister_custom_types():
-	remove_custom_type("AudioCafe")
-	remove_custom_type("SFXAcceptDialog")
-	remove_custom_type("SFXButton")
-	remove_custom_type("SFXCheckButton")
-	remove_custom_type("SFXColorPickerButton")
-	remove_custom_type("SFXColorPicker")
-	remove_custom_type("SFXConfirmationDialog")
-	remove_custom_type("SFXFileDialog")
-	remove_custom_type("SFXItemList")
-	remove_custom_type("SFXLineEdit")
-	remove_custom_type("SFXLinkButton")
-	remove_custom_type("SFXMenuButton")
-	remove_custom_type("SFXOptionButton")
-	remove_custom_type("SFXPopupMenu")
-	remove_custom_type("SFXProgressBar")
-	remove_custom_type("SFXScrollContainer")
-	remove_custom_type("SFXSlider")
-	remove_custom_type("SFXSpinBox")
-	remove_custom_type("SFXTabContainer")
-	remove_custom_type("SFXTextEdit")
-	remove_custom_type("SFXTextureProgressBar")
-	remove_custom_type("SFXTree")
-	remove_custom_type("SFXVolumeSlider")
-	remove_custom_type("SFXWindow")
-	remove_custom_type("AudioPosition2D")
-	remove_custom_type("AudioPosition3D")
-	remove_custom_type("AudioZone2D")
-	remove_custom_type("AudioZone3D")
