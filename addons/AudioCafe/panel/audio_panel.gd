@@ -20,6 +20,7 @@ extends VBoxContainer
 @onready var assets_paths_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AssetsPathsGridContainer
 @onready var add_assets_path_button: Button = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AddAssetsPathButton
 
+@onready var dist_path_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/DistPathSection/DistPathGridContainer # MISSING DECLARATION ADDED
 @onready var dist_path_line_edit: LineEdit = $CollapsibleContent/TabContainer/Settings/DistPathSection/DistPathLineEdit
 @onready var add_dist_path_button: Button = $CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton
 
