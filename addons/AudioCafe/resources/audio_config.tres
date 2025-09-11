@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="AudioConfig" load_steps=2 format=3 uid="uid://clfbtogtog6c1"]
+
+[ext_resource type="Script" uid="uid://cif18k5sk72l" path="res://addons/AudioCafe/scripts/audio_config.gd" id="1_ufiej"]
+
+[resource]
+script = ExtResource("1_ufiej")
+is_panel_expanded = true
+music_data = {}
+sfx_data = {}
+sfx_paths = Array[String](["res://addons/AudioCafe/assets/sfx"])
+music_paths = Array[String](["res://addons/AudioCafe/assets/music"])
+default_click_key = "ui_click"
+default_hover_key = "ui_rollover"
+default_slider_key = "ui_slider_changed"
+default_confirm_key = "interface_confirmation"
+default_cancel_key = "interface_back"
+default_toggle_key = "interface_toggle"
+default_select_key = "interface_select"
+default_text_input_key = "interface_type"
+default_scroll_key = "interface_scroll"
+default_focus_key = "interface_focus"
+default_error_key = "interface_error"
+default_warning_key = "interface_warning"
+default_success_key = "interface_success"
+default_open_key = "interface_open"
+default_close_key = "interface_close"
+master_volume = 1.0
+sfx_volume = 1.0
+music_volume = 1.0
