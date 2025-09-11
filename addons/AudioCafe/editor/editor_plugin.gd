@@ -65,17 +65,19 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	if group_panel:
 		if group_panel.has_method("set_editor_interface"):
 			group_panel.call_deferred("set_editor_interface", get_editor_interface())
+		# Carrega ou cria o audio_config.tres e passa para o grupo
+		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
+		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 		return group_panel
 
+	# Se não existir, cria um novo
 	var group_scene = load(GROUP_SCENE_PATH)
 	if group_scene and group_scene is PackedScene:
 		group_panel = group_scene.instantiate()
 		content_container.add_child(group_panel)
 		group_panel.name = group_name
 		
-		if group_panel.has_method("set_editor_interface"):
-			group_panel.call_deferred("set_editor_interface", get_editor_interface())
-
+		# Carrega ou cria o audio_config.tres e passa para o grupo
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 
@@ -89,10 +91,11 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 			if error != OK:
 				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
 		
-		if audio_config_res and group_panel.has_method("set_audio_config"):
-			group_panel.call_deferred("set_audio_config", audio_config_res)
+		# Passa a referência do EditorInterface e audio_config_res para o grupo via _initialize_panel_state
+		if group_panel.has_method("_initialize_panel_state"):
+			group_panel.call_deferred("_initialize_panel_state", get_editor_interface(), audio_config_res)
 		else:
-			push_error("audio_config.tres could not be loaded/created or set_audio_config is not available.")
+			push_error("audio_panel.gd does not have _initialize_panel_state method or it's not ready.")
 
 		return group_panel
 	
