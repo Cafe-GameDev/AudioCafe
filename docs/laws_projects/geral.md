@@ -5,9 +5,16 @@
 **Data:** 11 de setembro de 2025
 **Status:** Em Análise
 
-**Art. 1º** Fica estabelecida a refatoração do plugin AudioCafe com o objetivo primordial de integrar e utilizar os recursos de áudio nativos do Godot Engine, em especial `AudioStreamPlaybackPlaylist`, `AudioStreamPlaybackInteractive` e `AudioStreamSynchronized`, a partir da versão 4.3 do motor.
+### Preâmbulo
 
-**Art. 2º** A presente Lei visa otimizar o fluxo de trabalho do usuário, aproveitando a performance e as funcionalidades avançadas dos recursos nativos do Godot, em substituição ao sistema de manifesto customizado atualmente empregado para a gestão de ativos de áudio.
+Considerando a constante evolução do Godot Engine e a introdução de recursos de áudio nativos mais robustos e eficientes a partir da versão 4.3;
+Considerando a necessidade de otimizar o fluxo de trabalho no desenvolvimento de projetos, garantindo maior performance e aproveitamento das funcionalidades intrínsecas do motor;
+Considerando a oportunidade de aprimorar o plugin AudioCafe, alinhando-o às melhores práticas e capacidades oferecidas pelo Godot;
+Propõe-se a presente Lei para estabelecer as diretrizes de refatoração do plugin AudioCafe.
+
+**Art. 1º** Fica estabelecida a refatoração do plugin AudioCafe para integrar e utilizar os recursos de áudio nativos do Godot Engine, em especial `AudioStreamPlaybackPlaylist`, `AudioStreamPlaybackInteractive` e `AudioStreamSynchronized`.
+
+**Art. 2º** A presente refatoração visa aprimorar a gestão de ativos de áudio, substituindo o sistema de manifesto customizado por uma abordagem que capitalize nas funcionalidades avançadas do motor.
 
 **Art. 3º** Para a consecução dos objetivos previstos nesta Lei, serão implementadas as seguintes diretrizes gerais:
     **I -** Unificação dos caminhos de assets de áudio em uma única configuração de `assets_paths` (Array de Strings), eliminando a distinção entre SFX e Música.
