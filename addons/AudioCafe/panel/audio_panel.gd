@@ -20,16 +20,16 @@ extends VBoxContainer
 @onready var assets_paths_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AssetsPathsGridContainer
 @onready var add_assets_path_button: Button = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AddAssetsPathButton
 
-@onready var dist_path_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/DistPathSection/DistPathGridContainer # MISSING DECLARATION ADDED
+@onready var dist_path_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/DistPathSection/DistPathGridContainer
 @onready var dist_path_line_edit: LineEdit = $CollapsibleContent/TabContainer/Settings/DistPathSection/DistPathLineEdit
 @onready var add_dist_path_button: Button = $CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton
 
 var _is_expanded: bool = false
 var _expanded_height: float = 0.0
-var editor_interface: EditorInterface
+var editor_interface_ref: EditorInterface # Renamed to avoid conflict with parameter
 
 func set_editor_interface(interface: EditorInterface):
-	editor_interface = interface
+	editor_interface_ref = interface
 
 func set_audio_config(config: AudioConfig):
 	if audio_config and audio_config.is_connected("config_changed", Callable(self, "_show_save_feedback")):
@@ -49,10 +49,18 @@ func _ready():
 	
 	if Engine.is_editor_hint():
 		_connect_ui_signals()
-		_load_config_to_ui()
-		call_deferred("_initialize_panel_state")
+		# _load_config_to_ui() # This will be called by _initialize_panel_state
+		# _initialize_panel_state will now receive editor_interface and audio_config
+		pass # No direct call to _initialize_panel_state here anymore
 
-func _initialize_panel_state():
+func _initialize_panel_state(editor_interface_param: EditorInterface, audio_config_param: AudioConfig):
+	# Set the references passed from editor_plugin.gd
+	editor_interface_ref = editor_interface_param
+	audio_config = audio_config_param
+
+	# Now call _load_config_to_ui() and the rest of the initialization
+	_load_config_to_ui()
+
 	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
 		push_error("HeaderButton or CollapsibleContent node not found. Please ensure they exist and are correctly named.")
 		return
@@ -70,15 +78,15 @@ func _initialize_panel_state():
 		collapsible_content_node.visible = _is_expanded
 		if _is_expanded:
 			collapsible_content_node.custom_minimum_size.y = _expanded_height
-			header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowUp", "EditorIcons") if editor_interface else null
+			header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowUp", "EditorIcons") if editor_interface_ref else null
 		else:
 			collapsible_content_node.custom_minimum_size.y = 0
-			header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface else null
+			header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface_ref else null
 	else:
 		_is_expanded = false
 		collapsible_content_node.visible = false
 		collapsible_content_node.custom_minimum_size.y = 0
-		header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface else null
+		header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface_ref else null
 
 func _on_header_button_pressed():
 	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
@@ -100,12 +108,12 @@ func _on_header_button_pressed():
 		collapsible_content_node.visible = true
 		tween.tween_property(collapsible_content_node, "custom_minimum_size:y", _expanded_height, 0.3)
 		header_button.text = "AudioCafe" 
-		header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowUp", "EditorIcons")
+		header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowUp", "EditorIcons")
 	else:
 		tween.tween_property(collapsible_content_node, "custom_minimum_size:y", 0, 0.3)
 		tween.tween_callback(Callable(collapsible_content_node, "set_visible").bind(false))
 		header_button.text = "AudioCafe"
-		header_button.icon = editor_interface.get_base_control().get_theme_icon("ArrowDown", "EditorIcons")
+		header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowDown", "EditorIcons")
 
 func _on_generate_playlists_pressed() -> void:
 	pass # Not implemented in this phase
@@ -129,6 +137,31 @@ func _load_config_to_ui():
 		if not audio_config.dist_path.is_empty():
 			_create_path_entry(audio_config.dist_path, dist_path_grid_container, false) # false for dist_path
 
+		# Load Default Keys (existing logic)
+		default_click_key_line_edit.text = audio_config.default_click_key
+		default_slider_key_line_edit.text = audio_config.default_slider_key
+		default_hover_key_line_edit.text = audio_config.default_hover_key
+		default_confirm_key_line_edit.text = audio_config.default_confirm_key
+		default_cancel_key_line_edit.text = audio_config.default_cancel_key
+		default_toggle_key_line_edit.text = audio_config.default_toggle_key
+		default_select_key_line_edit.text = audio_config.default_select_key
+		default_text_input_key_line_edit.text = audio_config.default_text_input_key
+		default_scroll_key_line_edit.text = audio_config.default_scroll_key
+		default_focus_key_line_edit.text = audio_config.default_focus_key
+		default_error_key_line_edit.text = audio_config.default_error_key
+		default_warning_key_line_edit.text = audio_config.default_warning_key
+		default_success_key_line_edit.text = audio_config.default_success_key
+		default_open_key_line_edit.text = audio_config.default_open_key
+		default_close_key_line_edit.text = audio_config.default_close_key
+
+		# Load Volume Settings (existing logic)
+		master_volume_slider.value = audio_config.master_volume
+		_update_volume_label(master_volume_value_label, audio_config.master_volume)
+		sfx_volume_slider.value = audio_config.sfx_volume
+		_update_volume_label(sfx_volume_value_label, audio_config.sfx_volume)
+		music_volume_slider.value = audio_config.music_volume
+		_update_volume_label(music_volume_value_label, audio_config.music_volume)
+
 func _connect_ui_signals():
 	header_button.pressed.connect(Callable(self, "_on_header_button_pressed"))
 
@@ -139,6 +172,28 @@ func _connect_ui_signals():
 	# Connect Dist Path button
 	add_dist_path_button.pressed.connect(Callable(self, "_on_add_dist_path_button_pressed"))
 	dist_folder_dialog.dir_selected.connect(Callable(self, "_on_dist_folder_dialog_dir_selected"))
+
+	# Connect Default Keys (existing logic)
+	default_click_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_click_key"))
+	default_slider_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_slider_key"))
+	default_hover_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_hover_key"))
+	default_confirm_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_confirm_key"))
+	default_cancel_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_cancel_key"))
+	default_toggle_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_toggle_key"))
+	default_select_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_select_key"))
+	default_text_input_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_text_input_key"))
+	default_scroll_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_scroll_key"))
+	default_focus_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_focus_key"))
+	default_error_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_error_key"))
+	default_warning_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_warning_key"))
+	default_success_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_success_key"))
+	default_open_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_open_key"))
+	default_close_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_close_key"))
+
+	# Connect Volume Sliders (existing logic)
+	master_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "Master", master_volume_value_label, "master_volume"))
+	sfx_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "SFX", sfx_volume_value_label, "sfx_volume"))
+	music_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "Music", music_volume_value_label, "music_volume"))
 
 func _on_config_text_changed(new_text: String, config_property: String):
 	if audio_config:
@@ -199,7 +254,7 @@ func _on_add_assets_path_button_pressed():
 
 func _on_add_dist_path_button_pressed():
 	# For dist_path, we only allow one entry, so we clear existing ones
-	_clear_grid_container(dist_path_grid_container) # Corrected variable name
+	_clear_grid_container(dist_path_grid_container)
 	_create_path_entry("", dist_path_grid_container, false) # false for dist_path
 	_update_audio_config_paths()
 
@@ -270,7 +325,7 @@ func _update_audio_config_paths():
 	# Update Dist Path (single entry)
 	var new_dist_path: String = ""
 	if dist_path_grid_container.get_child_count() > 0:
-		var line_edit: LineEdit = dist_path_grid_container.get_child(0).get_child(0) # Corrected path to LineEdit
+		var line_edit: LineEdit = dist_path_grid_container.get_child(0).get_child(0)
 		if is_instance_valid(line_edit) and not line_edit.text.is_empty() and line_edit.text.begins_with("res://"):
 			new_dist_path = line_edit.text
 	audio_config.dist_path = new_dist_path
