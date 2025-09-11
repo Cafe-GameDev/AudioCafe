@@ -55,13 +55,6 @@ func _create_plugin_panel():
 	plugin_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	plugin_panel.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	plugin_panel.set_follow_focus(true)
-	
-	var cafe_panel_script = load("res://addons/AudioCafe/scripts/cafe_panel.gd")
-	if cafe_panel_script:
-		plugin_panel.set_script(cafe_panel_script)
-	else:
-		push_error("Não foi possível carregar o script cafe_panel.gd.")
-		return
 
 	var vbox_container = VBoxContainer.new()
 	vbox_container.name = "VBoxContainer"
