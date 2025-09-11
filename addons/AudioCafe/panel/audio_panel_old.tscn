@@ -1,12 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2pijgg1eb8sg"]
+[gd_scene load_steps=4 format=3 uid="uid://bkiylys7pmdul"]
 
-[ext_resource type="Script" uid="uid://d2qybkm7aby25" path="res://addons/AudioCafe/scripts/audio_panel.gd" id="1_wixt7"]
-[ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_mi0lv"]
+[ext_resource type="Script" uid="uid://d2qybkm7aby25" path="res://addons/AudioCafe/panel/audio_panel_old.gd" id="1_3svof"]
+[ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_jmlt7"]
+[ext_resource type="Texture2D" uid="uid://4707s5mqma7j" path="res://addons/AudioCafe/icons/refresh-cw.svg" id="2_lh1vf"]
 
 [node name="AudioPanel" type="VBoxContainer"]
 offset_right = 400.0
 offset_bottom = 353.0
-script = ExtResource("1_wixt7")
+script = ExtResource("1_3svof")
 
 [node name="HeaderButton" type="Button" parent="."]
 custom_minimum_size = Vector2(0, 38)
@@ -29,6 +30,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Generates the AudioManifest.tres file."
 text = "Generate Audio Manifest"
+icon = ExtResource("2_lh1vf")
 autowrap_mode = 3
 
 [node name="DocsButton" type="Button" parent="CollapsibleContent/HBoxContainer"]
@@ -37,7 +39,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Docs"
-icon = ExtResource("2_mi0lv")
+icon = ExtResource("2_jmlt7")
 
 [node name="ManifestProgressBar" type="ProgressBar" parent="CollapsibleContent"]
 visible = false

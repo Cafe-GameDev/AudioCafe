@@ -1,7 +1,7 @@
 @tool
 extends EditorPlugin
 
-const GROUP_SCENE_PATH = "res://addons/AudioCafe/scenes/audio_panel.tscn"
+const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
 
 var generate_manifest_script_instance: EditorScript
 var plugin_panel: ScrollContainer
