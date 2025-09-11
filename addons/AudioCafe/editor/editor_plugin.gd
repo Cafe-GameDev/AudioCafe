@@ -78,6 +78,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	var group_scene = load(GROUP_SCENE_PATH)
 	if group_scene and group_scene is PackedScene:
 		group_panel = group_scene.instantiate()
+		content_container.add_child(group_panel) # ADDED: Add to scene tree before deferred calls
 		group_panel.name = group_name
 		
 		# Passa a referência do EditorInterface para o grupo
@@ -103,7 +104,6 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		else:
 			push_error("audio_config.tres could not be loaded/created or set_audio_config is not available.")
 
-		content_container.add_child(group_panel)
 		return group_panel
 	
 	push_error("Não foi possível carregar a cena do grupo: " + group_name)
