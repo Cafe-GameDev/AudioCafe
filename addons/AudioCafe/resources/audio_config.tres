@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="AudioConfig" load_steps=2 format=3 uid="uid://iol0vowviov"]
+[gd_resource type="Resource" script_class="AudioConfig" load_steps=2 format=3 uid="uid://d4jighgnevdyo"]
 
 [ext_resource type="Script" uid="uid://cif18k5sk72l" path="res://addons/AudioCafe/scripts/audio_config.gd" id="1_ufiej"]
 
 [resource]
 script = ExtResource("1_ufiej")
-is_panel_expanded = true
+is_panel_expanded = false
 music_data = {}
 sfx_data = {}
-sfx_paths = Array[String]([])
-music_paths = Array[String]([])
+sfx_paths = Array[String](["res://addons/AudioCafe/assets/sfx"])
+music_paths = Array[String](["res://addons/AudioCafe/assets/music"])
 default_click_key = "ui_click"
 default_hover_key = "ui_rollover"
 default_slider_key = "ui_slider_changed"

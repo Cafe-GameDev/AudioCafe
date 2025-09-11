@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="AudioManifest" load_steps=2 format=3 uid="uid://dby43dkism467"]
-
-[ext_resource type="Script" uid="uid://bxh0q6iqol7xw" path="res://addons/AudioCafe/scripts/audio_manifest.gd" id="1_yd0cl"]
-
-[resource]
-script = ExtResource("1_yd0cl")
-music_data = {}
-sfx_data = {}
