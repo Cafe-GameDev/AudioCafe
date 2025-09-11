@@ -26,7 +26,7 @@ extends VBoxContainer
 
 var _is_expanded: bool = false
 var _expanded_height: float = 0.0
-var editor_interface_ref: EditorInterface # Renamed to avoid conflict with parameter
+var editor_interface_ref: EditorInterface
 
 func set_editor_interface(interface: EditorInterface):
 	editor_interface_ref = interface
@@ -49,9 +49,8 @@ func _ready():
 	
 	if Engine.is_editor_hint():
 		_connect_ui_signals()
-		# _load_config_to_ui() # This will be called by _initialize_panel_state
-		# _initialize_panel_state will now receive editor_interface and audio_config
-		pass # No direct call to _initialize_panel_state here anymore
+		# _load_config_to_ui() will be called by _initialize_panel_state
+		pass
 
 func _initialize_panel_state(editor_interface_param: EditorInterface, audio_config_param: AudioConfig):
 	# Set the references passed from editor_plugin.gd
@@ -137,31 +136,6 @@ func _load_config_to_ui():
 		if not audio_config.dist_path.is_empty():
 			_create_path_entry(audio_config.dist_path, dist_path_grid_container, false) # false for dist_path
 
-		# Load Default Keys (existing logic)
-		default_click_key_line_edit.text = audio_config.default_click_key
-		default_slider_key_line_edit.text = audio_config.default_slider_key
-		default_hover_key_line_edit.text = audio_config.default_hover_key
-		default_confirm_key_line_edit.text = audio_config.default_confirm_key
-		default_cancel_key_line_edit.text = audio_config.default_cancel_key
-		default_toggle_key_line_edit.text = audio_config.default_toggle_key
-		default_select_key_line_edit.text = audio_config.default_select_key
-		default_text_input_key_line_edit.text = audio_config.default_text_input_key
-		default_scroll_key_line_edit.text = audio_config.default_scroll_key
-		default_focus_key_line_edit.text = audio_config.default_focus_key
-		default_error_key_line_edit.text = audio_config.default_error_key
-		default_warning_key_line_edit.text = audio_config.default_warning_key
-		default_success_key_line_edit.text = audio_config.default_success_key
-		default_open_key_line_edit.text = audio_config.default_open_key
-		default_close_key_line_edit.text = audio_config.default_close_key
-
-		# Load Volume Settings (existing logic)
-		master_volume_slider.value = audio_config.master_volume
-		_update_volume_label(master_volume_value_label, audio_config.master_volume)
-		sfx_volume_slider.value = audio_config.sfx_volume
-		_update_volume_label(sfx_volume_value_label, audio_config.sfx_volume)
-		music_volume_slider.value = audio_config.music_volume
-		_update_volume_label(music_volume_value_label, audio_config.music_volume)
-
 func _connect_ui_signals():
 	header_button.pressed.connect(Callable(self, "_on_header_button_pressed"))
 
@@ -172,56 +146,6 @@ func _connect_ui_signals():
 	# Connect Dist Path button
 	add_dist_path_button.pressed.connect(Callable(self, "_on_add_dist_path_button_pressed"))
 	dist_folder_dialog.dir_selected.connect(Callable(self, "_on_dist_folder_dialog_dir_selected"))
-
-	# Connect Default Keys (existing logic)
-	default_click_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_click_key"))
-	default_slider_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_slider_key"))
-	default_hover_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_hover_key"))
-	default_confirm_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_confirm_key"))
-	default_cancel_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_cancel_key"))
-	default_toggle_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_toggle_key"))
-	default_select_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_select_key"))
-	default_text_input_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_text_input_key"))
-	default_scroll_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_scroll_key"))
-	default_focus_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_focus_key"))
-	default_error_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_error_key"))
-	default_warning_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_warning_key"))
-	default_success_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_success_key"))
-	default_open_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_open_key"))
-	default_close_key_line_edit.text_changed.connect(func(new_text): _on_config_text_changed(new_text, "default_close_key"))
-
-	# Connect Volume Sliders (existing logic)
-	master_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "Master", master_volume_value_label, "master_volume"))
-	sfx_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "SFX", sfx_volume_value_label, "sfx_volume"))
-	music_volume_slider.value_changed.connect(func(new_value): _on_volume_slider_value_changed(new_value, "Music", music_volume_value_label, "music_volume"))
-
-func _on_config_text_changed(new_text: String, config_property: String):
-	if audio_config:
-		var line_edit: LineEdit = get_node_or_null("%" + config_property.capitalize() + "LineEdit")
-		var is_valid = true
-		var error_message = ""
-
-		if new_text.is_empty():
-			is_valid = false
-			error_message = "Key cannot be empty."
-
-		if is_valid:
-			if line_edit:
-				line_edit.add_theme_color_override("font_color", _get_valid_color())
-				line_edit.tooltip_text = ""
-			audio_config.set(config_property, new_text)
-		else:
-			if line_edit:
-				line_edit.add_theme_color_override("font_color", _get_invalid_color())
-				line_edit.tooltip_text = error_message
-
-func _on_volume_slider_value_changed(new_value: float, bus_name: String, value_label: Label, config_property: String):
-	if audio_config:
-		audio_config.set(config_property, new_value)
-		_update_volume_label(value_label, new_value)
-
-func _update_volume_label(label: Label, volume_value: float):
-	label.text = str(int(volume_value * 100)) + "%"
 
 func _create_path_entry(path_value: String, grid_container: GridContainer, is_assets_path: bool):
 	var path_entry = HBoxContainer.new()
