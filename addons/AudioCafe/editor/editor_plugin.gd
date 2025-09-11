@@ -21,9 +21,6 @@ func _enter_tree():
 
 	# Cria o painel e o grupo
 	_create_plugin_panel()
-	
-	# Registra tipos customizados
-	_register_custom_types()
 
 
 func _exit_tree():
@@ -124,4 +121,3 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	
 	push_error("Não foi possível carregar a cena do grupo: " + group_name)
 	return null
-	
