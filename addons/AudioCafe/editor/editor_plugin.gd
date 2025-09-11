@@ -17,9 +17,6 @@ func _enter_tree():
 
 
 func _exit_tree():
-	if ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
-		remove_autoload_singleton(AUTOLOAD_NAME)
-
 	if is_instance_valid(group_panel):
 		group_panel.free()
 
