@@ -44,6 +44,7 @@ text = "Docs"
 icon = ExtResource("2_1u6yf")
 
 [node name="ManifestProgressBar" type="ProgressBar" parent="CollapsibleContent"]
+visible = false
 layout_mode = 2
 
 [node name="ManifestStatusLabel" type="Label" parent="CollapsibleContent"]
