@@ -8,6 +8,8 @@
 offset_right = 460.0
 offset_bottom = 384.0
 script = ExtResource("1_bf5yf")
+audio_config = null
+docs = null
 
 [node name="HeaderButton" type="Button" parent="."]
 custom_minimum_size = Vector2(0, 38)
@@ -78,17 +80,17 @@ layout_mode = 2
 layout_mode = 2
 text = "Add Asset Path"
 
-[node name="RestPathSection" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Settings"]
+[node name="DistPathSection" type="VBoxContainer" parent="CollapsibleContent/TabContainer/Settings"]
 layout_mode = 2
 
-[node name="RestPathLabel" type="Label" parent="CollapsibleContent/TabContainer/Settings/RestPathSection"]
+[node name="RestPathLabel" type="Label" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
 layout_mode = 2
 text = "Rest / Playlists Path:"
 
-[node name="RestPathGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Settings/RestPathSection"]
+[node name="RestPathGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
 layout_mode = 2
 
-[node name="AddRestPathButton" type="Button" parent="CollapsibleContent/TabContainer/Settings/RestPathSection"]
+[node name="AddRestPathButton" type="Button" parent="CollapsibleContent/TabContainer/Settings/DistPathSection"]
 layout_mode = 2
 text = "Add Rest Path"
 
@@ -332,7 +334,7 @@ ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
 
-[node name="RestFolderDialog" type="FileDialog" parent="CollapsibleContent"]
+[node name="DistFolderDialog" type="FileDialog" parent="CollapsibleContent"]
 title = "Open a Directory"
 always_on_top = true
 popup_window = true
