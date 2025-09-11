@@ -33,7 +33,6 @@ func _create_plugin_panel():
 	# Procura por um painel existente
 	plugin_panel = get_editor_interface().get_base_control().find_child("CafeEngine", true, false)
 	if plugin_panel:
-		print("Painel 'CafeEngine' já existente, reaproveitando.")
 		_ensure_group("AudioCafe") # Garante que o grupo seja criado se não existir
 		return
 
@@ -54,7 +53,6 @@ func _create_plugin_panel():
 	plugin_panel.add_child(vbox_container)
 
 	add_control_to_dock(DOCK_SLOT_RIGHT_UL, plugin_panel)
-	print("Painel 'CafeEngine' criado dinamicamente.")
 	_ensure_group("AudioCafe") # Cria o grupo no painel novo
 
 
@@ -91,7 +89,6 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 
 		if not audio_config_res:
-			print("audio_config.tres not found. Creating a new one.")
 			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
 			var dir = AUDIO_CONFIG_PATH.get_base_dir()
 			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
@@ -100,8 +97,6 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 			var error = ResourceSaver.save(audio_config_res, AUDIO_CONFIG_PATH)
 			if error != OK:
 				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
-			else:
-				print("New audio_config.tres created at: " + AUDIO_CONFIG_PATH)
 		
 		if audio_config_res and group_panel.has_method("set_audio_config"):
 			group_panel.set_audio_config(audio_config_res)

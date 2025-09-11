@@ -19,8 +19,6 @@ func _run():
 		_count_files_in_directory(path)
 	for path in audio_config.music_paths:
 		_count_files_in_directory(path)
-
-	print("Generating AudioManifest...")
 	
 	var audio_manifest = AudioManifest.new()
 	var success = true
@@ -47,8 +45,6 @@ func _run():
 		if error != OK:
 			success = false
 			message = "Falha ao salvar AudioManifest.tres: %s" % error
-		else:
-			print("AudioManifest generated and saved to: %s" % MANIFEST_SAVE_PATH)
 
 	emit_signal("generation_finished", success, message)
 
@@ -84,7 +80,6 @@ func _scan_and_populate_library(current_path: String, library: Dictionary, audio
 
 			var resource_path = current_path.path_join(file_or_dir_name)
 			var uid = ResourceLoader.get_resource_uid(resource_path)
-			print("  - Debug: Resource Path: %s, Raw UID: %s" % [resource_path, str(uid)])
 			if uid != -1:
 				var root_path_to_remove = ""
 				if audio_type == "sfx":
@@ -108,7 +103,6 @@ func _scan_and_populate_library(current_path: String, library: Dictionary, audio
 				if not library.has(final_key):
 					library[final_key] = []
 				library[final_key].append("%s" % str(uid))
-				print("  - Added %s audio to playlist '%s' with UID: %s" % [audio_type, final_key, str(uid)])
 		file_or_dir_name = dir.get_next()
 	return true
 

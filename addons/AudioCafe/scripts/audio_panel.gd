@@ -133,8 +133,6 @@ func _initialize_panel_state():
 func _load_config_to_ui():
 	if not tab_container: return
 	if audio_config:
-		print("--- Loading config to UI ---")
-		print("SFX paths in resource: ", audio_config.sfx_paths)
 		if sfx_paths_grid_container:
 			for child in sfx_paths_grid_container.get_children():
 				child.queue_free()
@@ -142,9 +140,7 @@ func _load_config_to_ui():
 			for path in audio_config.sfx_paths:
 				sfx_count += 1
 				_create_path_entry(path, true)
-			print("Created ", sfx_count, " SFX path UI entries.")
-
-		print("Music paths in resource: ", audio_config.music_paths)
+	
 		if music_paths_grid_container:
 			for child in music_paths_grid_container.get_children():
 				child.queue_free()
@@ -152,12 +148,6 @@ func _load_config_to_ui():
 			for path in audio_config.music_paths:
 				music_count += 1
 				_create_path_entry(path, false)
-			print("Created ", music_count, " Music path UI entries.")
-		print("--- Finished loading config to UI ---")
-
-		print("[_load_config_to_ui] default_click_key_line_edit: ", default_click_key_line_edit)
-		print("[_load_config_to_ui] default_hover_key_line_edit: ", default_hover_key_line_edit)
-		print("[_load_config_to_ui] default_slider_key_line_edit: ", default_slider_key_line_edit)
 
 		if default_click_key_line_edit: default_click_key_line_edit.text = audio_config.default_click_key
 		if default_hover_key_line_edit: default_hover_key_line_edit.text = audio_config.default_hover_key
@@ -190,7 +180,6 @@ func _load_config_to_ui():
 
 		var loaded_manifest = ResourceLoader.load(MANIFEST_SAVE_PATH, "", ResourceLoader.CacheMode.CACHE_MODE_REPLACE)
 		if loaded_manifest and loaded_manifest is AudioManifest:
-			print("DEBUG: _load_config_to_ui - music_data keys from manifest: ", loaded_manifest.music_data.keys())
 			if current_music_keys_rich_text_label:
 				var music_keys = loaded_manifest.music_data.keys()
 				music_keys.sort()
@@ -200,7 +189,6 @@ func _load_config_to_ui():
 			else:
 				push_error("current_music_keys_rich_text_label is null when trying to add item.")
 
-			print("DEBUG: _load_config_to_ui - sfx_data keys from manifest: ", loaded_manifest.sfx_data.keys())
 			if current_sfx_keys_rich_text_label:
 				var sfx_keys = loaded_manifest.sfx_data.keys()
 				sfx_keys.sort()
@@ -249,7 +237,6 @@ func _on_config_text_changed(new_text: String, config_property: String):
 				line_edit.add_theme_color_override("font_color", VALID_COLOR)
 				line_edit.tooltip_text = ""
 			audio_config.set(config_property, new_text)
-			print("Configuration updated: %s = %s" % [config_property, new_text])
 		else:
 			if line_edit:
 				line_edit.add_theme_color_override("font_color", INVALID_COLOR)
@@ -259,7 +246,6 @@ func _on_volume_slider_value_changed(new_value: float, bus_name: String, value_l
 	if audio_config:
 		audio_config.set(config_property, new_value)
 		_update_volume_label(value_label, new_value)
-		print("Volume atualizado para %s: %s" % [bus_name, new_value])
 
 func _update_volume_label(label: Label, volume_value: float):
 	label.text = str(int(volume_value * 100)) + "%"
@@ -286,9 +272,6 @@ func _create_path_entry(path_value: String, is_sfx: bool):
 	remove_button.text = "X"
 	remove_button.pressed.connect(Callable(self, "_on_remove_path_button_pressed").bind(path_entry, is_sfx))
 	path_entry.add_child(remove_button)
-
-	print("[_create_path_entry] sfx_paths_grid_container: ", sfx_paths_grid_container)
-	print("[_create_path_entry] music_paths_grid_container: ", music_paths_grid_container)
 
 	if is_sfx:
 		sfx_paths_grid_container.add_child(path_entry)
@@ -326,9 +309,6 @@ func _on_path_line_edit_text_changed(new_text: String, line_edit: LineEdit, is_s
 func _validate_path_line_edit(line_edit: LineEdit):
 	var is_valid = true
 	var error_message = ""
-
-	print("DEBUG: Validating path: ", line_edit.text)
-	print("DEBUG: Begins with res://? ", line_edit.text.begins_with("res://"))
 
 	if line_edit.text.is_empty():
 		is_valid = false
@@ -400,7 +380,6 @@ func _on_manifest_generation_finished(success: bool, message: String):
 		if reloaded_config and reloaded_config is AudioConfig:
 			audio_config = reloaded_config
 			audio_config.emit_changed()
-			print("DEBUG: AudioConfig recarregado e atualizado com novos dados do manifesto.")
 		else:
 			push_error("Falha ao recarregar audio_config.tres após a geração do manifesto.")
 
@@ -434,14 +413,12 @@ func _on_audio_config_updated(config: AudioConfig):
 	# Carrega o AudioManifest para obter as chaves de áudio
 	var loaded_manifest = ResourceLoader.load(MANIFEST_SAVE_PATH, "", ResourceLoader.CacheMode.CACHE_MODE_REPLACE)
 	if loaded_manifest and loaded_manifest is AudioManifest:
-		print("DEBUG: _on_audio_config_updated - music_data keys from manifest: ", loaded_manifest.music_data.keys())
 		var music_keys = loaded_manifest.music_data.keys()
 		music_keys.sort()
 		for key in music_keys:
 			var count = loaded_manifest.music_data[key].size()
 			music_keys_rich_text_label.append_text(key + " [%d]" % count + "\n")
 
-		print("DEBUG: _on_audio_config_updated - sfx_data keys from manifest: ", loaded_manifest.sfx_data.keys())
 		var sfx_keys = loaded_manifest.sfx_data.keys()
 		sfx_keys.sort()
 		for key in sfx_keys:
