@@ -49,19 +49,19 @@ func _ready():
 
 func _initialize_panel_state():
 	_load_config_to_ui()
-
+	
 	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
 		push_error("HeaderButton or CollapsibleContent node not found. Please ensure they exist and are correctly named.")
 		return
-
+	
 	var collapsible_content_node = get_node("CollapsibleContent")
-
+	
 	collapsible_content_node.visible = true
 	collapsible_content_node.custom_minimum_size.y = -1 
-
-
+	
+	
 	_expanded_height = collapsible_content_node.size.y
-
+	
 	if audio_config:
 		_is_expanded = audio_config.is_panel_expanded
 		collapsible_content_node.visible = _is_expanded
