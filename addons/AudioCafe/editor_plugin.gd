@@ -46,7 +46,6 @@ func _exit_tree():
 
 
 func _create_plugin_panel():
-	# Procura por um painel existente
 	plugin_panel = get_editor_interface().get_base_control().find_child("CafeEngine", true, false)
 	if plugin_panel:
 		print("Painel 'CafeEngine' já existente, reaproveitando.")
@@ -75,25 +74,20 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		push_error("O painel 'CafeEngine' não contém o 'VBoxContainer' esperado.")
 		return null
 
-	# Procura pelo grupo existente
 	group_panel = content_container.find_child(group_name, false)
 	if group_panel:
-		# Garante que referências importantes sejam passadas, caso o editor tenha recarregado
 		if group_panel.has_method("set_editor_interface"):
 			group_panel.set_editor_interface(get_editor_interface())
 		return group_panel
 
-	# Se não existir, cria um novo
 	var group_scene = load(GROUP_SCENE_PATH)
 	if group_scene and group_scene is PackedScene:
 		group_panel = group_scene.instantiate()
 		group_panel.name = group_name
 		
-		# Passa a referência do EditorInterface para o grupo
 		if group_panel.has_method("set_editor_interface"):
 			group_panel.set_editor_interface(get_editor_interface())
 
-		# Carrega ou cria o audio_config.tres e passa para o grupo
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 
