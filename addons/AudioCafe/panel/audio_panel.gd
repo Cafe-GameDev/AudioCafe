@@ -102,19 +102,28 @@ func _load_config_to_ui():
 	if not audio_config: return
 	
 	print("--- Loading config to UI ---")
+	print("DEBUG: audio_config.assets_paths (before cleanup): ", audio_config.assets_paths)
+	print("DEBUG: audio_config.dist_path: ", audio_config.dist_path)
+
+	# Clean up assets_paths if dist_path is accidentally included
+	if audio_config.assets_paths.has(audio_config.dist_path):
+		audio_config.assets_paths.erase(audio_config.dist_path)
+		print("DEBUG: Removed dist_path from assets_paths during cleanup.")
+		# Save the config after cleanup to prevent recurrence
+		audio_config._save_and_emit_changed()
 	
 	# Load Assets Paths
 	if assets_paths_grid_container:
 		for child in assets_paths_grid_container.get_children():
 			child.queue_free()
 		for path in audio_config.assets_paths:
-			_create_path_entry(path)
+			_create_path_entry(path, false)
 	
 	# Load Dist Path
-	if dist_path_grid_container and audio_config.dist_path:
+	if dist_path_grid_container and not audio_config.dist_path.is_empty():
 		for child in dist_path_grid_container.get_children():
 			child.queue_free()
-		_create_path_entry(audio_config.dist_path)
+		_create_path_entry(audio_config.dist_path, true)
 
 	# Load Default Keys (assuming these are still in the tscn)
 	# ... (add logic for default keys if they exist in the tscn)
