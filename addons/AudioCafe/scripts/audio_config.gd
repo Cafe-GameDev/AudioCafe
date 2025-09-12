@@ -10,20 +10,19 @@ signal config_changed
 			is_panel_expanded = value
 			_save_and_emit_changed()
 
-@export var music_data: Dictionary = {}
-@export var sfx_data: Dictionary = {}
-
-@export var sfx_paths: Array[String] = ["res://addons/AudioCafe/assets/sfx"]:
+@export var assets_paths: Array[String] = ["res://addons/AudioCafe/assets/audio"]:
 	set(value):
-		if sfx_paths != value:
-			sfx_paths = value
+		if assets_paths != value:
+			assets_paths = value
 			_save_and_emit_changed()
 
-@export var music_paths: Array[String] = ["res://addons/AudioCafe/assets/music"]:
+@export var dist_path: String = "res://addons/AudioCafe/generated_playlists":
 	set(value):
-		if music_paths != value:
-			music_paths = value
+		if dist_path != value:
+			dist_path = value
 			_save_and_emit_changed()
+
+@export var key_resource: Dictionary = {}
 
 @export var default_click_key: String = "ui_click":
 	set(value):
