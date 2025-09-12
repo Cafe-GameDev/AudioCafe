@@ -163,7 +163,7 @@ func _on_volume_slider_value_changed(new_value: float, bus_name: String, value_l
 func _update_volume_label(label: Label, volume_value: float):
 	label.text = str(int(volume_value * 100)) + "%"
 
-func _create_path_entry(path_value: String):
+func _create_path_entry(path_value: String, is_dist_path: bool = false):
 	var path_entry = HBoxContainer.new()
 	path_entry.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
@@ -171,22 +171,25 @@ func _create_path_entry(path_value: String):
 	line_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	line_edit.text = path_value
 	line_edit.placeholder_text = "res://path/to/folder"
-	line_edit.text_changed.connect(Callable(self, "_on_asset_path_line_edit_text_changed").bind(line_edit))
+	line_edit.text_changed.connect(Callable(self, "_on_path_line_edit_text_changed").bind(line_edit, is_dist_path))
 	path_entry.add_child(line_edit)
 
 	_validate_path_line_edit(line_edit)
 
 	var browse_button = Button.new()
 	browse_button.text = "..."
-	browse_button.pressed.connect(Callable(self, "_on_browse_asset_path_button_pressed").bind(line_edit))
+	browse_button.pressed.connect(Callable(self, "_on_browse_button_pressed").bind(line_edit, is_dist_path))
 	path_entry.add_child(browse_button)
 
 	var remove_button = Button.new()
 	remove_button.text = "X"
-	remove_button.pressed.connect(Callable(self, "_on_remove_asset_path_button_pressed").bind(path_entry))
+	remove_button.pressed.connect(Callable(self, "_on_remove_path_button_pressed").bind(path_entry, is_dist_path))
 	path_entry.add_child(remove_button)
 
-	assets_paths_grid_container.add_child(path_entry)
+	if is_dist_path:
+		dist_path_grid_container.add_child(path_entry)
+	else:
+		assets_paths_grid_container.add_child(path_entry)
 
 func _on_browse_asset_path_button_pressed(line_edit: LineEdit):
 	assets_folder_dialog.current_dir = line_edit.text if not line_edit.text.is_empty() else "res://"
@@ -361,15 +364,15 @@ func _on_save_feedback_timer_timeout():
 	save_feedback_label.visible = false
 
 
-func _on_add_assets_path_button_pressed():
+func _on_add_assets_path_button_pressed() -> void:
 	_create_path_entry("")
-	# Abre o FileDialog imediatamente após adicionar a nova entrada
 	var new_line_edit = assets_paths_grid_container.get_child(assets_paths_grid_container.get_child_count() - 1).get_child(0)
 	_on_browse_asset_path_button_pressed(new_line_edit)
 
 func _on_add_dist_path_button_pressed() -> void:
-	dist_folder_dialog.current_dir = audio_config.dist_path if not audio_config.dist_path.is_empty() else "res://"
-	dist_folder_dialog.popup_centered()
+	_create_path_entry("")
+	var new_line_edit = dist_path_grid_container.get_child(dist_path_grid_container.get_child_count() - 1).get_child(0)
+	_on_browse_asset_path_button_pressed(new_line_edit)
 
 func _on_header_button_pressed():
 	if not is_node_ready():
