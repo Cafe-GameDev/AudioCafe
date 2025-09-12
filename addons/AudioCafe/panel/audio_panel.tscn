@@ -136,4 +136,8 @@ one_shot = true
 [connection signal="pressed" from="HeaderButton" to="." method="_on_header_button_pressed"]
 [connection signal="pressed" from="CollapsibleContent/HBoxContainer/GeneratePlaylists" to="." method="_on_generate_playlists_pressed"]
 [connection signal="pressed" from="CollapsibleContent/HBoxContainer/DocsButton" to="." method="_on_docs_button_pressed"]
+[connection signal="pressed" from="CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AddAssetsPathButton" to="." method="_on_add_assets_path_button_pressed"]
+[connection signal="pressed" from="CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton" to="." method="_on_add_dist_path_button_pressed"]
+[connection signal="dir_selected" from="CollapsibleContent/AssetsFolderDialog" to="." method="_on_assets_folder_dialog_dir_selected"]
+[connection signal="dir_selected" from="CollapsibleContent/DistFolderDialog" to="." method="_on_dist_folder_dialog_dir_selected"]
 [connection signal="timeout" from="CollapsibleContent/SaveFeedbackTimer" to="." method="_on_save_feedback_timer_timeout"]

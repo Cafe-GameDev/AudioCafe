@@ -33,3 +33,23 @@ func _on_generate_playlists_pressed() -> void:
 
 func _on_docs_button_pressed() -> void:
 	pass # Replace with function body.
+
+
+func _on_add_assets_path_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_add_dist_path_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_assets_folder_dialog_dir_selected(dir: String) -> void:
+	pass # Replace with function body.
+
+
+func _on_dist_folder_dialog_dir_selected(dir: String) -> void:
+	pass # Replace with function body.
+
+
+func _on_save_feedback_timer_timeout() -> void:
+	pass # Replace with function body.
