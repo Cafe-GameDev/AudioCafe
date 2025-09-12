@@ -6,7 +6,6 @@ extends VBoxContainer
 @onready var docs_button: Button = $CollapsibleContent/HBoxContainer/DocsButton
 @onready var gen_status_label: Label = $CollapsibleContent/GenStatusLabel
 
-
 @onready var assets_paths_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AssetsPathsGridContainer
 @onready var dist_path_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/DistPathSection/DistPathGridContainer
 
@@ -22,6 +21,8 @@ extends VBoxContainer
 @onready var save_feedback_label: Label = $CollapsibleContent/SaveFeedbackLabel
 @onready var save_feedback_timer: Timer = $CollapsibleContent/SaveFeedbackTimer
 
+const ARROW_BIG_DOWN_DASH = preload("res://addons/AudioCafe/icons/arrow-big-down-dash.svg")
+const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-dash.svg")
 
 func _on_header_button_pressed() -> void:
 	pass # Replace with function body.
