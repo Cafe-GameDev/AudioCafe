@@ -14,7 +14,7 @@ extends VBoxContainer
 @onready var add_dist_path_button: Button = $CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton
 
 @onready var playlists: VBoxContainer = $CollapsibleContent/TabContainer/Playlists
-@onready var synchronized: VBoxContainer = $CollapsibleContent/TabContainer/Synchronized
+@onready var synchronized: VBoxContainer = $CollapsibleContent/TabContainer/Sync
 @onready var interactive: VBoxContainer = $CollapsibleContent/TabContainer/Interactive
 
 @onready var assets_folder_dialog: FileDialog = $CollapsibleContent/AssetsFolderDialog

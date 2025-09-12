@@ -95,7 +95,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 1
 
-[node name="Synchronized" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+[node name="Sync" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
