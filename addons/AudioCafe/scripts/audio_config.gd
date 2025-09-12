@@ -13,16 +13,16 @@ signal config_changed
 @export var music_data: Dictionary = {}
 @export var sfx_data: Dictionary = {}
 
-@export var assets_paths: Array[String] = []:
+@export var sfx_paths: Array[String] = ["res://addons/AudioCafe/assets/sfx"]:
 	set(value):
-		if assets_paths != value:
-			assets_paths = value
+		if sfx_paths != value:
+			sfx_paths = value
 			_save_and_emit_changed()
 
-@export var dist_path: String = "":
+@export var music_paths: Array[String] = ["res://addons/AudioCafe/assets/music"]:
 	set(value):
-		if dist_path != value:
-			dist_path = value
+		if music_paths != value:
+			music_paths = value
 			_save_and_emit_changed()
 
 @export var default_click_key: String = "ui_click":
@@ -133,6 +133,8 @@ signal config_changed
 		if music_volume != value:
 			music_volume = value
 			_save_and_emit_changed()
+
+
 
 func _save_and_emit_changed():
 	if self.resource_path:
