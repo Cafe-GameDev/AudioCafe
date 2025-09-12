@@ -26,6 +26,7 @@ extends VBoxContainer
 
 var _is_expanded: bool = false
 var _expanded_height: float = 0.0
+var generate_manifest_script_instance: EditorScript
 
 func set_audio_config(config: AudioConfig):
 	if audio_config and audio_config.is_connected("config_changed", Callable(self, "_show_save_feedback")):
@@ -43,25 +44,31 @@ func _ready():
 	if not is_node_ready():
 		await ready
 	
+	var manifest_script_res = load("res://addons/AudioCafe/scripts/generate_audio_manifest.gd")
+	if manifest_script_res:
+		generate_manifest_script_instance = manifest_script_res.new()
+	else:
+		push_error("generate_audio_manifest.gd script not found!")
+		return
+
 	if Engine.is_editor_hint():
 		_connect_ui_signals()
 		call_deferred("_initialize_panel_state")
 
 func _initialize_panel_state():
 	_load_config_to_ui()
-	
+
 	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
 		push_error("HeaderButton or CollapsibleContent node not found. Please ensure they exist and are correctly named.")
 		return
-	
+
 	var collapsible_content_node = get_node("CollapsibleContent")
-	
+
 	collapsible_content_node.visible = true
 	collapsible_content_node.custom_minimum_size.y = -1 
-	
-	
+
 	_expanded_height = collapsible_content_node.size.y
-	
+
 	if audio_config:
 		_is_expanded = audio_config.is_panel_expanded
 		collapsible_content_node.visible = _is_expanded
@@ -74,20 +81,15 @@ func _initialize_panel_state():
 		collapsible_content_node.visible = false
 		collapsible_content_node.custom_minimum_size.y = 0
 
-
- func _on_header_button_pressed():
-	if not is_node_ready():
-		await ready
-	
-	if not has_node("CollapsibleContent") or not has_node("HeaderButton"):
-		push_error("CollapsibleContent or HeaderButton node not found. Please ensure they exist and are correctly named.")
+func _on_header_button_pressed():
+	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
+		push_error("HeaderButton or CollapsibleContent node not found. Please ensure they exist and are correctly named.")
 		return
-	
+
 	var collapsible_content_node = get_node("CollapsibleContent")
-	var header_button_node = get_node("HeaderButton")
-	
+
 	_is_expanded = not _is_expanded
-	
+
 	if audio_config:
 		audio_config.is_panel_expanded = _is_expanded
 	
