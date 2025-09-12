@@ -26,6 +26,10 @@ extends VBoxContainer
 
 var _is_expanded: bool = false
 var _expanded_height: float = 0.0
+var editor_interface_ref: EditorInterface # Changed back to var
+
+func set_editor_interface(interface: EditorInterface): # Reintroduced set_editor_interface
+	editor_interface_ref = interface
 
 func set_audio_config(config: AudioConfig):
 	if audio_config and audio_config.is_connected("config_changed", Callable(self, "_show_save_feedback")):
@@ -45,9 +49,9 @@ func _ready():
 	
 	if Engine.is_editor_hint():
 		_connect_ui_signals()
-		call_deferred("_initialize_panel_state")
+		call_deferred("_initialize_panel_state") # Call deferred without arguments
 
-func _initialize_panel_state():
+func _initialize_panel_state(): # Removed parameters
 	_load_config_to_ui()
 
 	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
@@ -67,27 +71,25 @@ func _initialize_panel_state():
 		collapsible_content_node.visible = _is_expanded
 		if _is_expanded:
 			collapsible_content_node.custom_minimum_size.y = _expanded_height
+			header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowUp", "EditorIcons") if editor_interface_ref else null
 		else:
 			collapsible_content_node.custom_minimum_size.y = 0
+			header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface_ref else null
 	else:
 		_is_expanded = false
 		collapsible_content_node.visible = false
 		collapsible_content_node.custom_minimum_size.y = 0
+		header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowDown", "EditorIcons") if editor_interface_ref else null
 
-
- func _on_header_button_pressed():
-	if not is_node_ready():
-		await ready
-	
-	if not has_node("CollapsibleContent") or not has_node("HeaderButton"):
-		push_error("CollapsibleContent or HeaderButton node not found. Please ensure they exist and are correctly named.")
+func _on_header_button_pressed():
+	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
+		push_error("HeaderButton or CollapsibleContent node not found. Please ensure they exist and are correctly named.")
 		return
-	
+
 	var collapsible_content_node = get_node("CollapsibleContent")
-	var header_button_node = get_node("HeaderButton")
-	
+
 	_is_expanded = not _is_expanded
-	
+
 	if audio_config:
 		audio_config.is_panel_expanded = _is_expanded
 	
