@@ -3,14 +3,11 @@ extends EditorPlugin
 
 const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
 
-var generate_manifest_script_instance: EditorScript
 var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
-func _enter_tree():
-	generate_manifest_script_instance = EditorScript.new()
-	generate_manifest_script_instance.set_script(load("res://addons/AudioCafe/scripts/generate_audio_manifest.gd"))
 
+func _enter_tree():
 	_create_plugin_panel()
 
 
