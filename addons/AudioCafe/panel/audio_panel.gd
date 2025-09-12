@@ -26,9 +26,9 @@ extends VBoxContainer
 
 var _is_expanded: bool = false
 var _expanded_height: float = 0.0
-var editor_interface_ref: EditorInterface
+var editor_interface_ref: EditorInterface # Changed back to var
 
-func set_editor_interface(interface: EditorInterface):
+func set_editor_interface(interface: EditorInterface): # Reintroduced set_editor_interface
 	editor_interface_ref = interface
 
 func set_audio_config(config: AudioConfig):
@@ -49,12 +49,9 @@ func _ready():
 	
 	if Engine.is_editor_hint():
 		_connect_ui_signals()
-		pass
+		call_deferred("_initialize_panel_state") # Call deferred without arguments
 
-func _initialize_panel_state(editor_interface_param: EditorInterface, audio_config_param: AudioConfig):
-	editor_interface_ref = editor_interface_param
-	audio_config = audio_config_param
-
+func _initialize_panel_state(): # Removed parameters
 	_load_config_to_ui()
 
 	if not is_instance_valid(header_button) or not is_instance_valid(get_node("CollapsibleContent")):
@@ -112,7 +109,7 @@ func _on_header_button_pressed():
 		header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowDown", "EditorIcons")
 
 func _on_generate_playlists_pressed() -> void:
-	pass 
+	pass
 
 func _on_docs_button_pressed() -> void:
 	OS.shell_open(docs)
@@ -127,7 +124,7 @@ func _load_config_to_ui():
 		for path in audio_config.assets_paths:
 			_create_path_entry(path, assets_paths_grid_container, true)
 
-		_clear_grid_container(dist_path_grid_container) 
+		_clear_grid_container(dist_path_grid_container)
 		if not audio_config.dist_path.is_empty():
 			_create_path_entry(audio_config.dist_path, dist_path_grid_container, false)
 

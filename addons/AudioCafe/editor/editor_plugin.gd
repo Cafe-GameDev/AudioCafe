@@ -63,9 +63,10 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 
 	group_panel = content_container.find_child(group_name, false)
 	if group_panel:
+		# If group_panel already exists, ensure its properties are updated
+		group_panel.editor_interface_ref = get_editor_interface()
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
-
 		if not audio_config_res:
 			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
 			var dir = AUDIO_CONFIG_PATH.get_base_dir()
@@ -75,11 +76,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 			var error = ResourceSaver.save(audio_config_res, AUDIO_CONFIG_PATH)
 			if error != OK:
 				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
-		
-		if group_panel.has_method("_initialize_panel_state"):
-			group_panel.call_deferred("_initialize_panel_state", get_editor_interface(), audio_config_res)
-		else:
-			push_error("audio_panel.gd does not have _initialize_panel_state method or it's not ready.")
+		group_panel.audio_config = audio_config_res
 		return group_panel
 
 	var group_scene = load(GROUP_SCENE_PATH)
@@ -88,6 +85,8 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		content_container.add_child(group_panel)
 		group_panel.name = group_name
 		
+		group_panel.editor_interface_ref = get_editor_interface()
+
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 
@@ -101,10 +100,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 			if error != OK:
 				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
 		
-		if group_panel.has_method("_initialize_panel_state"):
-			group_panel.call_deferred("_initialize_panel_state", get_editor_interface(), audio_config_res)
-		else:
-			push_error("audio_panel.gd does not have _initialize_panel_state method or it's not ready.")
+		group_panel.audio_config = audio_config_res
 
 		return group_panel
 	
