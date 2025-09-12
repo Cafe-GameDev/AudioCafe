@@ -365,14 +365,14 @@ func _on_save_feedback_timer_timeout():
 
 
 func _on_add_assets_path_button_pressed() -> void:
-	_create_path_entry("")
+	_create_path_entry("", false)
 	var new_line_edit = assets_paths_grid_container.get_child(assets_paths_grid_container.get_child_count() - 1).get_child(0)
-	_on_browse_asset_path_button_pressed(new_line_edit)
+	_on_browse_button_pressed(new_line_edit, false)
 
 func _on_add_dist_path_button_pressed() -> void:
-	_create_path_entry("")
+	_create_path_entry("", true)
 	var new_line_edit = dist_path_grid_container.get_child(dist_path_grid_container.get_child_count() - 1).get_child(0)
-	_on_browse_asset_path_button_pressed(new_line_edit)
+	_on_browse_button_pressed(new_line_edit, true)
 
 func _on_header_button_pressed():
 	if not is_node_ready():
