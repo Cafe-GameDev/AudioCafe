@@ -379,6 +379,11 @@ func _on_add_assets_path_button_pressed() -> void:
 	_on_browse_button_pressed(new_line_edit, false)
 
 func _on_add_dist_path_button_pressed() -> void:
+	# Remove any existing dist path entries
+	if dist_path_grid_container:
+		for child in dist_path_grid_container.get_children():
+			child.queue_free()
+	
 	_create_path_entry("", true)
 	var new_line_edit = dist_path_grid_container.get_child(dist_path_grid_container.get_child_count() - 1).get_child(0)
 	_on_browse_button_pressed(new_line_edit, true)
