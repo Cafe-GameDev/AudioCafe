@@ -64,6 +64,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	group_panel = content_container.find_child(group_name, false)
 	if group_panel:
 		# If group_panel already exists, ensure its properties are updated
+		group_panel.editor_interface_ref = get_editor_interface()
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 		if not audio_config_res:
@@ -83,6 +84,8 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		group_panel = group_scene.instantiate()
 		content_container.add_child(group_panel)
 		group_panel.name = group_name
+		
+		group_panel.editor_interface_ref = get_editor_interface()
 
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
