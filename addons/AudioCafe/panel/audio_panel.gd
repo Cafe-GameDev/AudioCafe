@@ -100,13 +100,9 @@ func _on_header_button_pressed():
 	if _is_expanded:
 		collapsible_content_node.visible = true
 		tween.tween_property(collapsible_content_node, "custom_minimum_size:y", _expanded_height, 0.3)
-		header_button.text = "AudioCafe" 
-		header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowUp", "EditorIcons")
 	else:
 		tween.tween_property(collapsible_content_node, "custom_minimum_size:y", 0, 0.3)
 		tween.tween_callback(Callable(collapsible_content_node, "set_visible").bind(false))
-		header_button.text = "AudioCafe"
-		header_button.icon = editor_interface_ref.get_base_control().get_theme_icon("ArrowDown", "EditorIcons")
 
 func _on_generate_playlists_pressed() -> void:
 	pass
