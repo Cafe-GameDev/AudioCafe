@@ -168,7 +168,7 @@ func _on_volume_slider_value_changed(new_value: float, bus_name: String, value_l
 func _update_volume_label(label: Label, volume_value: float):
 	label.text = str(int(volume_value * 100)) + "%"
 
-func _create_path_entry(path_value: String, is_dist_path: bool = false):
+func _create_path_entry(path_value: String):
 	var path_entry = HBoxContainer.new()
 	path_entry.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 
@@ -176,25 +176,60 @@ func _create_path_entry(path_value: String, is_dist_path: bool = false):
 	line_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	line_edit.text = path_value
 	line_edit.placeholder_text = "res://path/to/folder"
-	line_edit.text_changed.connect(Callable(self, "_on_path_line_edit_text_changed").bind(line_edit, is_dist_path))
+	line_edit.text_changed.connect(Callable(self, "_on_asset_path_line_edit_text_changed").bind(line_edit))
 	path_entry.add_child(line_edit)
 
 	_validate_path_line_edit(line_edit)
 
 	var browse_button = Button.new()
 	browse_button.text = "..."
-	browse_button.pressed.connect(Callable(self, "_on_browse_button_pressed").bind(line_edit, is_dist_path))
+	browse_button.pressed.connect(Callable(self, "_on_browse_asset_path_button_pressed").bind(line_edit))
 	path_entry.add_child(browse_button)
 
 	var remove_button = Button.new()
 	remove_button.text = "X"
-	remove_button.pressed.connect(Callable(self, "_on_remove_path_button_pressed").bind(path_entry, is_dist_path))
+	remove_button.pressed.connect(Callable(self, "_on_remove_asset_path_button_pressed").bind(path_entry))
 	path_entry.add_child(remove_button)
 
-	if is_dist_path:
-		dist_path_grid_container.add_child(path_entry)
-	else:
-		assets_paths_grid_container.add_child(path_entry)
+	assets_paths_grid_container.add_child(path_entry)
+
+func _on_browse_asset_path_button_pressed(line_edit: LineEdit):
+	assets_folder_dialog.current_dir = line_edit.text if not line_edit.text.is_empty() else "res://"
+	assets_folder_dialog.popup_centered()
+	assets_folder_dialog.set_meta("target_line_edit", line_edit)
+
+func _on_assets_folder_dialog_dir_selected(dir: String):
+	var target_line_edit: LineEdit = assets_folder_dialog.get_meta("target_line_edit")
+	if target_line_edit:
+		var localized_path = ProjectSettings.localize_path(dir)
+		target_line_edit.text = localized_path
+		_update_audio_config_paths()
+
+func _on_dist_folder_dialog_dir_selected(dir: String):
+	var localized_path = ProjectSettings.localize_path(dir)
+	# Encontra o LineEdit do dist_path. Assumindo que ele é o primeiro filho do DistPathGridContainer
+	if dist_path_grid_container.get_child_count() > 0:
+		var path_entry = dist_path_grid_container.get_child(0)
+		if path_entry is HBoxContainer:
+			var line_edit: LineEdit = path_entry.get_child(0)
+			if line_edit:
+				line_edit.text = localized_path
+				audio_config.dist_path = localized_path
+				_validate_path_line_edit(line_edit)
+
+func _on_asset_path_line_edit_text_changed(new_text: String, line_edit: LineEdit):
+	_validate_path_line_edit(line_edit)
+	_update_audio_config_paths()
+
+func _on_add_assets_path_button_pressed():
+	_create_path_entry("")
+	# Abre o FileDialog imediatamente após adicionar a nova entrada
+	var new_line_edit = assets_paths_grid_container.get_child(assets_paths_grid_container.get_child_count() - 1).get_child(0)
+	_on_browse_asset_path_button_pressed(new_line_edit)
+
+func _on_add_dist_path_button_pressed() -> void:
+	dist_folder_dialog.current_dir = audio_config.dist_path if not audio_config.dist_path.is_empty() else "res://"
+	dist_folder_dialog.popup_centered()
 
 func _on_browse_button_pressed(line_edit: LineEdit, is_dist_path: bool):
 	if is_dist_path:
