@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8u1p14dtwv4j"]
 
-[ext_resource type="Script" uid="uid://d2qybkm7aby25" path="res://addons/AudioCafe/panel/audio_panel.gd" id="1_bf5yf"]
-[ext_resource type="Texture2D" uid="uid://dt7tscaiqmmyk" path="res://addons/AudioCafe/icons/refresh-cw.svg" id="2_1kouy"]
+[ext_resource type="Script" uid="uid://db2mvhlm1sjal" path="res://addons/AudioCafe/panel/audio_panel.gd" id="1_bf5yf"]
+[ext_resource type="Texture2D" uid="uid://cqdc43xlhe2rl" path="res://addons/AudioCafe/icons/refresh-cw.svg" id="2_1kouy"]
 [ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_1u6yf"]
 
 [node name="AudioPanel" type="VBoxContainer"]
