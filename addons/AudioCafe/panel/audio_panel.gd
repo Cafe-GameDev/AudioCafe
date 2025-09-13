@@ -28,7 +28,7 @@ const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-das
 
 const DOCS : String = "https://cafegame.dev/plugins/audiocafe"
 
-var generate_manifest_script_instance: EditorScript
+
 
 const VALID_COLOR = Color(1.0, 1.0, 1.0, 1.0)
 const INVALID_COLOR = Color(1.0, 0.2, 0.2, 1.0)
@@ -52,12 +52,7 @@ func _ready():
 	if not is_node_ready():
 		await ready
 
-	var manifest_script_res = load("res://addons/AudioCafe/scripts/generate_audio_manifest.gd")
-	if manifest_script_res:
-		generate_manifest_script_instance = manifest_script_res.new()
-	else:
-		push_error("generate_audio_manifest.gd script not found!")
-		return
+	
 	
 	if Engine.is_editor_hint():
 		_load_config_to_ui()
@@ -132,7 +127,7 @@ func _load_config_to_ui():
 	# ... (add logic for volume settings if they exist in the tscn)
 
 	# Update Playlists, Syncs, Interactives (from key_resource)
-	_update_generated_resources_ui()
+	
 	
 	print("--- Finished loading config to UI ---")
 
@@ -280,94 +275,13 @@ func _update_audio_config_paths():
 				new_assets_paths.append(line_edit.text)
 	audio_config.assets_paths = new_assets_paths
 
-func _on_generate_playlists_pressed() -> void:
-	if generate_manifest_script_instance:
-		gen_status_label.text = "Gerando Playlists..."
-		gen_status_label.visible = true
-		generate_playlists.disabled = true
 
-		generate_manifest_script_instance.connect("progress_updated", Callable(self, "_on_manifest_progress_updated"))
-		generate_manifest_script_instance.connect("generation_finished", Callable(self, "_on_manifest_generation_finished"))
 
-		generate_manifest_script_instance._run()
-	else:
-		push_error("generate_audio_manifest.gd script instance not available!")
 
-func _on_manifest_progress_updated(current: int, total: int):
-	# Assuming manifest_progress_bar exists in the tscn
-	# If not, this will cause an error. User needs to add it.
-	# For now, I'll assume it exists based on the law document.
-	if has_node("CollapsibleContent/ManifestProgressBar"):
-		var manifest_progress_bar = get_node("CollapsibleContent/ManifestProgressBar")
-		manifest_progress_bar.max_value = total
-		manifest_progress_bar.value = current
-		gen_status_label.text = "Gerando Playlists... (%d/%d)" % [current, total]
 
-func _on_manifest_generation_finished(success: bool, message: String):
-	# Assuming manifest_progress_bar exists in the tscn
-	if has_node("CollapsibleContent/ManifestProgressBar"):
-		get_node("CollapsibleContent/ManifestProgressBar").visible = false
-	generate_playlists.disabled = false
 
-	if success:
-		gen_status_label.text = "Playlists Geradas com Sucesso!"
-		_load_config_to_ui() # Recarrega a UI para mostrar as novas playlists
-	else:
-		gen_status_label.text = "Erro na Geração de Playlists: %s" % message
 
-	# Desconecta os sinais para evitar múltiplas conexões
-	if generate_manifest_script_instance.is_connected("progress_updated", Callable(self, "_on_manifest_progress_updated")):
-		generate_manifest_script_instance.disconnect("progress_updated", Callable(self, "_on_manifest_progress_updated"))
-	if generate_manifest_script_instance.is_connected("generation_finished", Callable(self, "_on_manifest_generation_finished")):
-		generate_manifest_script_instance.disconnect("generation_finished", Callable(self, "_on_manifest_generation_finished"))
 
-func _update_generated_resources_ui():
-	# Limpa as listas existentes
-	for child in playlists.get_children():
-		child.queue_free()
-	for child in synchronized.get_children():
-		child.queue_free()
-	for child in interactive.get_children():
-		child.queue_free()
-
-	if not audio_config or audio_config.key_resource.is_empty():
-		return
-
-	for key in audio_config.key_resource.keys():
-		var resource_path = audio_config.key_resource[key]
-		var resource = ResourceLoader.load(resource_path)
-		if resource:
-			if resource is AudioStreamPlaybackPlaylist:
-				_add_playlist_entry(key, resource_path)
-			# Adicionar lógica para AudioStreamSynchronized e AudioStreamPlaybackInteractive aqui
-		else:
-			push_error("Falha ao carregar recurso: %s" % resource_path)
-
-func _add_playlist_entry(key: String, path: String):
-	var hbox = HBoxContainer.new()
-	var label = Label.new()
-	label.text = key
-	hbox.add_child(label)
-
-	var generate_interactive_button = Button.new()
-	generate_interactive_button.text = "Gerar Interactive"
-	generate_interactive_button.pressed.connect(Callable(self, "_on_generate_interactive_pressed").bind(path))
-	hbox.add_child(generate_interactive_button)
-
-	var generate_synchronized_button = Button.new()
-	generate_synchronized_button.text = "Gerar Synchronized"
-	generate_synchronized_button.pressed.connect(Callable(self, "_on_generate_synchronized_pressed").bind(path))
-	hbox.add_child(generate_synchronized_button)
-
-	playlists.add_child(hbox)
-
-func _on_generate_interactive_pressed(playlist_path: String):
-	# Lógica para gerar AudioStreamPlaybackInteractive
-	print("Gerar Interactive a partir de: ", playlist_path)
-
-func _on_generate_synchronized_pressed(playlist_path: String):
-	# Lógica para gerar AudioStreamSynchronized
-	print("Gerar Synchronized a partir de: ", playlist_path)
 
 func _on_save_feedback_timer_timeout():
 	save_feedback_label.visible = false
