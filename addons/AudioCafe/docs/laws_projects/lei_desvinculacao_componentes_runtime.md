@@ -1,5 +1,3 @@
-@ -0,0 +1,24 @@
----
 **Projeto de Lei: Lei da Desvinculação de Componentes de Runtime**
 
 **Status:** Proposta

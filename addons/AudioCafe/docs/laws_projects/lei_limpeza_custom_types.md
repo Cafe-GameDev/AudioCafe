@@ -1,5 +1,3 @@
-@ -0,0 +1,25 @@
----
 **Projeto de Lei: Lei da Limpeza de Custom Types**
 
 **Status:** Proposta

@@ -1,6 +1,4 @@
-@ -0,0 +1,23 @@
----
-**Projeto de Lei: Lei da Exclusão do CafeAudioManager**
+=**Projeto de Lei: Lei da Exclusão do CafeAudioManager**
 
 **Status:** Proposta
 **Documento:** `docs/laws_projects/lei_exclusao_cafeaudiomanager.md`

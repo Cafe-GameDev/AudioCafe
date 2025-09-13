@@ -1,6 +1,4 @@
-@ -0,0 +1,25 @@
----
-**Projeto de Lei: Lei da Estabilização do Sistema Base**
+=**Projeto de Lei: Lei da Estabilização do Sistema Base**
 
 **Status:** Proposta
 **Documento:** `docs/laws_projects/lei_estabilizacao_sistema_base.md`

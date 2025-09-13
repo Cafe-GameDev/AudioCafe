@@ -1,6 +1,4 @@
-@ -0,0 +1,23 @@
----
-**Projeto de Lei: Lei da Exclusão de Nodes Personalizados**
+=**Projeto de Lei: Lei da Exclusão de Nodes Personalizados**
 
 **Status:** Proposta
 **Documento:** `docs/laws_projects/lei_exclusao_nodes_personalizados.md`

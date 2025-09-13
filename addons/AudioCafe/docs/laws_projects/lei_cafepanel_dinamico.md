@@ -1,5 +1,3 @@
-@ -0,0 +1,31 @@
----
 **Projeto de Lei: Lei do CafePanel Dinâmico**
 
 **Status:** Proposta
