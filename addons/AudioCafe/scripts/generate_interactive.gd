@@ -66,7 +66,7 @@ func _run():
 		# interactive_resource.add_clip(playlist.playlist[0]) # Exemplo de como adicionar clips, se a API permitir
 
 	var save_dir = audio_config.dist_path.path_join("interactives")
-	var interactive_save_path = save_dir.path_join(interactive_name.to_lower().replace(" ", "_") + ".tres")
+	var interactive_save_path = save_dir.path_join(interactive_name.to_lower().replace(" ", "_") + "_interactive.tres")
 
 	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
 		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))

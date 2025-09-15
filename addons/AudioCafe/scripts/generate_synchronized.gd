@@ -42,7 +42,7 @@ func _run():
 	synchronized_resource.base_stream = playlist # O AudioStreamSynchronized usa um AudioStream como base
 
 	var save_dir = audio_config.dist_path.path_join("synchronized")
-	var synchronized_save_path = save_dir.path_join(synchronized_name.to_lower().replace(" ", "_") + ".tres")
+	var synchronized_save_path = save_dir.path_join(synchronized_name.to_lower().replace(" ", "_") + "_sync.tres")
 
 	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
 		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))

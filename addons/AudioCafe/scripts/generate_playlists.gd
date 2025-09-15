@@ -64,7 +64,7 @@ func _process_asset_folder_to_playlist(asset_folder_path: String) -> bool:
 	if playlist_name.is_empty():
 		playlist_name = asset_folder_path.get_basename().to_lower().replace(" ", "_")
 
-	var playlist_save_path = audio_config.dist_path.path_join(playlist_name + ".tres")
+	var playlist_save_path = audio_config.dist_path.path_join(playlist_name + "_playlist.tres")
 	
 	var playlist_resource: AudioStreamPlaylist
 	if ResourceLoader.exists(playlist_save_path):
