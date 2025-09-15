@@ -56,6 +56,7 @@ func _count_audio_files_in_directory(current_path: String):
 
 func _process_asset_folder_to_playlist(asset_folder_path: String) -> bool:
 	var dir = DirAccess.open(asset_folder_path)
+	print("DEBUG: Tentando abrir diretório: %s" % asset_folder_path)
 	if not dir:
 		printerr("GeneratePlaylists: Falha ao abrir o diretório de assets: %s" % asset_folder_path)
 		return false
@@ -72,10 +73,10 @@ func _process_asset_folder_to_playlist(asset_folder_path: String) -> bool:
 		if not playlist_resource is AudioStreamPlaylist:
 			printerr("GeneratePlaylists: Recurso existente em %s não é um AudioStreamPlaybackPlaylist." % playlist_save_path)
 			playlist_resource = AudioStreamPlaylist.new()
-			playlist_resource.playlist = [] # Limpa se o tipo estiver incorreto
+			
 	else:
 		playlist_resource = AudioStreamPlaylist.new()
-		playlist_resource.playlist = []
+		
 
 	var audio_streams: Array[AudioStream] = []
 	_collect_audio_streams_from_directory(asset_folder_path, audio_streams)

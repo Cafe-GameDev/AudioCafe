@@ -386,6 +386,7 @@ func _on_generate_playlists_pressed():
 	var generator = GeneratePlaylists.new()
 	generator.audio_config = audio_config
 	generator.connect("generation_finished", Callable(self, "_on_playlists_generation_finished"))
+	print("DEBUG: Gerador de playlists configurado com assets_paths: %s" % audio_config.assets_paths)
 	generator._run()
 
 func _on_playlists_generation_finished(success: bool, message: String):
