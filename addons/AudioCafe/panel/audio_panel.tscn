@@ -31,7 +31,7 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(0, 34)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Generates the AudioManifest.tres file."
+tooltip_text = "Generates the key_playlist.tres file."
 text = "Generate Playlists"
 icon = ExtResource("2_1kouy")
 autowrap_mode = 3
@@ -98,17 +98,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 1
 
-[node name="Sync" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 10
-metadata/_tab_index = 2
 
-[node name="Interactive" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 10
-metadata/_tab_index = 3
 
 [node name="AssetsFolderDialog" type="FileDialog" parent="CollapsibleContent"]
 title = "Open a Directory"

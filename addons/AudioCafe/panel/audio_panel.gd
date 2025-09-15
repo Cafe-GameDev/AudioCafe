@@ -13,8 +13,7 @@ extends VBoxContainer
 @onready var add_dist_path_button: Button = $CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton
 
 @onready var playlists: VBoxContainer = $CollapsibleContent/TabContainer/Playlists
-@onready var synchronized: VBoxContainer = $CollapsibleContent/TabContainer/Sync
-@onready var interactive: VBoxContainer = $CollapsibleContent/TabContainer/Interactive
+
 
 @onready var assets_folder_dialog: FileDialog = $CollapsibleContent/AssetsFolderDialog
 @onready var dist_folder_dialog: FileDialog = $CollapsibleContent/DistFolderDialog
@@ -25,8 +24,7 @@ const ARROW_BIG_DOWN_DASH = preload("res://addons/AudioCafe/icons/arrow-big-down
 const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-dash.svg")
 
 const PLAYLIST_EDITOR_SCENE = preload("res://addons/AudioCafe/panel/playlist_editor.tscn")
-const SYNC_EDITOR_SCENE = preload("res://addons/AudioCafe/panel/sync_editor.tscn")
-const INTERACTIVE_EDITOR_SCENE = preload("res://addons/AudioCafe/panel/interactive_editor.tscn")
+
 
 @export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
 
@@ -143,10 +141,7 @@ func _load_config_to_ui():
 func _clear_resource_editors():
 	for child in playlists.get_children():
 		child.queue_free()
-	for child in synchronized.get_children():
-		child.queue_free()
-	for child in interactive.get_children():
-		child.queue_free()
+	
 
 func _load_resource_editors():
 	if not audio_config: return
@@ -163,14 +158,7 @@ func _load_resource_editors():
 			var editor = PLAYLIST_EDITOR_SCENE.instantiate()
 			editor.audio_stream_playlist = loaded_resource
 			playlists.add_child(editor)
-		elif loaded_resource is AudioStreamSynchronized:
-			var editor = SYNC_EDITOR_SCENE.instantiate()
-			editor.audio_stream_synchronized = loaded_resource
-			synchronized.add_child(editor)
-		elif loaded_resource is AudioStreamInteractive:
-			var editor = INTERACTIVE_EDITOR_SCENE.instantiate()
-			editor.audio_stream_interactive = loaded_resource
-			interactive.add_child(editor)
+		
 		else:
 			push_error("Unknown audio resource type for path: %s" % resource_path)
 

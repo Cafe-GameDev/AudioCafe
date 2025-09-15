@@ -61,9 +61,19 @@ func _process_asset_folder_to_playlist(asset_folder_path: String) -> bool:
 		printerr("GeneratePlaylists: Falha ao abrir o diretório de assets: %s" % asset_folder_path)
 		return false
 	
-	var playlist_name = asset_folder_path.get_file().to_lower().replace(" ", "_")
-	if playlist_name.is_empty():
-		playlist_name = asset_folder_path.get_basename().to_lower().replace(" ", "_")
+	var root_path_to_remove = ""
+	# Encontra o caminho raiz mais longo que corresponde
+	for p in audio_config.assets_paths:
+		if asset_folder_path.begins_with(p) and p.length() > root_path_to_remove.length():
+			root_path_to_remove = p
+
+	var relative_dir_path = asset_folder_path.replace(root_path_to_remove, "").trim_prefix("/").trim_suffix("/")
+	var playlist_name = ""
+
+	if not relative_dir_path.is_empty():
+		playlist_name = relative_dir_path.replace("/", "_").to_lower()
+	else:
+		playlist_name = asset_folder_path.get_basename().to_lower().replace(" ", "_") # Fallback if no meaningful directory structure
 
 	var playlist_save_path = audio_config.dist_path.path_join(playlist_name + "_playlist.tres")
 	
@@ -81,9 +91,11 @@ func _process_asset_folder_to_playlist(asset_folder_path: String) -> bool:
 	var audio_streams: Array[AudioStream] = []
 	_collect_audio_streams_from_directory(asset_folder_path, audio_streams)
 
-	playlist_resource.playlist = audio_streams
 	
-	var save_dir = playlist_save_path.get_base_dir()
+	
+	playlist_resource.stream_count = audio_streams.size()
+	for i in range(audio_streams.size()):
+		playlist_resource.set_list_stream(i, audio_streams[i])
 	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
 		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))
 
