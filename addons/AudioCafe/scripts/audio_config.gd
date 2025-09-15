@@ -22,6 +22,12 @@ signal config_changed
 			dist_path = value
 			_save_and_emit_changed()
 
+@export var key_resource: Dictionary = {}:
+	set(value):
+		if key_resource != value:
+			key_resource = value
+			_save_and_emit_changed()
+
 
 
 @export var default_click_key: String = "ui_click":

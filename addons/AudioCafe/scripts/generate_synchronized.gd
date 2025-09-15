@@ -31,7 +31,7 @@ func _run():
 		return
 
 	var playlist = ResourceLoader.load(playlist_path)
-	if not playlist is AudioStreamPlaybackPlaylist:
+	if not playlist is AudioStreamPlaylist:
 		printerr("GenerateSynchronized: Recurso em %s não é um AudioStreamPlaybackPlaylist válido." % playlist_path)
 		success = false
 		message = "Recurso inválido para a chave de playlist: %s" % playlist_key
@@ -44,9 +44,8 @@ func _run():
 	var save_dir = audio_config.dist_path.path_join("synchronized")
 	var synchronized_save_path = save_dir.path_join(synchronized_name.to_lower().replace(" ", "_") + ".tres")
 
-	var dir_access = DirAccess.new()
-	if not dir_access.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
-		dir_access.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))
+	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))
 
 	var error = ResourceSaver.save(synchronized_resource, synchronized_save_path)
 	if error != OK:

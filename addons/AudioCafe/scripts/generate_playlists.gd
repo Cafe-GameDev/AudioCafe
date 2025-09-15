@@ -13,7 +13,7 @@ var _files_scanned = 0
 func _run():
 	_total_files_to_scan = 0
 	_files_scanned = 0
-	audio_config.key_resource = {} # Limpa o mapeamento antes de gerar
+	# audio_config.key_resource = {} # Não limpar aqui, pois pode conter outros tipos de recursos
 
 	print("Generating AudioStreamPlaybackPlaylists...")
 	
@@ -66,15 +66,15 @@ func _process_asset_folder_to_playlist(asset_folder_path: String) -> bool:
 
 	var playlist_save_path = audio_config.dist_path.path_join(playlist_name + ".tres")
 	
-	var playlist_resource: AudioStreamPlaybackPlaylist
+	var playlist_resource: AudioStreamPlaylist
 	if ResourceLoader.exists(playlist_save_path):
 		playlist_resource = ResourceLoader.load(playlist_save_path)
-		if not playlist_resource is AudioStreamPlaybackPlaylist:
+		if not playlist_resource is AudioStreamPlaylist:
 			printerr("GeneratePlaylists: Recurso existente em %s não é um AudioStreamPlaybackPlaylist." % playlist_save_path)
-			playlist_resource = AudioStreamPlaybackPlaylist.new()
+			playlist_resource = AudioStreamPlaylist.new()
 			playlist_resource.playlist = [] # Limpa se o tipo estiver incorreto
 	else:
-		playlist_resource = AudioStreamPlaybackPlaylist.new()
+		playlist_resource = AudioStreamPlaylist.new()
 		playlist_resource.playlist = []
 
 	var audio_streams: Array[AudioStream] = []
@@ -82,10 +82,9 @@ func _process_asset_folder_to_playlist(asset_folder_path: String) -> bool:
 
 	playlist_resource.playlist = audio_streams
 	
-	var dir_access = DirAccess.new()
 	var save_dir = playlist_save_path.get_base_dir()
-	if not dir_access.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
-		dir_access.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))
+	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))
 
 	var error = ResourceSaver.save(playlist_resource, playlist_save_path)
 	if error != OK:

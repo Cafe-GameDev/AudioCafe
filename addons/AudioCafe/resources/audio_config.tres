@@ -7,7 +7,6 @@ script = ExtResource("1_ufiej")
 is_panel_expanded = true
 assets_paths = Array[String](["res://assets/"])
 dist_path = "res://dist/"
-key_resource = {}
 default_click_key = "ui_click"
 default_hover_key = "ui_rollover"
 default_slider_key = "ui_slider_changed"

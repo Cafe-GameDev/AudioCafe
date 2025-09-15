@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://0kp7rnsg2l8y" path="res://addons/AudioCafe/icons/arrow-big-up-dash.svg" id="2_o1mfy"]
 
 [node name="AudioPanel" type="VBoxContainer"]
-offset_right = 460.0
-offset_bottom = 384.0
+offset_right = 333.0
+offset_bottom = 363.0
 script = ExtResource("1_bf5yf")
 
 [node name="HeaderButton" type="Button" parent="."]
@@ -112,7 +112,6 @@ metadata/_tab_index = 3
 
 [node name="AssetsFolderDialog" type="FileDialog" parent="CollapsibleContent"]
 title = "Open a Directory"
-always_on_top = true
 popup_window = true
 ok_button_text = "Select Current Folder"
 file_mode = 2
@@ -120,7 +119,6 @@ access = 2
 
 [node name="DistFolderDialog" type="FileDialog" parent="CollapsibleContent"]
 title = "Open a Directory"
-always_on_top = true
 popup_window = true
 ok_button_text = "Select Current Folder"
 file_mode = 2

@@ -20,7 +20,7 @@ func _run():
 		emit_signal("generation_finished", success, message)
 		return
 
-	var interactive_resource = AudioStreamPlaybackInteractive.new()
+	var interactive_resource = AudioStreamInteractive.new()
 	var loaded_playlists: Array[AudioStreamPlaybackPlaylist] = []
 
 	for key in playlist_keys:
@@ -68,9 +68,8 @@ func _run():
 	var save_dir = audio_config.dist_path.path_join("interactives")
 	var interactive_save_path = save_dir.path_join(interactive_name.to_lower().replace(" ", "_") + ".tres")
 
-	var dir_access = DirAccess.new()
-	if not dir_access.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
-		dir_access.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))
+	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(save_dir)):
+		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(save_dir))
 
 	var error = ResourceSaver.save(interactive_resource, interactive_save_path)
 	if error != OK:

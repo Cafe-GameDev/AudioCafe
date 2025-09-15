@@ -24,6 +24,10 @@ extends VBoxContainer
 const ARROW_BIG_DOWN_DASH = preload("res://addons/AudioCafe/icons/arrow-big-down-dash.svg")
 const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-dash.svg")
 
+const PLAYLIST_EDITOR_SCENE = preload("res://addons/AudioCafe/panel/playlist_editor.tscn")
+const SYNC_EDITOR_SCENE = preload("res://addons/AudioCafe/panel/sync_editor.tscn")
+const INTERACTIVE_EDITOR_SCENE = preload("res://addons/AudioCafe/panel/interactive_editor.tscn")
+
 @export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
 
 const DOCS : String = "https://cafegame.dev/plugins/audiocafe"
@@ -59,10 +63,14 @@ func _ready():
 		call_deferred("_initialize_panel_state")
 		
 		
-		add_assets_path_button.pressed.connect(Callable(self, "_on_add_assets_path_button_pressed"))
-		add_dist_path_button.pressed.connect(Callable(self, "_on_add_dist_path_button_pressed"))
-		assets_folder_dialog.dir_selected.connect(Callable(self, "_on_assets_folder_dialog_dir_selected"))
-		dist_folder_dialog.dir_selected.connect(Callable(self, "_on_dist_folder_dialog_dir_selected"))
+		if not add_assets_path_button.pressed.is_connected(Callable(self, "_on_add_assets_path_button_pressed")):
+			add_assets_path_button.pressed.connect(Callable(self, "_on_add_assets_path_button_pressed"))
+		if not add_dist_path_button.pressed.is_connected(Callable(self, "_on_add_dist_path_button_pressed")):
+			add_dist_path_button.pressed.connect(Callable(self, "_on_add_dist_path_button_pressed"))
+		if not assets_folder_dialog.dir_selected.is_connected(Callable(self, "_on_assets_folder_dialog_dir_selected")):
+			assets_folder_dialog.dir_selected.connect(Callable(self, "_on_assets_folder_dialog_dir_selected"))
+		if not dist_folder_dialog.dir_selected.is_connected(Callable(self, "_on_dist_folder_dialog_dir_selected")):
+			dist_folder_dialog.dir_selected.connect(Callable(self, "_on_dist_folder_dialog_dir_selected"))
 
 func _initialize_panel_state():
 	if not has_node("HeaderButton") or not has_node("CollapsibleContent"):
@@ -127,9 +135,44 @@ func _load_config_to_ui():
 	# ... (add logic for volume settings if they exist in the tscn)
 
 	# Update Playlists, Syncs, Interactives (from key_resource)
-	
+	_clear_resource_editors()
+	_load_resource_editors()
 	
 	print("--- Finished loading config to UI ---")
+
+func _clear_resource_editors():
+	for child in playlists.get_children():
+		child.queue_free()
+	for child in synchronized.get_children():
+		child.queue_free()
+	for child in interactive.get_children():
+		child.queue_free()
+
+func _load_resource_editors():
+	if not audio_config: return
+
+	for key in audio_config.key_resource.keys():
+		var resource_path = audio_config.key_resource[key]
+		var loaded_resource = ResourceLoader.load(resource_path)
+
+		if not loaded_resource:
+			push_error("Failed to load resource at path: %s" % resource_path)
+			continue
+
+		if loaded_resource is AudioStreamPlaylist:
+			var editor = PLAYLIST_EDITOR_SCENE.instantiate()
+			editor.audio_stream_playlist = loaded_resource
+			playlists.add_child(editor)
+		elif loaded_resource is AudioStreamSynchronized:
+			var editor = SYNC_EDITOR_SCENE.instantiate()
+			editor.audio_stream_synchronized = loaded_resource
+			synchronized.add_child(editor)
+		elif loaded_resource is AudioStreamInteractive:
+			var editor = INTERACTIVE_EDITOR_SCENE.instantiate()
+			editor.audio_stream_interactive = loaded_resource
+			interactive.add_child(editor)
+		else:
+			push_error("Unknown audio resource type for path: %s" % resource_path)
 
 func _on_config_text_changed(new_text: String, config_property: String):
 	if audio_config:
@@ -333,3 +376,23 @@ func _on_header_button_pressed():
 
 func _on_docs_button_pressed() -> void:
 	OS.shell_open(DOCS)
+
+func _on_generate_playlists_pressed():
+	if not audio_config: return
+
+	gen_status_label.visible = true
+	gen_status_label.text = "Gerando playlists..."
+
+	var generator = GeneratePlaylists.new()
+	generator.audio_config = audio_config
+	generator.connect("generation_finished", Callable(self, "_on_playlists_generation_finished"))
+	generator._run()
+
+func _on_playlists_generation_finished(success: bool, message: String):
+	if success:
+		gen_status_label.text = "Playlists geradas com sucesso!"
+		_load_config_to_ui() # Recarrega a UI para mostrar as novas playlists
+	else:
+		gen_status_label.text = "Erro ao gerar playlists: %s" % message
+
+	save_feedback_timer.start() # Usa o timer de feedback para esconder a mensagem após um tempo

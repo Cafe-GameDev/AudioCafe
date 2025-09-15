@@ -18,13 +18,20 @@ https://godotengine.org/article/release-candidate-godot-4-5-rc-2/
 
 https://www.youtube.com/watch?v=fMe7ZZt0Ca8
 
+
+https://godotengine.org/releases/4.3/
+
 https://docs.godotengine.org/en/4.4/classes/index.html
 
-https://docs.godotengine.org/en/4.4/classes/class_audiostreamplaybackplaylist.html
+https://docs.godotengine.org/en/4.4/tutorials/audio/audio_streams.html
+
+https://docs.godotengine.org/en/4.4/classes/class_audiostream.html
+
+https://docs.godotengine.org/en/4.4/classes/class_audiostreamplaylist.html
 
 https://docs.godotengine.org/en/4.4/classes/class_audiostreamsynchronized.html
 
-https://docs.godotengine.org/en/4.4/classes/class_audiostreamplaybackinteractive.html
+https://docs.godotengine.org/en/4.4/classes/class_audiostreaminteractive.html
 
 
 resonate é o nosso maior concorrente
