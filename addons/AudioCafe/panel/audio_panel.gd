@@ -1,5 +1,6 @@
 @tool
 extends VBoxContainer
+class_name AudioPanel
 
 @onready var header_button: Button = $HeaderButton
 @onready var generate_playlists: Button = $CollapsibleContent/HBoxContainer/GeneratePlaylists
