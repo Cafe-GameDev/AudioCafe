@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://dyu7tkn7kb2it"]
+
+[ext_resource type="AudioStream" uid="uid://5vtltwpke401" path="res://addons/AudioCafe/assets/sfx/interface/back/back_001.ogg" id="1_4qiyb"]
+[ext_resource type="AudioStream" uid="uid://bfv3mk5imo5ax" path="res://addons/AudioCafe/assets/sfx/interface/back/back_002.ogg" id="2_0c51e"]
+[ext_resource type="AudioStream" uid="uid://fj6f3l5e0cxm" path="res://addons/AudioCafe/assets/sfx/interface/back/back_003.ogg" id="3_fu2ov"]
+[ext_resource type="AudioStream" uid="uid://bc4c6m6o18073" path="res://addons/AudioCafe/assets/sfx/interface/back/back_004.ogg" id="4_ohji1"]
+
+[resource]
+stream_count = 4
+stream_0 = ExtResource("1_4qiyb")
+stream_1 = ExtResource("2_0c51e")
+stream_2 = ExtResource("3_fu2ov")
+stream_3 = ExtResource("4_ohji1")

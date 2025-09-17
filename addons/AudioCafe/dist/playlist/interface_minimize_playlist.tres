@@ -1,0 +1,23 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=10 format=3 uid="uid://bt7pljjvgeb0r"]
+
+[ext_resource type="AudioStream" uid="uid://bf8sr308sr7kd" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_001.ogg" id="1_52ulf"]
+[ext_resource type="AudioStream" uid="uid://befpbnr2rnr7u" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_002.ogg" id="2_18hto"]
+[ext_resource type="AudioStream" uid="uid://bch5pj3pxf1vc" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_003.ogg" id="3_isn65"]
+[ext_resource type="AudioStream" uid="uid://chg7rouf1cj7i" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_004.ogg" id="4_wo4s6"]
+[ext_resource type="AudioStream" uid="uid://chcid8dy0622g" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_005.ogg" id="5_t5xmn"]
+[ext_resource type="AudioStream" uid="uid://d13dpmuvhnabk" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_006.ogg" id="6_7tciw"]
+[ext_resource type="AudioStream" uid="uid://cwl0kbyy35h0h" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_007.ogg" id="7_4syvk"]
+[ext_resource type="AudioStream" uid="uid://bq2lwkfo3dksr" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_008.ogg" id="8_fhqcl"]
+[ext_resource type="AudioStream" uid="uid://citp1u85xocbl" path="res://addons/AudioCafe/assets/sfx/interface/minimize/minimize_009.ogg" id="9_cs7h4"]
+
+[resource]
+stream_count = 9
+stream_0 = ExtResource("1_52ulf")
+stream_1 = ExtResource("2_18hto")
+stream_2 = ExtResource("3_isn65")
+stream_3 = ExtResource("4_wo4s6")
+stream_4 = ExtResource("5_t5xmn")
+stream_5 = ExtResource("6_7tciw")
+stream_6 = ExtResource("7_4syvk")
+stream_7 = ExtResource("8_fhqcl")
+stream_8 = ExtResource("9_cs7h4")

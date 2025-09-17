@@ -1,0 +1,39 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://5o5qts6kuoy1"]
+
+[ext_resource type="AudioStream" uid="uid://cu887s2ebskf0" path="res://assets/music/Steel_jingles/jingles_steel_0.ogg" id="1_wsdgc"]
+[ext_resource type="AudioStream" uid="uid://q6u8sg48pl1i" path="res://assets/music/Steel_jingles/jingles_steel_1.ogg" id="2_n3b4r"]
+[ext_resource type="AudioStream" uid="uid://cmg2tf5cuq7hm" path="res://assets/music/Steel_jingles/jingles_steel_3.ogg" id="3_m2gw7"]
+[ext_resource type="AudioStream" uid="uid://cdc1jfmblw4al" path="res://assets/music/Steel_jingles/jingles_steel_4.ogg" id="4_r1bio"]
+[ext_resource type="AudioStream" uid="uid://c6q2o7kuqhkb" path="res://assets/music/Steel_jingles/jingles_steel_5.ogg" id="5_nxe6y"]
+[ext_resource type="AudioStream" uid="uid://bo6syd3yons1p" path="res://assets/music/Steel_jingles/jingles_steel_6.ogg" id="6_uy1s1"]
+[ext_resource type="AudioStream" uid="uid://ddwd5tcvmkqi7" path="res://assets/music/Steel_jingles/jingles_steel_7.ogg" id="7_1jik6"]
+[ext_resource type="AudioStream" uid="uid://cpcp22w0k5j5s" path="res://assets/music/Steel_jingles/jingles_steel_8.ogg" id="8_ne2cr"]
+[ext_resource type="AudioStream" uid="uid://ckbbveinfi7oc" path="res://assets/music/Steel_jingles/jingles_steel_9.ogg" id="9_x5jow"]
+[ext_resource type="AudioStream" uid="uid://dgpfm6m5ksgla" path="res://assets/music/Steel_jingles/jingles_steel_10.ogg" id="10_uvm6a"]
+[ext_resource type="AudioStream" uid="uid://cuvo76bkdtiyg" path="res://assets/music/Steel_jingles/jingles_steel_11.ogg" id="11_wg4ha"]
+[ext_resource type="AudioStream" uid="uid://di6idnfr0uw2s" path="res://assets/music/Steel_jingles/jingles_steel_12.ogg" id="12_r6p8h"]
+[ext_resource type="AudioStream" uid="uid://te0n17ykecvt" path="res://assets/music/Steel_jingles/jingles_steel_13.ogg" id="13_1l2hk"]
+[ext_resource type="AudioStream" uid="uid://dnnxmnd7htap7" path="res://assets/music/Steel_jingles/jingles_steel_14.ogg" id="14_qc277"]
+[ext_resource type="AudioStream" uid="uid://c5mcjo8mgnf17" path="res://assets/music/Steel_jingles/jingles_steel_15.ogg" id="15_pdspw"]
+[ext_resource type="AudioStream" uid="uid://gyr3xl77xodl" path="res://assets/music/Steel_jingles/jingles_steel_16.ogg" id="16_0exgi"]
+[ext_resource type="AudioStream" uid="uid://brjdvqm1tc57g" path="res://assets/music/Steel_jingles/jingles_steel_2.ogg" id="17_7baek"]
+
+[resource]
+stream_count = 17
+stream_0 = ExtResource("1_wsdgc")
+stream_1 = ExtResource("2_n3b4r")
+stream_2 = ExtResource("10_uvm6a")
+stream_3 = ExtResource("11_wg4ha")
+stream_4 = ExtResource("12_r6p8h")
+stream_5 = ExtResource("13_1l2hk")
+stream_6 = ExtResource("14_qc277")
+stream_7 = ExtResource("15_pdspw")
+stream_8 = ExtResource("16_0exgi")
+stream_9 = ExtResource("17_7baek")
+stream_10 = ExtResource("3_m2gw7")
+stream_11 = ExtResource("4_r1bio")
+stream_12 = ExtResource("5_nxe6y")
+stream_13 = ExtResource("6_uy1s1")
+stream_14 = ExtResource("7_1jik6")
+stream_15 = ExtResource("8_ne2cr")
+stream_16 = ExtResource("9_x5jow")

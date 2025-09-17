@@ -1,0 +1,19 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=8 format=3 uid="uid://c7dqiiasmpulr"]
+
+[ext_resource type="AudioStream" uid="uid://cevaeops3s4j" path="res://addons/AudioCafe/assets/sfx/interface/switch/switch_001.ogg" id="1_81yrc"]
+[ext_resource type="AudioStream" uid="uid://c01artigcueb7" path="res://addons/AudioCafe/assets/sfx/interface/switch/switch_002.ogg" id="2_hb74i"]
+[ext_resource type="AudioStream" uid="uid://djif0wkrx13jr" path="res://addons/AudioCafe/assets/sfx/interface/switch/switch_003.ogg" id="3_6qooi"]
+[ext_resource type="AudioStream" uid="uid://drj0vof5txc0e" path="res://addons/AudioCafe/assets/sfx/interface/switch/switch_004.ogg" id="4_25iuu"]
+[ext_resource type="AudioStream" uid="uid://iyhp1p4r2v2a" path="res://addons/AudioCafe/assets/sfx/interface/switch/switch_005.ogg" id="5_7qawt"]
+[ext_resource type="AudioStream" uid="uid://bbagvcj181mtg" path="res://addons/AudioCafe/assets/sfx/interface/switch/switch_006.ogg" id="6_q20g2"]
+[ext_resource type="AudioStream" uid="uid://d0k7hp2wcikkb" path="res://addons/AudioCafe/assets/sfx/interface/switch/switch_007.ogg" id="7_2g22p"]
+
+[resource]
+stream_count = 7
+stream_0 = ExtResource("1_81yrc")
+stream_1 = ExtResource("2_hb74i")
+stream_2 = ExtResource("3_6qooi")
+stream_3 = ExtResource("4_25iuu")
+stream_4 = ExtResource("5_7qawt")
+stream_5 = ExtResource("6_q20g2")
+stream_6 = ExtResource("7_2g22p")

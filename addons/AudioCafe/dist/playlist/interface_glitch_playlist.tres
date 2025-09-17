@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://cxf1ltaevdt2x"]
+
+[ext_resource type="AudioStream" uid="uid://c64o6nv8db7f5" path="res://addons/AudioCafe/assets/sfx/interface/glitch/glitch_001.ogg" id="1_h7t5c"]
+[ext_resource type="AudioStream" uid="uid://dtoha4bevld75" path="res://addons/AudioCafe/assets/sfx/interface/glitch/glitch_002.ogg" id="2_7xi15"]
+[ext_resource type="AudioStream" uid="uid://4b13r66iqduj" path="res://addons/AudioCafe/assets/sfx/interface/glitch/glitch_003.ogg" id="3_uyrl2"]
+[ext_resource type="AudioStream" uid="uid://vu6pv1arudf8" path="res://addons/AudioCafe/assets/sfx/interface/glitch/glitch_004.ogg" id="4_rk3qw"]
+
+[resource]
+stream_count = 4
+stream_0 = ExtResource("1_h7t5c")
+stream_1 = ExtResource("2_7xi15")
+stream_2 = ExtResource("3_uyrl2")
+stream_3 = ExtResource("4_rk3qw")

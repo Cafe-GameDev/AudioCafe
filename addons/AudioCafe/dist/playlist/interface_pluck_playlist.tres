@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=3 format=3 uid="uid://0pp0dnaoyb01"]
+
+[ext_resource type="AudioStream" uid="uid://b5jxthu1meahw" path="res://addons/AudioCafe/assets/sfx/interface/pluck/pluck_001.ogg" id="1_56pvn"]
+[ext_resource type="AudioStream" uid="uid://cg12sqbmrjt4g" path="res://addons/AudioCafe/assets/sfx/interface/pluck/pluck_002.ogg" id="2_ugamx"]
+
+[resource]
+stream_count = 2
+stream_0 = ExtResource("1_56pvn")
+stream_1 = ExtResource("2_ugamx")

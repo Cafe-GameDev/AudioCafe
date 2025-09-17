@@ -1,0 +1,21 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=9 format=3 uid="uid://cb3ufaodw21c3"]
+
+[ext_resource type="AudioStream" uid="uid://cv3cy6710xbau" path="res://assets/sfx/interface/error/error_001.ogg" id="1_124ei"]
+[ext_resource type="AudioStream" uid="uid://b5okqhqcdb4c3" path="res://assets/sfx/interface/error/error_002.ogg" id="2_danpx"]
+[ext_resource type="AudioStream" uid="uid://da83xpppug0du" path="res://assets/sfx/interface/error/error_003.ogg" id="3_nfjym"]
+[ext_resource type="AudioStream" uid="uid://j1dst30cf48h" path="res://assets/sfx/interface/error/error_004.ogg" id="4_orwhg"]
+[ext_resource type="AudioStream" uid="uid://bhsot1uq4m5yh" path="res://assets/sfx/interface/error/error_005.ogg" id="5_5dba1"]
+[ext_resource type="AudioStream" uid="uid://cswfni3xf4i6p" path="res://assets/sfx/interface/error/error_006.ogg" id="6_vis47"]
+[ext_resource type="AudioStream" uid="uid://8rgp7klx2lk6" path="res://assets/sfx/interface/error/error_007.ogg" id="7_23485"]
+[ext_resource type="AudioStream" uid="uid://des83vva6hx6g" path="res://assets/sfx/interface/error/error_008.ogg" id="8_v6fsv"]
+
+[resource]
+stream_count = 8
+stream_0 = ExtResource("1_124ei")
+stream_1 = ExtResource("2_danpx")
+stream_2 = ExtResource("3_nfjym")
+stream_3 = ExtResource("4_orwhg")
+stream_4 = ExtResource("5_5dba1")
+stream_5 = ExtResource("6_vis47")
+stream_6 = ExtResource("7_23485")
+stream_7 = ExtResource("8_v6fsv")
