@@ -22,6 +22,20 @@ signal config_changed
 			dist_path = value
 			_save_and_emit_changed()
 
+func get_playlist_save_path() -> String:
+	return dist_path.trim_suffix("/") + "/playlist/"
+
+func get_randomized_save_path() -> String:
+	return dist_path.trim_suffix("/") + "/randomized/"
+
+func get_interactive_save_path() -> String:
+	return dist_path.trim_suffix("/") + "/interactive/"
+
+func get_synchronized_save_path() -> String:
+	return dist_path.trim_suffix("/") + "/synchronized/"
+
+
+
 
 
 
