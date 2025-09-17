@@ -157,7 +157,7 @@ func _load_playlists_to_ui():
 			playlists_text += "%s\n" % key
 
 	if playlists_text.is_empty():
-		playlists_text = "Nenhum stream de áudio gerado ainda. Clique em 'Generate Playlists' para começar."
+		playlists_text = "Nenhuma playlist encontrada."
 
 	playlist_rich_text_label.bbcode_text = playlists_text
 

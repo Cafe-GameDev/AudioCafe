@@ -146,8 +146,7 @@ metadata/_tab_index = 2
 
 [node name="InteractiveRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Interactive"]
 layout_mode = 2
-text = "Interactive Streams:
-new_audio_stream_interactive
+text = "new_audio_stream_interactive
 "
 fit_content = true
 
