@@ -25,7 +25,7 @@ Esta lei estabelece a reestruturação do `AudioManifest` para acomodar e catego
 
 ### **Artigo II: Atualização da Lógica de Geração**
 
-1.  **GenerateAudioManifest:** O script `generate_audio_manifest.gd` será atualizado para popular corretamente os novos dicionários no `AudioManifest` durante o processo de geração, identificando o tipo de recurso e sua categoria (música ou SFX, quando aplicável).
+1.  **GenerateAudioManifest:** O script `generate_audio_manifest.gd` será atualizado para popular corretamente os novos dicionários no `AudioManifest` durante o processo de geração, identificando o tipo de recurso e sua categoria (música ou SFX, quando aplicável). Além disso, o `GenerateAudioManifest` utilizará os caminhos de salvamento definidos no `AudioConfig` para determinar onde os recursos serão salvos.
 2.  **Remoção de Playlists Convertidas:** Quando uma `AudioStreamPlaylist` for convertida para `AudioStreamRandomized`, a entrada correspondente em `music_playlists` ou `sfx_playlists` será removida, e a nova entrada será adicionada em `randomized_streams`.
 
 ---
