@@ -1,0 +1,17 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=7 format=3 uid="uid://dfgqr1lhtbj5w"]
+
+[ext_resource type="AudioStream" uid="uid://bjxgcfsu4kui0" path="res://assets/sfx/ui/rollover/rollover1.ogg" id="1_bl007"]
+[ext_resource type="AudioStream" uid="uid://dkbdukvsw03em" path="res://assets/sfx/ui/rollover/rollover2.ogg" id="2_17qy6"]
+[ext_resource type="AudioStream" uid="uid://ccm8k0c7mhay5" path="res://assets/sfx/ui/rollover/rollover3.ogg" id="3_21dfi"]
+[ext_resource type="AudioStream" uid="uid://er2vxmewlxt1" path="res://assets/sfx/ui/rollover/rollover4.ogg" id="4_slm1q"]
+[ext_resource type="AudioStream" uid="uid://dta5r4bs4bkiu" path="res://assets/sfx/ui/rollover/rollover5.ogg" id="5_blpir"]
+[ext_resource type="AudioStream" uid="uid://cdjb8b85erht6" path="res://assets/sfx/ui/rollover/rollover6.ogg" id="6_04rvf"]
+
+[resource]
+stream_count = 6
+stream_0 = ExtResource("1_bl007")
+stream_1 = ExtResource("2_17qy6")
+stream_2 = ExtResource("3_21dfi")
+stream_3 = ExtResource("4_slm1q")
+stream_4 = ExtResource("5_blpir")
+stream_5 = ExtResource("6_04rvf")
