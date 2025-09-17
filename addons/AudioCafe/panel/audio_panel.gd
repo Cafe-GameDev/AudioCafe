@@ -12,7 +12,8 @@ extends VBoxContainer
 @onready var add_assets_path_button: Button = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AddAssetsPathButton
 @onready var add_dist_path_button: Button = $CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton
 
-@onready var playlists: VBoxContainer = $CollapsibleContent/TabContainer/Playlists
+@onready var playlists_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Playlists
+@onready var playlist_grid_container: GridContainer = $CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer
 
 
 @onready var assets_folder_dialog: FileDialog = $CollapsibleContent/AssetsFolderDialog
@@ -22,6 +23,9 @@ extends VBoxContainer
 
 const ARROW_BIG_DOWN_DASH = preload("res://addons/AudioCafe/icons/arrow-big-down-dash.svg")
 const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-dash.svg")
+const ICON_RANDOMIZED = preload("res://addons/AudioCafe/icons/shuffle.svg")
+const ICON_SYNCHRONIZED = preload("res://addons/AudioCafe/icons/boxes.svg")
+const ICON_INTERACTIVE = preload("res://addons/AudioCafe/icons/clapperboard.svg")
 
 
 
@@ -128,14 +132,59 @@ func _load_config_to_ui():
 			child.queue_free()
 		_create_path_entry(audio_config.dist_path, true)
 
-	# Load Default Keys (assuming these are still in the tscn)
-	# ... (add logic for default keys if they exist in the tscn)
-
-	# Load Volume Settings (assuming these are still in the tscn)
-	# ... (add logic for volume settings if they exist in the tscn)
+	_load_playlists_to_ui()
 
 	print("--- Finished loading config to UI ---
 ")
+
+func _load_playlists_to_ui():
+	if not playlist_grid_container: return
+
+	for child in playlist_grid_container.get_children():
+		child.queue_free()
+
+	var audio_manifest = load(AUDIO_MANIFEST_PATH)
+	if not audio_manifest:
+		push_error("AudioManifest não encontrado em: " + AUDIO_MANIFEST_PATH)
+		return
+
+	for key in audio_manifest.playlists.keys():
+		var playlist_name_label = Label.new()
+		playlist_name_label.text = key
+		playlist_name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		playlist_grid_container.add_child(playlist_name_label)
+
+		var button_hbox = HBoxContainer.new()
+		
+		var randomized_button = Button.new()
+		randomized_button.tooltip_text = "Randomized"
+		randomized_button.icon = ICON_RANDOMIZED
+		randomized_button.pressed.connect(Callable(self, "_on_randomized_button_pressed").bind(key, audio_manifest.playlists[key]))
+		button_hbox.add_child(randomized_button)
+
+		var synchronized_button = Button.new()
+		synchronized_button.tooltip_text = "Synchronized"
+		synchronized_button.icon = ICON_SYNCHRONIZED
+		synchronized_button.pressed.connect(Callable(self, "_on_synchronized_button_pressed").bind(key, audio_manifest.playlists[key]))
+		button_hbox.add_child(synchronized_button)
+
+		var interactive_button = Button.new()
+		interactive_button.tooltip_text = "Interactive"
+		interactive_button.icon = ICON_INTERACTIVE
+		interactive_button.pressed.connect(Callable(self, "_on_interactive_button_pressed").bind(key, audio_manifest.playlists[key]))
+		button_hbox.add_child(interactive_button)
+		
+		playlist_grid_container.add_child(button_hbox)
+
+func _on_randomized_button_pressed(key: String, path: String):
+	print("Botão Randomized pressionado para: %s (%s)" % [key, path])
+
+func _on_synchronized_button_pressed(key: String, path: String):
+	print("Botão Synchronized pressionado para: %s (%s)" % [key, path])
+
+func _on_interactive_button_pressed(key: String, path: String):
+	print("Botão Interactive pressionado para: %s (%s)" % [key, path])
+
 
 func _on_config_text_changed(new_text: String, config_property: String):
 	if audio_config:

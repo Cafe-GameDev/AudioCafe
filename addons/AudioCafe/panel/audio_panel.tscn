@@ -64,10 +64,11 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="CollapsibleContent"]
 layout_mode = 2
 size_flags_vertical = 0
-current_tab = 0
+current_tab = 1
 tabs_rearrange_group = 0
 
 [node name="Settings" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 232)
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -102,7 +103,6 @@ layout_mode = 2
 text = "Add Dist Path"
 
 [node name="Playlists" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 1
@@ -112,32 +112,6 @@ layout_direction = 2
 layout_mode = 2
 theme_override_constants/h_separation = 10
 columns = 2
-
-[node name="Label" type="Label" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "music_8-bit_jingles"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Randomized"
-toggle_mode = true
-icon = ExtResource("6_e2q5v")
-
-[node name="Button2" type="Button" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Syncronized"
-toggle_mode = true
-icon = ExtResource("7_ca2om")
-
-[node name="Button3" type="Button" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer/HBoxContainer"]
-layout_mode = 2
-tooltip_text = "Interactive"
-toggle_mode = true
-icon = ExtResource("8_jwa4r")
 
 [node name="Sync" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
 visible = false
