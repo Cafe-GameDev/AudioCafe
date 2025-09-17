@@ -25,3 +25,10 @@ default_close_key = "interface_close"
 master_volume = 1.0
 sfx_volume = 1.0
 music_volume = 1.0
+playlist_conversion_states = {
+"music_pizzicato_jingles": {
+"interactive": true,
+"randomized": true,
+"synchronized": true
+}
+}

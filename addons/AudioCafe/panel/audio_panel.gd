@@ -156,34 +156,42 @@ func _load_playlists_to_ui():
 
 		var button_hbox = HBoxContainer.new()
 		
+		var current_states = audio_config.playlist_conversion_states.get(key, {})
+
 		var randomized_button = Button.new()
 		randomized_button.tooltip_text = "Randomized"
 		randomized_button.icon = ICON_RANDOMIZED
-		randomized_button.pressed.connect(Callable(self, "_on_randomized_button_pressed").bind(key, audio_manifest.playlists[key]))
+		randomized_button.toggle_mode = true
+		randomized_button.button_pressed = current_states.get("randomized", false)
+		randomized_button.toggled.connect(Callable(self, "_on_conversion_button_toggled").bind(key, "randomized"))
 		button_hbox.add_child(randomized_button)
 
 		var synchronized_button = Button.new()
 		synchronized_button.tooltip_text = "Synchronized"
 		synchronized_button.icon = ICON_SYNCHRONIZED
-		synchronized_button.pressed.connect(Callable(self, "_on_synchronized_button_pressed").bind(key, audio_manifest.playlists[key]))
+		synchronized_button.toggle_mode = true
+		synchronized_button.button_pressed = current_states.get("synchronized", false)
+		synchronized_button.toggled.connect(Callable(self, "_on_conversion_button_toggled").bind(key, "synchronized"))
 		button_hbox.add_child(synchronized_button)
 
 		var interactive_button = Button.new()
 		interactive_button.tooltip_text = "Interactive"
 		interactive_button.icon = ICON_INTERACTIVE
-		interactive_button.pressed.connect(Callable(self, "_on_interactive_button_pressed").bind(key, audio_manifest.playlists[key]))
+		interactive_button.toggle_mode = true
+		interactive_button.button_pressed = current_states.get("interactive", false)
+		interactive_button.toggled.connect(Callable(self, "_on_conversion_button_toggled").bind(key, "interactive"))
 		button_hbox.add_child(interactive_button)
 		
 		playlist_grid_container.add_child(button_hbox)
 
-func _on_randomized_button_pressed(key: String, path: String):
-	print("Botão Randomized pressionado para: %s (%s)" % [key, path])
+func _on_conversion_button_toggled(button_pressed: bool, key: String, conversion_type: String):
+	if not audio_config: return
 
-func _on_synchronized_button_pressed(key: String, path: String):
-	print("Botão Synchronized pressionado para: %s (%s)" % [key, path])
-
-func _on_interactive_button_pressed(key: String, path: String):
-	print("Botão Interactive pressionado para: %s (%s)" % [key, path])
+	var current_states = audio_config.playlist_conversion_states.get(key, {})
+	current_states[conversion_type] = button_pressed
+	audio_config.playlist_conversion_states[key] = current_states
+	audio_config._save_and_emit_changed()
+	print("Estado do botão '%s' para playlist '%s' alterado para: %s" % [conversion_type, key, button_pressed])
 
 
 func _on_config_text_changed(new_text: String, config_property: String):
