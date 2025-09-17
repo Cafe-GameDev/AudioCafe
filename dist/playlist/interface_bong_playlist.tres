@@ -1,0 +1,7 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=2 format=3 uid="uid://bw2rn1a7xa3un"]
+
+[ext_resource type="AudioStream" uid="uid://c561f4gxjuq7i" path="res://assets/interface/bong/bong_001.ogg" id="1_skmd7"]
+
+[resource]
+stream_count = 1
+stream_0 = ExtResource("1_skmd7")

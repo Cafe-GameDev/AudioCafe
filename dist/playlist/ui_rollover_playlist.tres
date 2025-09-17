@@ -1,0 +1,17 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=7 format=3 uid="uid://cx0we2qyj5ye0"]
+
+[ext_resource type="AudioStream" uid="uid://bb8uxty6emm0y" path="res://assets/ui/rollover/rollover1.ogg" id="1_tlgln"]
+[ext_resource type="AudioStream" uid="uid://nab7evcp7q5h" path="res://assets/ui/rollover/rollover2.ogg" id="2_dfld2"]
+[ext_resource type="AudioStream" uid="uid://bg0ujejtt75gk" path="res://assets/ui/rollover/rollover3.ogg" id="3_xfrj4"]
+[ext_resource type="AudioStream" uid="uid://qacp3rylqw6l" path="res://assets/ui/rollover/rollover4.ogg" id="4_616ni"]
+[ext_resource type="AudioStream" uid="uid://ucvsiwbi7qk3" path="res://assets/ui/rollover/rollover5.ogg" id="5_jq3iq"]
+[ext_resource type="AudioStream" uid="uid://b63grqb03eobi" path="res://assets/ui/rollover/rollover6.ogg" id="6_dpjrf"]
+
+[resource]
+stream_count = 6
+stream_0 = ExtResource("1_tlgln")
+stream_1 = ExtResource("2_dfld2")
+stream_2 = ExtResource("3_xfrj4")
+stream_3 = ExtResource("4_616ni")
+stream_4 = ExtResource("5_jq3iq")
+stream_5 = ExtResource("6_dpjrf")

@@ -1,0 +1,39 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://dltoi4sm70ill"]
+
+[ext_resource type="AudioStream" uid="uid://cwst3p08aa58e" path="res://assets/Pizzicato_jingles/jingles_pizzi_0.ogg" id="1_he7ni"]
+[ext_resource type="AudioStream" uid="uid://31o1jksatxvn" path="res://assets/Pizzicato_jingles/jingles_pizzi_1.ogg" id="2_aw5k6"]
+[ext_resource type="AudioStream" uid="uid://cxsriy5h4vkuh" path="res://assets/Pizzicato_jingles/jingles_pizzi_3.ogg" id="3_3uxc6"]
+[ext_resource type="AudioStream" uid="uid://dkmrmcgocmxhk" path="res://assets/Pizzicato_jingles/jingles_pizzi_4.ogg" id="4_36rgy"]
+[ext_resource type="AudioStream" uid="uid://15www5txtypw" path="res://assets/Pizzicato_jingles/jingles_pizzi_5.ogg" id="5_okrr5"]
+[ext_resource type="AudioStream" uid="uid://dc4ye13kb0giq" path="res://assets/Pizzicato_jingles/jingles_pizzi_6.ogg" id="6_un754"]
+[ext_resource type="AudioStream" uid="uid://o58r1wdwob6w" path="res://assets/Pizzicato_jingles/jingles_pizzi_7.ogg" id="7_le0xi"]
+[ext_resource type="AudioStream" uid="uid://bon5hywfao6mq" path="res://assets/Pizzicato_jingles/jingles_pizzi_8.ogg" id="8_r13f3"]
+[ext_resource type="AudioStream" uid="uid://delok4o8fbfns" path="res://assets/Pizzicato_jingles/jingles_pizzi_9.ogg" id="9_n5up6"]
+[ext_resource type="AudioStream" uid="uid://khhrqc4hbdwb" path="res://assets/Pizzicato_jingles/jingles_pizzi_10.ogg" id="10_4yp0c"]
+[ext_resource type="AudioStream" uid="uid://bh7pntl4jb625" path="res://assets/Pizzicato_jingles/jingles_pizzi_11.ogg" id="11_kjq24"]
+[ext_resource type="AudioStream" uid="uid://chcf2rvr5c333" path="res://assets/Pizzicato_jingles/jingles_pizzi_12.ogg" id="12_43nqi"]
+[ext_resource type="AudioStream" uid="uid://v67jyckvouoa" path="res://assets/Pizzicato_jingles/jingles_pizzi_13.ogg" id="13_0od15"]
+[ext_resource type="AudioStream" uid="uid://cpaoi8dnqhvt" path="res://assets/Pizzicato_jingles/jingles_pizzi_14.ogg" id="14_nti1l"]
+[ext_resource type="AudioStream" uid="uid://ss0haymqoh3n" path="res://assets/Pizzicato_jingles/jingles_pizzi_15.ogg" id="15_8440a"]
+[ext_resource type="AudioStream" uid="uid://d33jd45baakat" path="res://assets/Pizzicato_jingles/jingles_pizzi_16.ogg" id="16_by6rc"]
+[ext_resource type="AudioStream" uid="uid://dubu4nt2g0jrh" path="res://assets/Pizzicato_jingles/jingles_pizzi_2.ogg" id="17_e4bml"]
+
+[resource]
+stream_count = 17
+stream_0 = ExtResource("1_he7ni")
+stream_1 = ExtResource("2_aw5k6")
+stream_2 = ExtResource("10_4yp0c")
+stream_3 = ExtResource("11_kjq24")
+stream_4 = ExtResource("12_43nqi")
+stream_5 = ExtResource("13_0od15")
+stream_6 = ExtResource("14_nti1l")
+stream_7 = ExtResource("15_8440a")
+stream_8 = ExtResource("16_by6rc")
+stream_9 = ExtResource("17_e4bml")
+stream_10 = ExtResource("3_3uxc6")
+stream_11 = ExtResource("4_36rgy")
+stream_12 = ExtResource("5_okrr5")
+stream_13 = ExtResource("6_un754")
+stream_14 = ExtResource("7_le0xi")
+stream_15 = ExtResource("8_r13f3")
+stream_16 = ExtResource("9_n5up6")
