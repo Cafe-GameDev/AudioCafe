@@ -130,11 +130,13 @@ icon = ExtResource("6_e2q5v")
 [node name="Button2" type="Button" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Syncronized"
+toggle_mode = true
 icon = ExtResource("7_ca2om")
 
 [node name="Button3" type="Button" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer/HBoxContainer"]
 layout_mode = 2
 tooltip_text = "Interactive"
+toggle_mode = true
 icon = ExtResource("8_jwa4r")
 
 [node name="Sync" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
