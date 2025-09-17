@@ -39,3 +39,76 @@ Esta lei estabelece a introdução de funcionalidades de conversão e criação 
 ### **Conclusão**
 
 A implementação desta lei proporcionará ao AudioCafe ferramentas robustas para a manipulação de recursos de áudio, permitindo a criação de experiências sonoras mais dinâmicas e complexas no Godot Engine.
+
+---
+
+### **Artigo IV: Artigo Técnico: Implementação**
+
+1.  **Criação de AudioStreamRandomized (Exemplo em GDScript):**
+    ```gdscript
+    # Supondo que AudioStreamRandomized seja uma nova classe Resource
+    # e que AudioStreamPlaylist tenha um método para obter seus streams.
+    func convert_to_randomized(playlist_resource_path: String, audio_config: AudioConfig) -> String:
+        var playlist = load(playlist_resource_path)
+        if not playlist or not playlist is AudioStreamPlaylist:
+            push_error("Recurso de playlist inválido: " + playlist_resource_path)
+            return ""
+
+        var randomized_stream = AudioStreamRandomized.new()
+        for stream in playlist.get_streams(): # get_streams() é um método hipotético
+            randomized_stream.add_stream(stream) # add_stream() é um método hipotético
+
+        var file_name = playlist_resource_path.get_file().get_basename()
+        var new_path = audio_config.randomized_save_path.path_join(file_name + "_randomized.tres")
+
+        var error = ResourceSaver.save(randomized_stream, new_path)
+        if error != OK:
+            push_error("Falha ao salvar AudioStreamRandomized: %s" % error)
+            return ""
+        return new_path
+    ```
+
+2.  **Criação de AudioStreamInteractive (Exemplo em GDScript):**
+    ```gdscript
+    # Supondo que AudioStreamInteractive seja uma nova classe Resource
+    # e que ela tenha um método para adicionar clips.
+    func create_interactive(playlist_resource_paths: Array[String], interactive_name: String, audio_config: AudioConfig) -> String:
+        var interactive_stream = AudioStreamInteractive.new()
+
+        for path in playlist_resource_paths:
+            var playlist = load(path)
+            if not playlist or not playlist is AudioStreamPlaylist:
+                push_error("Recurso de playlist inválido: " + path)
+                return ""
+            interactive_stream.add_clip(playlist) # add_clip() é um método hipotético
+
+        var new_path = audio_config.interactive_save_path.path_join(interactive_name + "_interactive.tres")
+
+        var error = ResourceSaver.save(interactive_stream, new_path)
+        if error != OK:
+            push_error("Falha ao salvar AudioStreamInteractive: %s" % error)
+            return ""
+        return new_path
+    ```
+
+3.  **Criação de AudioStreamSynchronized (Exemplo em GDScript):**
+    ```gdscript
+    # Supondo que AudioStreamSynchronized seja uma nova classe Resource
+    func create_synchronized(playlist_resource_path: String, audio_config: AudioConfig) -> String:
+        var playlist = load(playlist_resource_path)
+        if not playlist or not playlist is AudioStreamPlaylist:
+            push_error("Recurso de playlist inválido: " + playlist_resource_path)
+            return ""
+
+        var synchronized_stream = AudioStreamSynchronized.new()
+        synchronized_stream.set_playlist(playlist) # set_playlist() é um método hipotético
+
+        var file_name = playlist_resource_path.get_file().get_basename()
+        var new_path = audio_config.synchronized_save_path.path_join(file_name + "_synchronized.tres")
+
+        var error = ResourceSaver.save(synchronized_stream, new_path)
+        if error != OK:
+            push_error("Falha ao salvar AudioStreamSynchronized: %s" % error)
+            return ""
+        return new_path
+    ```
