@@ -23,7 +23,7 @@ extends VBoxContainer
 const ARROW_BIG_DOWN_DASH = preload("res://addons/AudioCafe/icons/arrow-big-down-dash.svg")
 const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-dash.svg")
 
-const PLAYLIST_EDITOR_SCENE = preload("res://addons/AudioCafe/panel/playlist_editor.tscn")
+
 
 const AUDIO_MANIFEST_PATH = "res://addons/AudioCafe/resources/audio_manifest.tres"
 
@@ -134,54 +134,8 @@ func _load_config_to_ui():
 	# Load Volume Settings (assuming these are still in the tscn)
 	# ... (add logic for volume settings if they exist in the tscn)
 
-	# Update Playlists, Syncs, Interactives (from key_resource)
-	_clear_resource_editors()
-	_load_resource_editors()
-	
 	print("--- Finished loading config to UI ---
 ")
-
-func _clear_resource_editors():
-	for child in playlists.get_children():
-		child.queue_free()
-	
-
-func _load_resource_editors():
-	var audio_manifest = ResourceLoader.load(AUDIO_MANIFEST_PATH)
-	if not audio_manifest:
-		push_error("Falha ao carregar AudioManifest em: %s" % AUDIO_MANIFEST_PATH)
-		return
-
-	for key in audio_manifest.music_data.keys():
-		var resource_path = audio_manifest.music_data[key]
-		var loaded_resource = ResourceLoader.load(resource_path)
-
-		if not loaded_resource:
-			push_error("Falha ao carregar recurso de música em: %s" % resource_path)
-			continue
-
-		if loaded_resource is AudioStreamPlaylist:
-			var editor = PLAYLIST_EDITOR_SCENE.instantiate()
-			editor.audio_stream_playlist = loaded_resource
-			playlists.add_child(editor)
-		else:
-			push_error("Tipo de recurso de música desconhecido para o caminho: %s" % resource_path)
-	
-	for key in audio_manifest.sfx_data.keys():
-		var resource_path = audio_manifest.sfx_data[key]
-		var loaded_resource = ResourceLoader.load(resource_path)
-
-		if not loaded_resource:
-			push_error("Falha ao carregar recurso SFX em: %s" % resource_path)
-			continue
-
-		if loaded_resource is AudioStreamPlaylist:
-			var editor = PLAYLIST_EDITOR_SCENE.instantiate()
-			editor.audio_stream_playlist = loaded_resource
-			playlists.add_child(editor)
-		else:
-			push_error("Tipo de recurso SFX desconhecido para o caminho: %s" % resource_path)
-
 
 func _on_config_text_changed(new_text: String, config_property: String):
 	if audio_config:

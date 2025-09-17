@@ -72,7 +72,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 			var error = ResourceSaver.save(audio_config_res, AUDIO_CONFIG_PATH)
 			if error != OK:
 				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
-		group_panel.audio_config = audio_config_res
+		group_panel.set_audio_config(audio_config_res)
 		return group_panel
 
 	var group_scene = load(GROUP_SCENE_PATH)
@@ -94,7 +94,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 			if error != OK:
 				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
 		
-		group_panel.audio_config = audio_config_res
+		group_panel.set_audio_config(audio_config_res)
 
 		return group_panel
 	

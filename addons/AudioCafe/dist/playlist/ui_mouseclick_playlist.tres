@@ -1,7 +1,0 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=2 format=3 uid="uid://bfhjbormwopye"]
-
-[ext_resource type="AudioStream" uid="uid://bbqlwjeu7171b" path="res://addons/AudioCafe/assets/sfx/ui/mouseclick/mouseclick1.ogg" id="1_3cwww"]
-
-[resource]
-stream_count = 1
-stream_0 = ExtResource("1_3cwww")
