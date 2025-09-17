@@ -144,10 +144,10 @@ func _load_playlists_to_ui():
 		for key in audio_manifest.playlists.keys():
 			playlists_text += "%s\n" % key
 	
-	if not audio_manifest.randomized.is_empty():
+	if not audio_manifest.randomizer.is_empty():
 		if not playlists_text.is_empty(): playlists_text += "\n"
-		playlists_text += "Randomized Streams:\n"
-		for key in audio_manifest.randomized.keys():
+		playlists_text += "Randomizer Streams:\n"
+		for key in audio_manifest.randomizer.keys():
 			playlists_text += "%s\n" % key
 
 	if not audio_manifest.synchronized.is_empty():

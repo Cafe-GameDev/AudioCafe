@@ -36,6 +36,6 @@ playlists = {
 "ui_rollover": "res://dist/playlist/ui_rollover_playlist.tres",
 "ui_switch": "res://dist/playlist/ui_switch_playlist.tres"
 }
-randomized = {}
+randomizer = {}
 interactive = {}
 synchronized = {}

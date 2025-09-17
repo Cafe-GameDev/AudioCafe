@@ -26,7 +26,7 @@ func get_playlist_save_path() -> String:
 	return dist_path.trim_suffix("/") + "/playlist/"
 
 func get_randomized_save_path() -> String:
-	return dist_path.trim_suffix("/") + "/randomized/"
+	return dist_path.trim_suffix("/") + "/randomizer/"
 
 func get_interactive_save_path() -> String:
 	return dist_path.trim_suffix("/") + "/interactive/"
