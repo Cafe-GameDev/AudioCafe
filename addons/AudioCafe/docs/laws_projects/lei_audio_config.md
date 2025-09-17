@@ -1,7 +1,7 @@
 **Projeto de Lei: Lei das Novas Propriedades do AudioConfig**
 
 **Status:** Proposta
-**Documento:** `docs/laws_projects/lei_audio_config_novas_propriedades.md`
+**Documento:** `docs/laws_projects/lei_audio_config.md`
 
 ---
 

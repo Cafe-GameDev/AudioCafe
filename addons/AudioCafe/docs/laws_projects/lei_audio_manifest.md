@@ -1,7 +1,7 @@
 **Projeto de Lei: Lei da Estrutura do AudioManifest**
 
 **Status:** Proposta
-**Documento:** `docs/laws_projects/lei_audio_manifest_estrutura.md`
+**Documento:** `docs/laws_projects/lei_audio_manifest.md`
 
 ---
 
