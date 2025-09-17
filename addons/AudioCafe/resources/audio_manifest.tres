@@ -4,7 +4,38 @@
 
 [resource]
 script = ExtResource("1_o47oy")
-playlists = {}
+playlists = {
+"8-bit_jingles": "res://dist/playlist/8-bit_jingles_playlist.tres",
+"hit_jingles": "res://dist/playlist/hit_jingles_playlist.tres",
+"interface_back": "res://dist/playlist/interface_back_playlist.tres",
+"interface_bong": "res://dist/playlist/interface_bong_playlist.tres",
+"interface_click": "res://dist/playlist/interface_click_playlist.tres",
+"interface_close": "res://dist/playlist/interface_close_playlist.tres",
+"interface_confirmation": "res://dist/playlist/interface_confirmation_playlist.tres",
+"interface_drop": "res://dist/playlist/interface_drop_playlist.tres",
+"interface_error": "res://dist/playlist/interface_error_playlist.tres",
+"interface_glass": "res://dist/playlist/interface_glass_playlist.tres",
+"interface_glitch": "res://dist/playlist/interface_glitch_playlist.tres",
+"interface_maximize": "res://dist/playlist/interface_maximize_playlist.tres",
+"interface_minimize": "res://dist/playlist/interface_minimize_playlist.tres",
+"interface_open": "res://dist/playlist/interface_open_playlist.tres",
+"interface_pluck": "res://dist/playlist/interface_pluck_playlist.tres",
+"interface_question": "res://dist/playlist/interface_question_playlist.tres",
+"interface_scratch": "res://dist/playlist/interface_scratch_playlist.tres",
+"interface_scroll": "res://dist/playlist/interface_scroll_playlist.tres",
+"interface_select": "res://dist/playlist/interface_select_playlist.tres",
+"interface_switch": "res://dist/playlist/interface_switch_playlist.tres",
+"interface_tick": "res://dist/playlist/interface_tick_playlist.tres",
+"interface_toggle": "res://dist/playlist/interface_toggle_playlist.tres",
+"pizzicato_jingles": "res://dist/playlist/pizzicato_jingles_playlist.tres",
+"sax_jingles": "res://dist/playlist/sax_jingles_playlist.tres",
+"steel_jingles": "res://dist/playlist/steel_jingles_playlist.tres",
+"ui_click": "res://dist/playlist/ui_click_playlist.tres",
+"ui_mouseclick": "res://dist/playlist/ui_mouseclick_playlist.tres",
+"ui_mouserelease": "res://dist/playlist/ui_mouserelease_playlist.tres",
+"ui_rollover": "res://dist/playlist/ui_rollover_playlist.tres",
+"ui_switch": "res://dist/playlist/ui_switch_playlist.tres"
+}
 randomized = {}
 interactive = {}
 synchronized = {}

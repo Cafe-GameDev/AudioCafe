@@ -1,11 +1,11 @@
 [gd_resource type="AudioStreamPlaylist" load_steps=7 format=3 uid="uid://clqmjc146fgjc"]
 
-[ext_resource type="AudioStream" uid="uid://b8a0rxgm0jyag" path="res://assets/interface/glass/glass_001.ogg" id="1_wln0w"]
-[ext_resource type="AudioStream" uid="uid://dxkc0lykqep2a" path="res://assets/interface/glass/glass_002.ogg" id="2_7i0e0"]
-[ext_resource type="AudioStream" uid="uid://ceenwqr87dsrc" path="res://assets/interface/glass/glass_003.ogg" id="3_vvryf"]
-[ext_resource type="AudioStream" uid="uid://ddno6latmdun5" path="res://assets/interface/glass/glass_004.ogg" id="4_k3qi4"]
-[ext_resource type="AudioStream" uid="uid://bxa02eq6n50oe" path="res://assets/interface/glass/glass_005.ogg" id="5_h26qb"]
-[ext_resource type="AudioStream" uid="uid://c6yg3bxxjuxj" path="res://assets/interface/glass/glass_006.ogg" id="6_cdfhy"]
+[ext_resource type="AudioStream" uid="uid://crpwap1num22j" path="res://assets/interface/glass/glass_001.ogg" id="1_wln0w"]
+[ext_resource type="AudioStream" uid="uid://bxeebyq5bdngy" path="res://assets/interface/glass/glass_002.ogg" id="2_7i0e0"]
+[ext_resource type="AudioStream" uid="uid://basp22l8hstnx" path="res://assets/interface/glass/glass_003.ogg" id="3_vvryf"]
+[ext_resource type="AudioStream" uid="uid://cy15pdd7iqfw7" path="res://assets/interface/glass/glass_004.ogg" id="4_k3qi4"]
+[ext_resource type="AudioStream" uid="uid://bbmlb77jjvsi4" path="res://assets/interface/glass/glass_005.ogg" id="5_h26qb"]
+[ext_resource type="AudioStream" uid="uid://des7cg0d0vsk7" path="res://assets/interface/glass/glass_006.ogg" id="6_cdfhy"]
 
 [resource]
 stream_count = 6

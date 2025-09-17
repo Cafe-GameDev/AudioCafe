@@ -1,11 +1,11 @@
 [gd_resource type="AudioStreamPlaylist" load_steps=7 format=3 uid="uid://cx0we2qyj5ye0"]
 
-[ext_resource type="AudioStream" uid="uid://bb8uxty6emm0y" path="res://assets/ui/rollover/rollover1.ogg" id="1_tlgln"]
-[ext_resource type="AudioStream" uid="uid://nab7evcp7q5h" path="res://assets/ui/rollover/rollover2.ogg" id="2_dfld2"]
-[ext_resource type="AudioStream" uid="uid://bg0ujejtt75gk" path="res://assets/ui/rollover/rollover3.ogg" id="3_xfrj4"]
-[ext_resource type="AudioStream" uid="uid://qacp3rylqw6l" path="res://assets/ui/rollover/rollover4.ogg" id="4_616ni"]
-[ext_resource type="AudioStream" uid="uid://ucvsiwbi7qk3" path="res://assets/ui/rollover/rollover5.ogg" id="5_jq3iq"]
-[ext_resource type="AudioStream" uid="uid://b63grqb03eobi" path="res://assets/ui/rollover/rollover6.ogg" id="6_dpjrf"]
+[ext_resource type="AudioStream" uid="uid://tysmea22adsi" path="res://assets/ui/rollover/rollover1.ogg" id="1_tlgln"]
+[ext_resource type="AudioStream" uid="uid://b08wttqtfpx6k" path="res://assets/ui/rollover/rollover2.ogg" id="2_dfld2"]
+[ext_resource type="AudioStream" uid="uid://coq7165wslgwa" path="res://assets/ui/rollover/rollover3.ogg" id="3_xfrj4"]
+[ext_resource type="AudioStream" uid="uid://b8wmf5txl5ers" path="res://assets/ui/rollover/rollover4.ogg" id="4_616ni"]
+[ext_resource type="AudioStream" uid="uid://bkwbaf8mfy3si" path="res://assets/ui/rollover/rollover5.ogg" id="5_jq3iq"]
+[ext_resource type="AudioStream" uid="uid://ccoapm3oymsgd" path="res://assets/ui/rollover/rollover6.ogg" id="6_dpjrf"]
 
 [resource]
 stream_count = 6

@@ -1,9 +1,9 @@
 [gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://cxoftofk1cl8b"]
 
-[ext_resource type="AudioStream" uid="uid://btmm38xu2qqks" path="res://assets/interface/confirmation/confirmation_001.ogg" id="1_3ss54"]
-[ext_resource type="AudioStream" uid="uid://dd3h4q6o7bg6g" path="res://assets/interface/confirmation/confirmation_002.ogg" id="2_ohdyj"]
-[ext_resource type="AudioStream" uid="uid://cec6kmp4t76k1" path="res://assets/interface/confirmation/confirmation_003.ogg" id="3_q8nce"]
-[ext_resource type="AudioStream" uid="uid://drgranhml14p7" path="res://assets/interface/confirmation/confirmation_004.ogg" id="4_mu3g8"]
+[ext_resource type="AudioStream" uid="uid://dty4v3s8xbu8c" path="res://assets/interface/confirmation/confirmation_001.ogg" id="1_3ss54"]
+[ext_resource type="AudioStream" uid="uid://bithvrwjy4xny" path="res://assets/interface/confirmation/confirmation_002.ogg" id="2_ohdyj"]
+[ext_resource type="AudioStream" uid="uid://ddo4tuni06djd" path="res://assets/interface/confirmation/confirmation_003.ogg" id="3_q8nce"]
+[ext_resource type="AudioStream" uid="uid://bby0incxrl7gc" path="res://assets/interface/confirmation/confirmation_004.ogg" id="4_mu3g8"]
 
 [resource]
 stream_count = 4

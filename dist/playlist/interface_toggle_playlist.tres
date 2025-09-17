@@ -1,9 +1,9 @@
 [gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://ckyt01fkx053m"]
 
-[ext_resource type="AudioStream" uid="uid://dap232spsl4yy" path="res://assets/interface/toggle/toggle_001.ogg" id="1_1ltsv"]
-[ext_resource type="AudioStream" uid="uid://ch5fryklex5bm" path="res://assets/interface/toggle/toggle_002.ogg" id="2_2chth"]
-[ext_resource type="AudioStream" uid="uid://4x8glqvppu6" path="res://assets/interface/toggle/toggle_003.ogg" id="3_ftu7m"]
-[ext_resource type="AudioStream" uid="uid://djotvwradjukp" path="res://assets/interface/toggle/toggle_004.ogg" id="4_wblb4"]
+[ext_resource type="AudioStream" uid="uid://ei3wky372kuf" path="res://assets/interface/toggle/toggle_001.ogg" id="1_1ltsv"]
+[ext_resource type="AudioStream" uid="uid://b44ae0f80dwsr" path="res://assets/interface/toggle/toggle_002.ogg" id="2_2chth"]
+[ext_resource type="AudioStream" uid="uid://b3qqwrcvyn2db" path="res://assets/interface/toggle/toggle_003.ogg" id="3_ftu7m"]
+[ext_resource type="AudioStream" uid="uid://dnjn07pd6n4bb" path="res://assets/interface/toggle/toggle_004.ogg" id="4_wblb4"]
 
 [resource]
 stream_count = 4

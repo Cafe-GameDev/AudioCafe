@@ -1,8 +1,8 @@
 [gd_resource type="AudioStreamPlaylist" load_steps=4 format=3 uid="uid://ckjrc6cwxtyge"]
 
-[ext_resource type="AudioStream" uid="uid://ctyde7n7hxw22" path="res://assets/interface/tick/tick_001.ogg" id="1_glpn2"]
-[ext_resource type="AudioStream" uid="uid://cekoealent6q0" path="res://assets/interface/tick/tick_002.ogg" id="2_273ik"]
-[ext_resource type="AudioStream" uid="uid://d4f786m4eh8qp" path="res://assets/interface/tick/tick_004.ogg" id="3_4akb3"]
+[ext_resource type="AudioStream" uid="uid://be1lw4xj44qjg" path="res://assets/interface/tick/tick_001.ogg" id="1_glpn2"]
+[ext_resource type="AudioStream" uid="uid://bxolben5hbtex" path="res://assets/interface/tick/tick_002.ogg" id="2_273ik"]
+[ext_resource type="AudioStream" uid="uid://fbflnxfto1sj" path="res://assets/interface/tick/tick_004.ogg" id="3_4akb3"]
 
 [resource]
 stream_count = 3
