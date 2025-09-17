@@ -110,10 +110,6 @@ func _initialize_panel_state():
 
 func _load_config_to_ui():
 	if not audio_config: return
-	
-	print("--- Loading config to UI ---")
-	print("DEBUG: audio_config.assets_paths (before cleanup): ", audio_config.assets_paths)
-	print("DEBUG: audio_config.dist_path: ", audio_config.dist_path)
 
 	# Clean up assets_paths if dist_path is accidentally included
 	if audio_config.assets_paths.has(audio_config.dist_path):
@@ -137,9 +133,6 @@ func _load_config_to_ui():
 
 	_load_playlists_to_ui()
 	_load_interactive_streams_to_ui()
-
-	print("--- Finished loading config to UI ---
-")
 
 func _load_playlists_to_ui():
 	if not playlist_grid_container: return
