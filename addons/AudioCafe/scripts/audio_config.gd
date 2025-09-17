@@ -16,7 +16,7 @@ signal config_changed
 			assets_paths = value
 			_save_and_emit_changed()
 
-@export var dist_path: String = "res://addons/AudioCafe/generated_playlists":
+@export var dist_path: String = "res://dist":
 	set(value):
 		if dist_path != value:
 			dist_path = value
