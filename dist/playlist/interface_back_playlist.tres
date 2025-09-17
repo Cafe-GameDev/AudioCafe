@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://cqf71rfygou2u"]
+
+[ext_resource type="AudioStream" uid="uid://bemdhu2g2cuja" path="res://assets/interface/back/back_001.ogg" id="1_jcokl"]
+[ext_resource type="AudioStream" uid="uid://buxkhmsmkvro7" path="res://assets/interface/back/back_002.ogg" id="2_xratb"]
+[ext_resource type="AudioStream" uid="uid://c0n5ai2kosv3s" path="res://assets/interface/back/back_003.ogg" id="3_71bds"]
+[ext_resource type="AudioStream" uid="uid://5yy804xjs8x3" path="res://assets/interface/back/back_004.ogg" id="4_qjpeo"]
+
+[resource]
+stream_count = 4
+stream_0 = ExtResource("1_jcokl")
+stream_1 = ExtResource("2_xratb")
+stream_2 = ExtResource("3_71bds")
+stream_3 = ExtResource("4_qjpeo")
