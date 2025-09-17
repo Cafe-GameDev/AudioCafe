@@ -142,19 +142,19 @@ func _load_playlists_to_ui():
 	var playlists_text = ""
 	if not audio_manifest.playlists.is_empty():
 		for key in audio_manifest.playlists.keys():
-			playlists_text += "%s\n" % key
+			playlists_text += "%s (%s)\n" % [key, audio_manifest.playlists[key][1]]
 	
 	if not audio_manifest.randomizer.is_empty():
 		if not playlists_text.is_empty(): playlists_text += "\n"
 		playlists_text += "Randomizer Streams:\n"
 		for key in audio_manifest.randomizer.keys():
-			playlists_text += "%s\n" % key
+			playlists_text += "%s (%s)\n" % [key, audio_manifest.randomizer[key][1]]
 
 	if not audio_manifest.synchronized.is_empty():
 		if not playlists_text.is_empty(): playlists_text += "\n"
 		playlists_text += "Synchronized Streams:\n"
 		for key in audio_manifest.synchronized.keys():
-			playlists_text += "%s\n" % key
+			playlists_text += "%s (%s)\n" % [key, audio_manifest.synchronized[key][1]]
 
 	if playlists_text.is_empty():
 		playlists_text = "Nenhuma playlist encontrada."
