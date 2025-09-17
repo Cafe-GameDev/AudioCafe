@@ -5,60 +5,52 @@ class_name GenerateAudioSynchronized
 signal generation_finished(success: bool, message: String)
 
 @export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
-@export var source_resource_path: String = "" # Path to AudioStreamPlaylist or AudioStreamRandomizer
-@export var target_synchronized_name: String = ""
+@export var audio_manifest: AudioManifest = preload("res://addons/AudioCafe/resources/audio_manifest.tres")
+
+var original_resource_path: String = ""
 
 func _run():
-	if source_resource_path.is_empty() or target_synchronized_name.is_empty():
-		emit_signal("generation_finished", false, "Caminho do recurso de origem ou nome do synchronized de destino não pode ser vazio.")
+	if original_resource_path.is_empty():
+		emit_signal("generation_finished", false, "Caminho do recurso original não fornecido.")
 		return
 
-	var audio_manifest = load(GenerateAudioManifest.MANIFEST_SAVE_FILE)
-	if not audio_manifest:
-		audio_manifest = AudioManifest.new()
-
-	var source_resource = load(source_resource_path)
-	if not source_resource:
-		emit_signal("generation_finished", false, "Recurso de origem inválido: %s" % source_resource_path)
+	var original_resource = load(original_resource_path)
+	if not original_resource:
+		emit_signal("generation_finished", false, "Recurso original inválido: " + original_resource_path)
 		return
 
 	var synchronized_stream = AudioStreamSynchronized.new()
-	var streams_to_add: Array[AudioStream] = []
-
-	if source_resource is AudioStreamPlaylist:
-		for i in range(source_resource.stream_count):
-			var stream = source_resource.get("stream_%d" % i)
-			if stream:
-				streams_to_add.append(stream)
-	elif source_resource is AudioStreamRandomizer:
-		for i in range(source_resource.streams_count):
-			var stream = source_resource.get("stream_%d/stream" % i)
-			if stream:
-				streams_to_add.append(stream)
+	if original_resource is AudioStreamPlaylist:
+		synchronized_stream.set_playlist(original_resource)
+	elif original_resource is AudioStreamRandomized:
+		synchronized_stream.set_randomized(original_resource)
 	else:
-		emit_signal("generation_finished", false, "Tipo de recurso de origem não suportado para synchronized: %s" % source_resource_path)
+		emit_signal("generation_finished", false, "Tipo de recurso original não suportado para sincronização.")
 		return
 
-	for stream in streams_to_add:
-		var current_index = synchronized_stream.stream_count
-		synchronized_stream.set("stream_%d/stream" % current_index, stream)
-		synchronized_stream.set("stream_%d/volume" % current_index, 0.0) # Default volume
-		synchronized_stream.stream_count = current_index + 1
+	var file_name = original_resource_path.get_file().get_basename()
+	if file_name.ends_with("_playlist"):
+		file_name = file_name.replace("_playlist", "")
+	elif file_name.ends_with("_randomized"):
+		file_name = file_name.replace("_randomized", "")
 
-	var new_path = audio_config.synchronized_save_path.path_join(target_synchronized_name + "_synchronized.tres")
+	var new_path = audio_config.get_synchronized_save_path().path_join(file_name + "_synchronized.tres")
+
+	var target_dir = audio_config.get_synchronized_save_path()
+	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(target_dir)):
+		var error_make_dir = DirAccess.make_dir_recursive(target_dir)
+		if error_make_dir != OK:
+			emit_signal("generation_finished", false, "Falha ao criar o diretório: %s, Erro: %s" % [target_dir, error_make_dir])
+			return
 
 	var error = ResourceSaver.save(synchronized_stream, new_path)
 	if error != OK:
 		emit_signal("generation_finished", false, "Falha ao salvar AudioStreamSynchronized: %s" % error)
 		return
 
-	# Update AudioManifest
-	var final_key = target_synchronized_name.to_lower()
-	audio_manifest.synchronized_streams[final_key] = new_path
-	
-	var manifest_save_error = ResourceSaver.save(audio_manifest, GenerateAudioManifest.MANIFEST_SAVE_FILE)
-	if manifest_save_error != OK:
-		emit_signal("generation_finished", false, "Falha ao salvar AudioManifest: %s" % manifest_save_error)
-		return
+	# Atualizar AudioManifest
+	var original_key = file_name.to_lower()
+	audio_manifest.synchronized[original_key] = new_path
+	ResourceSaver.save(audio_manifest, audio_manifest.resource_path)
 
-	emit_signal("generation_finished", true, "AudioStreamSynchronized gerado com sucesso em: %s" % new_path)
+	emit_signal("generation_finished", true, "AudioStreamSynchronized gerado com sucesso: " + new_path)

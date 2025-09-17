@@ -5,46 +5,41 @@ class_name GenerateAudioInteractive
 signal generation_finished(success: bool, message: String)
 
 @export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
-@export var source_playlist_paths: Array[String] = [] # Paths to AudioStreamPlaylists
-@export var target_interactive_name: String = ""
+@export var audio_manifest: AudioManifest = preload("res://addons/AudioCafe/resources/audio_manifest.tres")
+
+var playlist_resource_paths: Array[String] = []
+var interactive_name: String = ""
 
 func _run():
-	if source_playlist_paths.is_empty() or target_interactive_name.is_empty():
-		emit_signal("generation_finished", false, "Lista de playlists de origem ou nome do interactive de destino não pode ser vazio.")
+	if playlist_resource_paths.is_empty() or interactive_name.is_empty():
+		emit_signal("generation_finished", false, "Caminhos das playlists ou nome interativo não fornecidos.")
 		return
-
-	var audio_manifest = load(GenerateAudioManifest.MANIFEST_SAVE_FILE)
-	if not audio_manifest:
-		audio_manifest = AudioManifest.new()
 
 	var interactive_stream = AudioStreamInteractive.new()
 
-	for path in source_playlist_paths:
+	for path in playlist_resource_paths:
 		var playlist = load(path)
 		if not playlist or not playlist is AudioStreamPlaylist:
-			emit_signal("generation_finished", false, "Recurso de playlist inválido: %s" % path)
+			emit_signal("generation_finished", false, "Recurso de playlist inválido: " + path)
 			return
-		
-		var clip_index = interactive_stream.clip_count
-		interactive_stream.set("clip_%d/name" % clip_index, path.get_file().get_basename())
-		interactive_stream.set("clip_%d/stream" % clip_index, playlist)
-		interactive_stream.set("clip_%d/auto_advance" % clip_index, 0) # Default auto_advance
-		interactive_stream.clip_count = clip_index + 1
+		interactive_stream.add_clip(playlist)
 
-	var new_path = audio_config.interactive_save_path.path_join(target_interactive_name + "_interactive.tres")
+	var new_path = audio_config.get_interactive_save_path().path_join(interactive_name + "_interactive.tres")
+
+	var target_dir = audio_config.get_interactive_save_path()
+	if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(target_dir)):
+		var error_make_dir = DirAccess.make_dir_recursive(target_dir)
+		if error_make_dir != OK:
+			emit_signal("generation_finished", false, "Falha ao criar o diretório: %s, Erro: %s" % [target_dir, error_make_dir])
+			return
 
 	var error = ResourceSaver.save(interactive_stream, new_path)
 	if error != OK:
 		emit_signal("generation_finished", false, "Falha ao salvar AudioStreamInteractive: %s" % error)
 		return
 
-	# Update AudioManifest
-	var final_key = target_interactive_name.to_lower()
-	audio_manifest.interactive_streams[final_key] = new_path
-	
-	var manifest_save_error = ResourceSaver.save(audio_manifest, GenerateAudioManifest.MANIFEST_SAVE_FILE)
-	if manifest_save_error != OK:
-		emit_signal("generation_finished", false, "Falha ao salvar AudioManifest: %s" % manifest_save_error)
-		return
+	# Atualizar AudioManifest
+	audio_manifest.interactive[interactive_name.to_lower()] = new_path
+	ResourceSaver.save(audio_manifest, audio_manifest.resource_path)
 
-	emit_signal("generation_finished", true, "AudioStreamInteractive gerado com sucesso em: %s" % new_path)
+	emit_signal("generation_finished", true, "AudioStreamInteractive gerado com sucesso: " + new_path)
