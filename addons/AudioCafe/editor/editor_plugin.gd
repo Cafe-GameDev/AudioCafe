@@ -6,7 +6,6 @@ const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
 var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
-
 func _enter_tree():
 	_create_plugin_panel()
 
