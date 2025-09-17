@@ -25,7 +25,7 @@ alignment = 0
 icon_alignment = 2
 
 [node name="CollapsibleContent" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 723)
+custom_minimum_size = Vector2(0, 769)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent"]
@@ -105,7 +105,37 @@ metadata/_tab_index = 1
 
 [node name="PlaylistRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Playlists"]
 layout_mode = 2
-text = "Nenhuma playlist encontrada."
+text = "8-bit_jingles
+hit_jingles
+interface_back
+interface_bong
+interface_click
+interface_close
+interface_confirmation
+interface_drop
+interface_error
+interface_glass
+interface_glitch
+interface_maximize
+interface_minimize
+interface_open
+interface_pluck
+interface_question
+interface_scratch
+interface_scroll
+interface_select
+interface_switch
+interface_tick
+interface_toggle
+pizzicato_jingles
+sax_jingles
+steel_jingles
+ui_click
+ui_mouseclick
+ui_mouserelease
+ui_rollover
+ui_switch
+"
 fit_content = true
 
 [node name="Interactive" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
