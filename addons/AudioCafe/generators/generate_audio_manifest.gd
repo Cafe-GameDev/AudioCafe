@@ -31,9 +31,6 @@ func _run():
 
 	var base_dist_path = audio_config.dist_path.trim_suffix("/")
 	var playlist_dist_save_path = base_dist_path + "/playlist/"
-	var random_dist_save_path = base_dist_path + "/random/"
-	var sync_dist_save_path = base_dist_path + "/sync/"
-	var interactive_dist_save_path = base_dist_path + "/interactive/"
 
 	var dist_dir_access = DirAccess.open("res://")
 	if not dist_dir_access:
@@ -41,7 +38,8 @@ func _run():
 		emit_signal("generation_finished", false, "Falha ao acessar o diretório base do projeto.")
 		return
 
-	for path_to_create in [playlist_dist_save_path, random_dist_save_path, sync_dist_save_path, interactive_dist_save_path]:
+	# Garante que diretórios de saída existam
+	for path_to_create in [playlist_dist_save_path]:
 		var relative_path = path_to_create.replace("res://", "")
 		if not dist_dir_access.dir_exists(relative_path):
 			var error = dist_dir_access.make_dir_recursive(relative_path)
@@ -71,12 +69,12 @@ func _run():
 			else:
 				playlist = AudioStreamPlaylist.new()
 
-			# Clear existing streams in the playlist
+			# Limpa streams anteriores
 			for i in range(playlist.stream_count):
 				playlist.set("stream_%d" % i, null)
 			playlist.stream_count = 0
 
-			# Add new streams
+			# Adiciona novos streams
 			for stream in streams_for_key:
 				var current_index = playlist.stream_count
 				playlist.set("stream_%d" % current_index, stream)
@@ -89,14 +87,8 @@ func _run():
 				message = "Falha ao salvar playlists."
 				break
 			
-			# Determine if it's music or sfx based on the key (this is a simplification, might need refinement)
-			# For now, let's assume if the key contains "music" it's music, otherwise sfx.
-			# A melhor abordagem seria ter pastas separadas para music e sfx nos assets_paths
-			# ou uma forma de categorizar os arquivos.
-			if final_key.begins_with("music_") or final_key.ends_with("_music"):
-				audio_manifest.music_data[final_key] = playlist_file_path
-			else:
-				audio_manifest.sfx_data[final_key] = playlist_file_path
+			# Agora todos entram como playlists no manifest
+			audio_manifest.playlists[final_key] = playlist_file_path
 	else:
 		overall_success = false
 		message = "Falha ao coletar streams de áudio."
