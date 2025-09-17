@@ -1,0 +1,23 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=10 format=3 uid="uid://c0tgvjuc42utx"]
+
+[ext_resource type="AudioStream" uid="uid://vscbkfnf86ds" path="res://assets/interface/minimize/minimize_001.ogg" id="1_jq337"]
+[ext_resource type="AudioStream" uid="uid://doc7gk4gu148d" path="res://assets/interface/minimize/minimize_002.ogg" id="2_vs4m8"]
+[ext_resource type="AudioStream" uid="uid://ddmp5pecalgtk" path="res://assets/interface/minimize/minimize_003.ogg" id="3_yckhx"]
+[ext_resource type="AudioStream" uid="uid://bf7vjoaoy23v7" path="res://assets/interface/minimize/minimize_004.ogg" id="4_2h7k7"]
+[ext_resource type="AudioStream" uid="uid://c62ccv7nc57ke" path="res://assets/interface/minimize/minimize_005.ogg" id="5_iy0px"]
+[ext_resource type="AudioStream" uid="uid://dclqonskcwdid" path="res://assets/interface/minimize/minimize_006.ogg" id="6_f0vy4"]
+[ext_resource type="AudioStream" uid="uid://darp8vv04b2h1" path="res://assets/interface/minimize/minimize_007.ogg" id="7_a1x26"]
+[ext_resource type="AudioStream" uid="uid://by06x17otiysf" path="res://assets/interface/minimize/minimize_008.ogg" id="8_pq4kg"]
+[ext_resource type="AudioStream" uid="uid://cn27sgacdmkys" path="res://assets/interface/minimize/minimize_009.ogg" id="9_0scom"]
+
+[resource]
+stream_count = 9
+stream_0 = ExtResource("1_jq337")
+stream_1 = ExtResource("2_vs4m8")
+stream_2 = ExtResource("3_yckhx")
+stream_3 = ExtResource("4_2h7k7")
+stream_4 = ExtResource("5_iy0px")
+stream_5 = ExtResource("6_f0vy4")
+stream_6 = ExtResource("7_a1x26")
+stream_7 = ExtResource("8_pq4kg")
+stream_8 = ExtResource("9_0scom")

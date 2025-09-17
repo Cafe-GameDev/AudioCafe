@@ -1,0 +1,15 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=6 format=3 uid="uid://chtpjf5portdo"]
+
+[ext_resource type="AudioStream" uid="uid://patpnmv0tdhe" path="res://assets/interface/scratch/scratch_001.ogg" id="1_h0dtw"]
+[ext_resource type="AudioStream" uid="uid://dxo7i01w48mqv" path="res://assets/interface/scratch/scratch_002.ogg" id="2_t83dy"]
+[ext_resource type="AudioStream" uid="uid://dlgaawfq8p1uo" path="res://assets/interface/scratch/scratch_003.ogg" id="3_v8dh6"]
+[ext_resource type="AudioStream" uid="uid://du3qbvh02wtqf" path="res://assets/interface/scratch/scratch_004.ogg" id="4_152rd"]
+[ext_resource type="AudioStream" uid="uid://dbufp5mkginsb" path="res://assets/interface/scratch/scratch_005.ogg" id="5_37oc3"]
+
+[resource]
+stream_count = 5
+stream_0 = ExtResource("1_h0dtw")
+stream_1 = ExtResource("2_t83dy")
+stream_2 = ExtResource("3_v8dh6")
+stream_3 = ExtResource("4_152rd")
+stream_4 = ExtResource("5_37oc3")

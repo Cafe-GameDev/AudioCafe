@@ -1,0 +1,39 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://cgs5idjmfy236"]
+
+[ext_resource type="AudioStream" uid="uid://beswvn7yvnmiu" path="res://assets/sax_jingles/jingles_sax_0.ogg" id="1_tutso"]
+[ext_resource type="AudioStream" uid="uid://c4lsw22vo33fi" path="res://assets/sax_jingles/jingles_sax_1.ogg" id="2_5defj"]
+[ext_resource type="AudioStream" uid="uid://dnyjdqr07l3e0" path="res://assets/sax_jingles/jingles_sax_3.ogg" id="3_rjb6v"]
+[ext_resource type="AudioStream" uid="uid://di54gxgb8yg2q" path="res://assets/sax_jingles/jingles_sax_4.ogg" id="4_v2d8i"]
+[ext_resource type="AudioStream" uid="uid://cwfgxfid66d5i" path="res://assets/sax_jingles/jingles_sax_5.ogg" id="5_3u7mi"]
+[ext_resource type="AudioStream" uid="uid://bjiwtyeku0i60" path="res://assets/sax_jingles/jingles_sax_6.ogg" id="6_o4b8d"]
+[ext_resource type="AudioStream" uid="uid://bw6gc1156t3gs" path="res://assets/sax_jingles/jingles_sax_7.ogg" id="7_wance"]
+[ext_resource type="AudioStream" uid="uid://ses3l14rssvr" path="res://assets/sax_jingles/jingles_sax_8.ogg" id="8_rv24u"]
+[ext_resource type="AudioStream" uid="uid://btocru84m0e7x" path="res://assets/sax_jingles/jingles_sax_9.ogg" id="9_up76s"]
+[ext_resource type="AudioStream" uid="uid://ddmyc7r44cedv" path="res://assets/sax_jingles/jingles_sax_10.ogg" id="10_gkp4y"]
+[ext_resource type="AudioStream" uid="uid://dj2wcqiql7m0" path="res://assets/sax_jingles/jingles_sax_11.ogg" id="11_gc7x7"]
+[ext_resource type="AudioStream" uid="uid://cwq4t6hu7ct2a" path="res://assets/sax_jingles/jingles_sax_12.ogg" id="12_ly6ho"]
+[ext_resource type="AudioStream" uid="uid://vkxpydfy32wb" path="res://assets/sax_jingles/jingles_sax_13.ogg" id="13_oscfo"]
+[ext_resource type="AudioStream" uid="uid://dd772pyuo8ysp" path="res://assets/sax_jingles/jingles_sax_14.ogg" id="14_dle17"]
+[ext_resource type="AudioStream" uid="uid://c86bt68slmfw7" path="res://assets/sax_jingles/jingles_sax_15.ogg" id="15_4x41i"]
+[ext_resource type="AudioStream" uid="uid://djf8swd8vvf5i" path="res://assets/sax_jingles/jingles_sax_16.ogg" id="16_eageq"]
+[ext_resource type="AudioStream" uid="uid://sls0i60f8vx3" path="res://assets/sax_jingles/jingles_sax_2.ogg" id="17_dlahu"]
+
+[resource]
+stream_count = 17
+stream_0 = ExtResource("1_tutso")
+stream_1 = ExtResource("2_5defj")
+stream_2 = ExtResource("10_gkp4y")
+stream_3 = ExtResource("11_gc7x7")
+stream_4 = ExtResource("12_ly6ho")
+stream_5 = ExtResource("13_oscfo")
+stream_6 = ExtResource("14_dle17")
+stream_7 = ExtResource("15_4x41i")
+stream_8 = ExtResource("16_eageq")
+stream_9 = ExtResource("17_dlahu")
+stream_10 = ExtResource("3_rjb6v")
+stream_11 = ExtResource("4_v2d8i")
+stream_12 = ExtResource("5_3u7mi")
+stream_13 = ExtResource("6_o4b8d")
+stream_14 = ExtResource("7_wance")
+stream_15 = ExtResource("8_rv24u")
+stream_16 = ExtResource("9_up76s")

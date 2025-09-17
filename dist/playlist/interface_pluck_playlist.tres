@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=3 format=3 uid="uid://dy8uk774dusry"]
+
+[ext_resource type="AudioStream" uid="uid://ch8la4w3cbkl3" path="res://assets/interface/pluck/pluck_001.ogg" id="1_565x3"]
+[ext_resource type="AudioStream" uid="uid://clmx6q0ybwxk2" path="res://assets/interface/pluck/pluck_002.ogg" id="2_74nd4"]
+
+[resource]
+stream_count = 2
+stream_0 = ExtResource("1_565x3")
+stream_1 = ExtResource("2_74nd4")
