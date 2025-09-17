@@ -15,12 +15,8 @@ extends VBoxContainer
 @onready var playlists_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Playlists
 @onready var playlist_grid_container: GridContainer = $CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer
 
-@onready var sync_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Sync
-@onready var sync_grid_container: GridContainer = $CollapsibleContent/TabContainer/Sync/SyncGridContainer
-
 @onready var interactive_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Interactive
 @onready var interactive_grid_container: GridContainer = $CollapsibleContent/TabContainer/Interactive/InteractiveGridContainer
-
 
 @onready var assets_folder_dialog: FileDialog = $CollapsibleContent/AssetsFolderDialog
 @onready var dist_folder_dialog: FileDialog = $CollapsibleContent/DistFolderDialog
@@ -32,6 +28,7 @@ const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-das
 const ICON_RANDOMIZED = preload("res://addons/AudioCafe/icons/shuffle.svg")
 const ICON_SYNCHRONIZED = preload("res://addons/AudioCafe/icons/boxes.svg")
 const ICON_INTERACTIVE = preload("res://addons/AudioCafe/icons/clapperboard.svg")
+const ICON_X = preload("res://addons/AudioCafe/icons/x.svg")
 
 
 
@@ -139,6 +136,7 @@ func _load_config_to_ui():
 		_create_path_entry(audio_config.dist_path, true)
 
 	_load_playlists_to_ui()
+	_load_interactive_streams_to_ui()
 
 	print("--- Finished loading config to UI ---
 ")
@@ -351,6 +349,53 @@ func _update_audio_config_paths():
 func _on_save_feedback_timer_timeout():
 	save_feedback_label.visible = false
 
+func _load_interactive_streams_to_ui():
+	if not interactive_grid_container: return
+
+	for child in interactive_grid_container.get_children():
+		child.queue_free()
+
+	var audio_manifest = load(AUDIO_MANIFEST_PATH)
+	if not audio_manifest:
+		push_error("AudioManifest não encontrado em: " + AUDIO_MANIFEST_PATH)
+		return
+
+	for key in audio_manifest.interactive.keys():
+		var interactive_name_label = Label.new()
+		interactive_name_label.text = key
+		interactive_name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		interactive_grid_container.add_child(interactive_name_label)
+
+		var button_hbox = HBoxContainer.new()
+		
+		var delete_button = Button.new()
+		delete_button.tooltip_text = "Delete"
+		delete_button.icon = ICON_X
+		delete_button.pressed.connect(Callable(self, "_on_delete_interactive_stream_pressed").bind(key, audio_manifest.interactive[key]))
+		button_hbox.add_child(delete_button)
+		
+		interactive_grid_container.add_child(button_hbox)
+
+func _on_delete_interactive_stream_pressed(key: String, resource_path: String):
+	var audio_manifest = load(AUDIO_MANIFEST_PATH)
+	if not audio_manifest:
+		push_error("AudioManifest não encontrado em: " + AUDIO_MANIFEST_PATH)
+		return
+
+	if audio_manifest.interactive.has(key):
+		audio_manifest.interactive.erase(key)
+		var error = ResourceSaver.save(audio_manifest, AUDIO_MANIFEST_PATH)
+		if error != OK:
+			push_error("Falha ao salvar AudioManifest após exclusão de interactive: %s" % error)
+		else:
+			print("AudioStreamInteractive '%s' removido do manifest." % key)
+			var dir_access = DirAccess.open("")
+			if dir_access and dir_access.file_exists(resource_path):
+				dir_access.remove(resource_path)
+				print("Arquivo '%s' excluído." % resource_path)
+			_load_interactive_streams_to_ui()
+			_show_save_feedback()
+
 
 func _on_add_assets_path_button_pressed() -> void:
 	_create_path_entry("", false)
@@ -415,6 +460,7 @@ func _on_playlists_generation_finished(success: bool, message: String):
 	if success:
 		gen_status_label.text = "Playlists geradas com sucesso!"
 		_load_config_to_ui() # Recarrega a UI para mostrar as novas playlists
+		_load_interactive_streams_to_ui() # Recarrega a UI para mostrar os interactive streams
 	else:
 		gen_status_label.text = "Erro ao gerar playlists: %s" % message
 

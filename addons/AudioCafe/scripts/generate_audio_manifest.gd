@@ -29,10 +29,10 @@ func _run():
 	var overall_success = true
 	var message = ""
 
-	var base_dist_path = audio_config.dist_path.trim_suffix("/")
-	var playlist_dist_save_path = base_dist_path + "/playlist/"
-	var random_dist_save_path = base_dist_path + "/random/"
-	var sync_dist_save_path = base_dist_path + "/sync/"
+	var playlist_dist_save_path = audio_config.get_playlist_save_path()
+	var randomized_dist_save_path = audio_config.get_randomized_save_path()
+	var interactive_dist_save_path = audio_config.get_interactive_save_path()
+	var synchronized_dist_save_path = audio_config.get_synchronized_save_path()
 
 	var dist_dir_access = DirAccess.open("res://")
 	if not dist_dir_access:
@@ -41,7 +41,7 @@ func _run():
 		return
 
 	# Garante que diretórios de saída existam
-	for path_to_create in [playlist_dist_save_path]:
+	for path_to_create in [playlist_dist_save_path, randomized_dist_save_path, interactive_dist_save_path, synchronized_dist_save_path]:
 		var relative_path = path_to_create.replace("res://", "")
 		if not dist_dir_access.dir_exists(relative_path):
 			var error = dist_dir_access.make_dir_recursive(relative_path)
@@ -95,7 +95,15 @@ func _run():
 		overall_success = false
 		message = "Falha ao coletar streams de áudio."
 
-	# Step 4: Save the main AudioManifest
+	# Step 4: Collect existing AudioStreamInteractive resources
+	var collected_interactive_streams: Dictionary = {}
+	if not _scan_directory_for_resources(interactive_dist_save_path, "AudioStreamInteractive", collected_interactive_streams):
+		overall_success = false
+		message = "Falha ao coletar AudioStreamInteractive."
+	else:
+		audio_manifest.interactive = collected_interactive_streams
+
+	# Step 5: Save the main AudioManifest
 	if overall_success:
 		var err = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_FILE)
 		if err != OK:
@@ -159,6 +167,29 @@ func _scan_directory_for_streams(current_path: String, collected_streams: Dictio
 			if not collected_streams.has(final_key):
 				collected_streams[final_key] = []
 			collected_streams[final_key].append(audio_stream)
+			
+		file_or_dir_name = dir.get_next()
+
+	return true
+
+func _scan_directory_for_resources(current_path: String, resource_class_name: String, collected_resources: Dictionary) -> bool:
+	var dir = DirAccess.open(current_path)
+	if not dir:
+		printerr("GenerateAudioManifest: Falha ao abrir o diretório: %s" % current_path)
+		return false
+	
+	dir.list_dir_begin()
+	var file_or_dir_name = dir.get_next()
+	while file_or_dir_name != "":
+		if dir.current_is_dir():
+			if not _scan_directory_for_resources(current_path.path_join(file_or_dir_name), resource_class_name, collected_resources):
+				return false
+		elif file_or_dir_name.ends_with(".tres"):
+			var resource_path = current_path.path_join(file_or_dir_name)
+			var loaded_resource = load(resource_path)
+			if loaded_resource and loaded_resource.get_class() == resource_class_name:
+				var final_key = file_or_dir_name.get_basename().to_lower()
+				collected_resources[final_key] = resource_path
 			
 		file_or_dir_name = dir.get_next()
 
