@@ -6,10 +6,6 @@ signal progress_updated(current: int, total: int)
 signal generation_finished(success: bool, message: String)
 
 const MANIFEST_SAVE_FILE = "res://addons/AudioCafe/resources/audio_manifest.tres"
-const PLAYLIST_DIST_SAVE_PATH = "res://addons/AudioCafe/dist/playlist/"
-const RANDOM_DIST_SAVE_PATH = "res://addons/AudioCafe/dist/random/"
-const SYNC_DIST_SAVE_PATH = "res://addons/AudioCafe/dist/sync/"
-const INTERACTIVE_DIST_SAVE_PATH = "res://addons/AudioCafe/dist/interactive/"
 
 var _total_files_to_scan = 0
 var _files_scanned = 0
@@ -33,17 +29,39 @@ func _run():
 	var overall_success = true
 	var message = ""
 
-	# Ensure PLAYLIST_DIST_SAVE_PATH exists
-	var dist_dir = DirAccess.open("res://")
-	if not dist_dir.dir_exists(PLAYLIST_DIST_SAVE_PATH.replace("res://", "")):
-		dist_dir.make_dir(PLAYLIST_DIST_SAVE_PATH.replace("res://", ""))
-		print("Created directory: %s" % PLAYLIST_DIST_SAVE_PATH)
+	var base_dist_path = audio_config.dist_path.trim_suffix("/")
+	var playlist_dist_save_path = base_dist_path + "/playlist/"
+	var random_dist_save_path = base_dist_path + "/random/"
+	var sync_dist_save_path = base_dist_path + "/sync/"
+	var interactive_dist_save_path = base_dist_path + "/interactive/"
+
+	var dist_dir_access = DirAccess.open("res://")
+	if not dist_dir_access:
+		printerr("Falha ao abrir o diretório 'res://'.")
+		emit_signal("generation_finished", false, "Falha ao acessar o diretório base do projeto.")
+		return
+
+	for path_to_create in [playlist_dist_save_path, random_dist_save_path, sync_dist_save_path, interactive_dist_save_path]:
+		var relative_path = path_to_create.replace("res://", "")
+		if not dist_dir_access.dir_exists(relative_path):
+			var error = dist_dir_access.make_dir_recursive(relative_path)
+			if error != OK:
+				printerr("Falha ao criar o diretório: %s, Erro: %s" % [path_to_create, error])
+				overall_success = false
+				message = "Falha ao criar diretórios de distribuição."
+				break
+			else:
+				print("Diretório criado: %s" % path_to_create)
+	
+	if not overall_success:
+		emit_signal("generation_finished", overall_success, message)
+		return
 
 	# Step 3: Process collected streams into playlists
 	if success_collection:
 		for final_key in collected_streams.keys():
 			var streams_for_key = collected_streams[final_key]
-			var playlist_file_path = "%s%s_playlist.tres" % [PLAYLIST_DIST_SAVE_PATH, final_key]
+			var playlist_file_path = "%s%s_playlist.tres" % [playlist_dist_save_path, final_key]
 			
 			var playlist: AudioStreamPlaylist
 			if FileAccess.file_exists(playlist_file_path):

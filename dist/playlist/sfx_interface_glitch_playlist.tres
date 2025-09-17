@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://cs6xrt5p4thab"]
+
+[ext_resource type="AudioStream" uid="uid://c64o6nv8db7f5" path="res://assets/sfx/interface/glitch/glitch_001.ogg" id="1_0t8ld"]
+[ext_resource type="AudioStream" uid="uid://dtoha4bevld75" path="res://assets/sfx/interface/glitch/glitch_002.ogg" id="2_fg1ms"]
+[ext_resource type="AudioStream" uid="uid://4b13r66iqduj" path="res://assets/sfx/interface/glitch/glitch_003.ogg" id="3_wcbbv"]
+[ext_resource type="AudioStream" uid="uid://vu6pv1arudf8" path="res://assets/sfx/interface/glitch/glitch_004.ogg" id="4_cpxkq"]
+
+[resource]
+stream_count = 4
+stream_0 = ExtResource("1_0t8ld")
+stream_1 = ExtResource("2_fg1ms")
+stream_2 = ExtResource("3_wcbbv")
+stream_3 = ExtResource("4_cpxkq")

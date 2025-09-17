@@ -1,0 +1,11 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=4 format=3 uid="uid://d16enild6y8di"]
+
+[ext_resource type="AudioStream" uid="uid://drtxwyv3ymakx" path="res://assets/sfx/interface/tick/tick_001.ogg" id="1_tnpqk"]
+[ext_resource type="AudioStream" uid="uid://bordi5j4wlw4x" path="res://assets/sfx/interface/tick/tick_002.ogg" id="2_iwx1s"]
+[ext_resource type="AudioStream" uid="uid://dhtonnwrpfrbp" path="res://assets/sfx/interface/tick/tick_004.ogg" id="3_mk5mj"]
+
+[resource]
+stream_count = 3
+stream_0 = ExtResource("1_tnpqk")
+stream_1 = ExtResource("2_iwx1s")
+stream_2 = ExtResource("3_mk5mj")
