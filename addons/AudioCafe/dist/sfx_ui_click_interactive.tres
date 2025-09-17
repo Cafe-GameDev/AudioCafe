@@ -1,0 +1,17 @@
+[gd_resource type="AudioStreamInteractive" load_steps=4 format=3 uid="uid://2aqr0xsylofw"]
+
+[ext_resource type="AudioStream" path="res://addons/AudioCafe/dist/random/sfx_ui_click_random.tres" id="1_fapm3"]
+[ext_resource type="AudioStream" uid="uid://bgcqt4hdmoibk" path="res://addons/AudioCafe/dist/playlist/sfx_ui_click_playlist.tres" id="2_al4tk"]
+[ext_resource type="AudioStream" path="res://addons/AudioCafe/dist/sync/sfx_ui_click_sync.tres" id="3_so7yg"]
+
+[resource]
+clip_count = 3
+clip_0/name = &"Sfx Ui Click Random"
+clip_0/stream = ExtResource("1_fapm3")
+clip_0/auto_advance = 0
+clip_1/name = &"Sfx Ui Click Playlist"
+clip_1/stream = ExtResource("2_al4tk")
+clip_1/auto_advance = 0
+clip_2/name = &"Sfx Ui Click Sync"
+clip_2/stream = ExtResource("3_so7yg")
+clip_2/auto_advance = 0
