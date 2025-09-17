@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvnd3bjun3wqv"]
+[gd_scene load_steps=2 format=3 uid="uid://ds81g7wk5jsss"]
 
-[ext_resource type="AudioStream" uid="uid://3vc21b8xxovb" path="res://dist/playlist/music_hit_jingles_playlist.tres" id="1_wtcfe"]
+[ext_resource type="AudioStream" uid="uid://2bwpmbt37x68" path="res://dist/playlist/music_hit_jingles_playlist.tres" id="1_wtcfe"]
 
 [node name="Node2D" type="Node2D"]
 
