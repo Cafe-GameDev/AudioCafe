@@ -25,7 +25,7 @@ alignment = 0
 icon_alignment = 2
 
 [node name="CollapsibleContent" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 792)
+custom_minimum_size = Vector2(0, 13833)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent"]
@@ -105,6 +105,37 @@ metadata/_tab_index = 1
 
 [node name="PlaylistRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Playlists"]
 layout_mode = 2
+text = "music_8-bit_jingles
+music_hit_jingles
+music_pizzicato_jingles
+music_sax_jingles
+music_steel_jingles
+sfx_interface_back
+sfx_interface_bong
+sfx_interface_click
+sfx_interface_close
+sfx_interface_confirmation
+sfx_interface_drop
+sfx_interface_error
+sfx_interface_glass
+sfx_interface_glitch
+sfx_interface_maximize
+sfx_interface_minimize
+sfx_interface_open
+sfx_interface_pluck
+sfx_interface_question
+sfx_interface_scratch
+sfx_interface_scroll
+sfx_interface_select
+sfx_interface_switch
+sfx_interface_tick
+sfx_interface_toggle
+sfx_ui_click
+sfx_ui_mouseclick
+sfx_ui_mouserelease
+sfx_ui_rollover
+sfx_ui_switch
+"
 fit_content = true
 
 [node name="Interactive" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
@@ -113,11 +144,12 @@ layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 2
 
-[node name="InteractiveGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Interactive"]
-layout_direction = 2
+[node name="InteractiveRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Interactive"]
 layout_mode = 2
-theme_override_constants/h_separation = 10
-columns = 2
+text = "Interactive Streams:
+new_audio_stream_interactive
+"
+fit_content = true
 
 [node name="AssetsFolderDialog" type="FileDialog" parent="CollapsibleContent"]
 title = "Open a Directory"
