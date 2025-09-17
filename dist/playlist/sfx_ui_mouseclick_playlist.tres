@@ -1,7 +1,0 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=2 format=3 uid="uid://c7v180xm0xj00"]
-
-[ext_resource type="AudioStream" uid="uid://bbqlwjeu7171b" path="res://assets/sfx/ui/mouseclick/mouseclick1.ogg" id="1_enpr6"]
-
-[resource]
-stream_count = 1
-stream_0 = ExtResource("1_enpr6")
