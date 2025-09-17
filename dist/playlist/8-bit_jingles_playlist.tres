@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://biixjjjlgi8v3"]
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://bm4yb4vysa3lh"]
 
 [ext_resource type="AudioStream" uid="uid://ct4mvsowp5jsp" path="res://assets/8-bit_jingles/jingles_nes_0.ogg" id="1_aqt5l"]
 [ext_resource type="AudioStream" uid="uid://i3pkonshxsdc" path="res://assets/8-bit_jingles/jingles_nes_1.ogg" id="2_ev0ck"]

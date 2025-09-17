@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://eypr552g1frw"]
+[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://cug12rcttbdnh"]
 
 [ext_resource type="AudioStream" uid="uid://bhukomhd03cs" path="res://assets/interface/question/question_001.ogg" id="1_pl5wm"]
 [ext_resource type="AudioStream" uid="uid://o4h0evng02rd" path="res://assets/interface/question/question_002.ogg" id="2_ny3xs"]

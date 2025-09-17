@@ -90,7 +90,7 @@ func _run():
 				break
 			
 			# Agora todos entram como playlists no manifest
-			audio_manifest.playlists[final_key] = playlist_file_path
+			audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count)]
 	else:
 		overall_success = false
 		message = "Falha ao coletar streams de áudio."
