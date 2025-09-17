@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://3vc21b8xxovb"]
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://cl34nxbmddscl"]
 
 [ext_resource type="AudioStream" uid="uid://b5lkibcl5l4n6" path="res://assets/music/Hit_jingles/jingles_hit_0.ogg" id="1_drpsy"]
 [ext_resource type="AudioStream" uid="uid://dm4yyqu7cvf1c" path="res://assets/music/Hit_jingles/jingles_hit_1.ogg" id="2_em5uk"]

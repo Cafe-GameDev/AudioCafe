@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://dpgsxqsq4ri0j"]
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://dokqcigvqgs76"]
 
 [ext_resource type="AudioStream" uid="uid://7iy4e2y7t5jo" path="res://assets/music/Pizzicato_jingles/jingles_pizzi_0.ogg" id="1_bo1dd"]
 [ext_resource type="AudioStream" uid="uid://1j37sgqqv6t3" path="res://assets/music/Pizzicato_jingles/jingles_pizzi_1.ogg" id="2_peotj"]

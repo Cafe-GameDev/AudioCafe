@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=3 format=3 uid="uid://cxt31hfmbkc6e"]
+[gd_resource type="AudioStreamPlaylist" load_steps=3 format=3 uid="uid://dcjvmh515cie8"]
 
 [ext_resource type="AudioStream" uid="uid://b5jxthu1meahw" path="res://assets/sfx/interface/pluck/pluck_001.ogg" id="1_avnao"]
 [ext_resource type="AudioStream" uid="uid://cg12sqbmrjt4g" path="res://assets/sfx/interface/pluck/pluck_002.ogg" id="2_no3ql"]

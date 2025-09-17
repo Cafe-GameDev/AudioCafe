@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://cnf78dt6ittng"]
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://b8dgkg6qa74ec"]
 
 [ext_resource type="AudioStream" uid="uid://cu887s2ebskf0" path="res://assets/music/Steel_jingles/jingles_steel_0.ogg" id="1_25pa5"]
 [ext_resource type="AudioStream" uid="uid://q6u8sg48pl1i" path="res://assets/music/Steel_jingles/jingles_steel_1.ogg" id="2_nt6od"]

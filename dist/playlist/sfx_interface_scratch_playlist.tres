@@ -1,4 +1,4 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=6 format=3 uid="uid://cnlma6oc6pm4q"]
+[gd_resource type="AudioStreamPlaylist" load_steps=6 format=3 uid="uid://dmmvb3rqv7xqi"]
 
 [ext_resource type="AudioStream" uid="uid://bxynkxplxl70w" path="res://assets/sfx/interface/scratch/scratch_001.ogg" id="1_wpfdt"]
 [ext_resource type="AudioStream" uid="uid://vjnhrux55we" path="res://assets/sfx/interface/scratch/scratch_002.ogg" id="2_62p48"]
