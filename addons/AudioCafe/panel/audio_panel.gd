@@ -13,7 +13,7 @@ extends VBoxContainer
 @onready var add_dist_path_button: Button = $CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton
 
 @onready var playlists_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Playlists
-@onready var playlist_grid_container: GridContainer = $CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer
+@onready var playlist_rich_text_label: RichTextLabel = $CollapsibleContent/TabContainer/Playlists/PlaylistRichTextLabel
 
 @onready var interactive_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Interactive
 @onready var interactive_grid_container: GridContainer = $CollapsibleContent/TabContainer/Interactive/InteractiveGridContainer
@@ -25,9 +25,6 @@ extends VBoxContainer
 
 const ARROW_BIG_DOWN_DASH = preload("res://addons/AudioCafe/icons/arrow-big-down-dash.svg")
 const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-dash.svg")
-const ICON_RANDOMIZED = preload("res://addons/AudioCafe/icons/shuffle.svg")
-const ICON_SYNCHRONIZED = preload("res://addons/AudioCafe/icons/boxes.svg")
-const ICON_INTERACTIVE = preload("res://addons/AudioCafe/icons/clapperboard.svg")
 const ICON_X = preload("res://addons/AudioCafe/icons/x.svg")
 
 
@@ -135,60 +132,38 @@ func _load_config_to_ui():
 	_load_interactive_streams_to_ui()
 
 func _load_playlists_to_ui():
-	if not playlist_grid_container: return
-
-	for child in playlist_grid_container.get_children():
-		child.queue_free()
+	if not playlist_rich_text_label: return
 
 	var audio_manifest = load(AUDIO_MANIFEST_PATH)
 	if not audio_manifest:
 		push_error("AudioManifest não encontrado em: " + AUDIO_MANIFEST_PATH)
 		return
 
-	for key in audio_manifest.playlists.keys():
-		var playlist_name_label = Label.new()
-		playlist_name_label.text = key
-		playlist_name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		playlist_grid_container.add_child(playlist_name_label)
+	var playlists_text = ""
+	if not audio_manifest.playlists.is_empty():
+		playlists_text += "[b]Playlists:[/b]\n"
+		for key in audio_manifest.playlists.keys():
+			playlists_text += "- %s\n" % key
+	
+	if not audio_manifest.randomized.is_empty():
+		if not playlists_text.is_empty(): playlists_text += "\n"
+		playlists_text += "[b]Randomized Streams:[/b]\n"
+		for key in audio_manifest.randomized.keys():
+			playlists_text += "- %s\n" % key
 
-		var button_hbox = HBoxContainer.new()
-		
-		var current_states = audio_config.playlist_conversion_states.get(key, {})
+	if not audio_manifest.synchronized.is_empty():
+		if not playlists_text.is_empty(): playlists_text += "\n"
+		playlists_text += "[b]Synchronized Streams:[/b]\n"
+		for key in audio_manifest.synchronized.keys():
+			playlists_text += "- %s\n" % key
 
-		var randomized_button = Button.new()
-		randomized_button.tooltip_text = "Randomized"
-		randomized_button.icon = ICON_RANDOMIZED
-		randomized_button.toggle_mode = true
-		randomized_button.button_pressed = current_states.get("randomized", false)
-		randomized_button.toggled.connect(Callable(self, "_on_conversion_button_toggled").bind(key, "randomized"))
-		button_hbox.add_child(randomized_button)
+	if playlists_text.is_empty():
+		playlists_text = "Nenhum stream de áudio gerado ainda. Clique em 'Generate Playlists' para começar."
 
-		var synchronized_button = Button.new()
-		synchronized_button.tooltip_text = "Synchronized"
-		synchronized_button.icon = ICON_SYNCHRONIZED
-		synchronized_button.toggle_mode = true
-		synchronized_button.button_pressed = current_states.get("synchronized", false)
-		synchronized_button.toggled.connect(Callable(self, "_on_conversion_button_toggled").bind(key, "synchronized"))
-		button_hbox.add_child(synchronized_button)
+	playlist_rich_text_label.bbcode_text = playlists_text
 
-		var interactive_button = Button.new()
-		interactive_button.tooltip_text = "Interactive"
-		interactive_button.icon = ICON_INTERACTIVE
-		interactive_button.toggle_mode = true
-		interactive_button.button_pressed = current_states.get("interactive", false)
-		interactive_button.toggled.connect(Callable(self, "_on_conversion_button_toggled").bind(key, "interactive"))
-		button_hbox.add_child(interactive_button)
-		
-		playlist_grid_container.add_child(button_hbox)
 
-func _on_conversion_button_toggled(button_pressed: bool, key: String, conversion_type: String):
-	if not audio_config: return
 
-	var current_states = audio_config.playlist_conversion_states.get(key, {})
-	current_states[conversion_type] = button_pressed
-	audio_config.playlist_conversion_states[key] = current_states
-	audio_config._save_and_emit_changed()
-	print("Estado do botão '%s' para playlist '%s' alterado para: %s" % [conversion_type, key, button_pressed])
 
 
 func _on_config_text_changed(new_text: String, config_property: String):

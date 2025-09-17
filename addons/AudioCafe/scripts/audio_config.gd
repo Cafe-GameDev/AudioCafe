@@ -149,11 +149,7 @@ func get_synchronized_save_path() -> String:
 			music_volume = value
 			_save_and_emit_changed()
 
-@export var playlist_conversion_states: Dictionary = {}: # { "playlist_key": { "randomized": bool, "synchronized": bool, "interactive": bool } }
-	set(value):
-		if playlist_conversion_states != value:
-			playlist_conversion_states = value
-			_save_and_emit_changed()
+
 
 
 

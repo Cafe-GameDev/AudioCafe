@@ -3,12 +3,21 @@ extends EditorPlugin
 
 const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
 
+const ICON_AUDIO_LINES = preload("res://addons/AudioCafe/icons/audio-lines.svg")
+const ICON_SHUFFLE = preload("res://addons/AudioCafe/icons/shuffle.svg")
+const ICON_CLAPPERBOARD = preload("res://addons/AudioCafe/icons/clapperboard.svg")
+const ICON_BOXES = preload("res://addons/AudioCafe/icons/boxes.svg")
+
 var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
 
 func _enter_tree():
 	_create_plugin_panel()
+	get_editor_interface().add_resource_type_icon("AudioStreamPlaylist", ICON_AUDIO_LINES)
+	get_editor_interface().add_resource_type_icon("AudioStreamRandomizer", ICON_SHUFFLE)
+	get_editor_interface().add_resource_type_icon("AudioStreamInteractive", ICON_CLAPPERBOARD)
+	get_editor_interface().add_resource_type_icon("AudioStreamSynchronized", ICON_BOXES)
 
 
 func _exit_tree():
@@ -21,6 +30,10 @@ func _exit_tree():
 			if plugin_panel.get_parent() != null:
 				remove_control_from_docks(plugin_panel)
 			plugin_panel.free()
+	get_editor_interface().remove_resource_type_icon("AudioStreamPlaylist")
+	get_editor_interface().remove_resource_type_icon("AudioStreamRandomizer")
+	get_editor_interface().remove_resource_type_icon("AudioStreamInteractive")
+	get_editor_interface().remove_resource_type_icon("AudioStreamSynchronized")
 
 
 func _create_plugin_panel():

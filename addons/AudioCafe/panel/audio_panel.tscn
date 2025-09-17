@@ -25,7 +25,7 @@ alignment = 0
 icon_alignment = 2
 
 [node name="CollapsibleContent" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 107)
+custom_minimum_size = Vector2(0, 792)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent"]
@@ -60,7 +60,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="CollapsibleContent"]
 layout_mode = 2
 size_flags_vertical = 0
-current_tab = 2
+current_tab = 1
 tabs_rearrange_group = 0
 
 [node name="Settings" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
@@ -99,18 +99,16 @@ layout_mode = 2
 text = "Add Dist Path"
 
 [node name="Playlists" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 1
 
-[node name="PlaylistGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Playlists"]
-layout_direction = 2
+[node name="PlaylistRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Playlists"]
 layout_mode = 2
-theme_override_constants/h_separation = 10
-columns = 2
+fit_content = true
 
 [node name="Interactive" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 2
