@@ -29,6 +29,6 @@ playlist_conversion_states = {
 "music_pizzicato_jingles": {
 "interactive": true,
 "randomized": true,
-"synchronized": true
+"synchronized": false
 }
 }

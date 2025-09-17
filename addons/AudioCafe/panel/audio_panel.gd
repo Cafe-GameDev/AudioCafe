@@ -15,6 +15,12 @@ extends VBoxContainer
 @onready var playlists_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Playlists
 @onready var playlist_grid_container: GridContainer = $CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer
 
+@onready var sync_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Sync
+@onready var sync_grid_container: GridContainer = $CollapsibleContent/TabContainer/Sync/SyncGridContainer
+
+@onready var interactive_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Interactive
+@onready var interactive_grid_container: GridContainer = $CollapsibleContent/TabContainer/Interactive/InteractiveGridContainer
+
 
 @onready var assets_folder_dialog: FileDialog = $CollapsibleContent/AssetsFolderDialog
 @onready var dist_folder_dialog: FileDialog = $CollapsibleContent/DistFolderDialog

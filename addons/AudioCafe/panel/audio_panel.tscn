@@ -1,18 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8u1p14dtwv4j"]
+[gd_scene load_steps=7 format=3 uid="uid://b8u1p14dtwv4j"]
 
 [ext_resource type="Script" uid="uid://db2mvhlm1sjal" path="res://addons/AudioCafe/panel/audio_panel.gd" id="1_bf5yf"]
 [ext_resource type="Texture2D" uid="uid://cqdc43xlhe2rl" path="res://addons/AudioCafe/icons/refresh-cw.svg" id="2_1kouy"]
 [ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_1u6yf"]
 [ext_resource type="Texture2D" uid="uid://onb63xl4bsnu" path="res://addons/AudioCafe/icons/audio-lines.svg" id="2_e2q5v"]
 [ext_resource type="Texture2D" uid="uid://0kp7rnsg2l8y" path="res://addons/AudioCafe/icons/arrow-big-up-dash.svg" id="2_o1mfy"]
-[ext_resource type="Texture2D" uid="uid://q7eh8tuodfrf" path="res://addons/AudioCafe/icons/shuffle.svg" id="6_e2q5v"]
-[ext_resource type="Texture2D" uid="uid://c6olgtqpk02pc" path="res://addons/AudioCafe/icons/boxes.svg" id="7_ca2om"]
-[ext_resource type="Texture2D" uid="uid://dyalvtx8j4x03" path="res://addons/AudioCafe/icons/clapperboard.svg" id="8_jwa4r"]
 [ext_resource type="Texture2D" uid="uid://dx4rjbf0jt8pl" path="res://addons/AudioCafe/icons/x.svg" id="9_jwa4r"]
 
 [node name="AudioPanel" type="VBoxContainer"]
 offset_right = 333.0
-offset_bottom = 363.0
+offset_bottom = 1077.0
 script = ExtResource("1_bf5yf")
 
 [node name="Audio-lines" type="Sprite2D" parent="."]
@@ -29,7 +26,7 @@ alignment = 0
 icon_alignment = 2
 
 [node name="CollapsibleContent" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 311)
+custom_minimum_size = Vector2(0, 1035)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent"]
@@ -64,7 +61,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="CollapsibleContent"]
 layout_mode = 2
 size_flags_vertical = 0
-current_tab = 1
+current_tab = 3
 tabs_rearrange_group = 0
 
 [node name="Settings" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
@@ -103,6 +100,7 @@ layout_mode = 2
 text = "Add Dist Path"
 
 [node name="Playlists" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 1
@@ -137,7 +135,6 @@ toggle_mode = true
 icon = ExtResource("9_jwa4r")
 
 [node name="Interactive" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 3
