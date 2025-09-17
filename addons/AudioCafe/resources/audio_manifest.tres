@@ -1,40 +1,40 @@
 [gd_resource type="Resource" script_class="AudioManifest" load_steps=2 format=3 uid="uid://wyey0ar5xddl"]
 
-[ext_resource type="Script" uid="uid://bxh0q6iqol7xw" path="res://addons/AudioCafe/scripts/audio_manifest.gd" id="1_o47oy"]
+[ext_resource type="Script" uid="uid://b3pdf762wx776" path="res://addons/AudioCafe/scripts/audio_manifest.gd" id="1_o47oy"]
 
 [resource]
 script = ExtResource("1_o47oy")
 music_data = {
-"8-bit_jingles": "res://addons/AudioCafe/dist/playlists/8-bit_jingles_playlist.tres",
-"hit_jingles": "res://addons/AudioCafe/dist/playlists/hit_jingles_playlist.tres",
-"pizzicato_jingles": "res://addons/AudioCafe/dist/playlists/pizzicato_jingles_playlist.tres",
-"sax_jingles": "res://addons/AudioCafe/dist/playlists/sax_jingles_playlist.tres",
-"steel_jingles": "res://addons/AudioCafe/dist/playlists/steel_jingles_playlist.tres"
+"music_8-bit_jingles": "res://addons/AudioCafe/dist/playlist/music_8-bit_jingles_playlist.tres",
+"music_hit_jingles": "res://addons/AudioCafe/dist/playlist/music_hit_jingles_playlist.tres",
+"music_pizzicato_jingles": "res://addons/AudioCafe/dist/playlist/music_pizzicato_jingles_playlist.tres",
+"music_sax_jingles": "res://addons/AudioCafe/dist/playlist/music_sax_jingles_playlist.tres",
+"music_steel_jingles": "res://addons/AudioCafe/dist/playlist/music_steel_jingles_playlist.tres"
 }
 sfx_data = {
-"interface_back": "res://addons/AudioCafe/dist/playlists/interface_back_playlist.tres",
-"interface_bong": "res://addons/AudioCafe/dist/playlists/interface_bong_playlist.tres",
-"interface_click": "res://addons/AudioCafe/dist/playlists/interface_click_playlist.tres",
-"interface_close": "res://addons/AudioCafe/dist/playlists/interface_close_playlist.tres",
-"interface_confirmation": "res://addons/AudioCafe/dist/playlists/interface_confirmation_playlist.tres",
-"interface_drop": "res://addons/AudioCafe/dist/playlists/interface_drop_playlist.tres",
-"interface_error": "res://addons/AudioCafe/dist/playlists/interface_error_playlist.tres",
-"interface_glass": "res://addons/AudioCafe/dist/playlists/interface_glass_playlist.tres",
-"interface_glitch": "res://addons/AudioCafe/dist/playlists/interface_glitch_playlist.tres",
-"interface_maximize": "res://addons/AudioCafe/dist/playlists/interface_maximize_playlist.tres",
-"interface_minimize": "res://addons/AudioCafe/dist/playlists/interface_minimize_playlist.tres",
-"interface_open": "res://addons/AudioCafe/dist/playlists/interface_open_playlist.tres",
-"interface_pluck": "res://addons/AudioCafe/dist/playlists/interface_pluck_playlist.tres",
-"interface_question": "res://addons/AudioCafe/dist/playlists/interface_question_playlist.tres",
-"interface_scratch": "res://addons/AudioCafe/dist/playlists/interface_scratch_playlist.tres",
-"interface_scroll": "res://addons/AudioCafe/dist/playlists/interface_scroll_playlist.tres",
-"interface_select": "res://addons/AudioCafe/dist/playlists/interface_select_playlist.tres",
-"interface_switch": "res://addons/AudioCafe/dist/playlists/interface_switch_playlist.tres",
-"interface_tick": "res://addons/AudioCafe/dist/playlists/interface_tick_playlist.tres",
-"interface_toggle": "res://addons/AudioCafe/dist/playlists/interface_toggle_playlist.tres",
-"ui_click": "res://addons/AudioCafe/dist/playlists/ui_click_playlist.tres",
-"ui_mouseclick": "res://addons/AudioCafe/dist/playlists/ui_mouseclick_playlist.tres",
-"ui_mouserelease": "res://addons/AudioCafe/dist/playlists/ui_mouserelease_playlist.tres",
-"ui_rollover": "res://addons/AudioCafe/dist/playlists/ui_rollover_playlist.tres",
-"ui_switch": "res://addons/AudioCafe/dist/playlists/ui_switch_playlist.tres"
+"sfx_interface_back": "res://addons/AudioCafe/dist/playlist/sfx_interface_back_playlist.tres",
+"sfx_interface_bong": "res://addons/AudioCafe/dist/playlist/sfx_interface_bong_playlist.tres",
+"sfx_interface_click": "res://addons/AudioCafe/dist/playlist/sfx_interface_click_playlist.tres",
+"sfx_interface_close": "res://addons/AudioCafe/dist/playlist/sfx_interface_close_playlist.tres",
+"sfx_interface_confirmation": "res://addons/AudioCafe/dist/playlist/sfx_interface_confirmation_playlist.tres",
+"sfx_interface_drop": "res://addons/AudioCafe/dist/playlist/sfx_interface_drop_playlist.tres",
+"sfx_interface_error": "res://addons/AudioCafe/dist/playlist/sfx_interface_error_playlist.tres",
+"sfx_interface_glass": "res://addons/AudioCafe/dist/playlist/sfx_interface_glass_playlist.tres",
+"sfx_interface_glitch": "res://addons/AudioCafe/dist/playlist/sfx_interface_glitch_playlist.tres",
+"sfx_interface_maximize": "res://addons/AudioCafe/dist/playlist/sfx_interface_maximize_playlist.tres",
+"sfx_interface_minimize": "res://addons/AudioCafe/dist/playlist/sfx_interface_minimize_playlist.tres",
+"sfx_interface_open": "res://addons/AudioCafe/dist/playlist/sfx_interface_open_playlist.tres",
+"sfx_interface_pluck": "res://addons/AudioCafe/dist/playlist/sfx_interface_pluck_playlist.tres",
+"sfx_interface_question": "res://addons/AudioCafe/dist/playlist/sfx_interface_question_playlist.tres",
+"sfx_interface_scratch": "res://addons/AudioCafe/dist/playlist/sfx_interface_scratch_playlist.tres",
+"sfx_interface_scroll": "res://addons/AudioCafe/dist/playlist/sfx_interface_scroll_playlist.tres",
+"sfx_interface_select": "res://addons/AudioCafe/dist/playlist/sfx_interface_select_playlist.tres",
+"sfx_interface_switch": "res://addons/AudioCafe/dist/playlist/sfx_interface_switch_playlist.tres",
+"sfx_interface_tick": "res://addons/AudioCafe/dist/playlist/sfx_interface_tick_playlist.tres",
+"sfx_interface_toggle": "res://addons/AudioCafe/dist/playlist/sfx_interface_toggle_playlist.tres",
+"sfx_ui_click": "res://addons/AudioCafe/dist/playlist/sfx_ui_click_playlist.tres",
+"sfx_ui_mouseclick": "res://addons/AudioCafe/dist/playlist/sfx_ui_mouseclick_playlist.tres",
+"sfx_ui_mouserelease": "res://addons/AudioCafe/dist/playlist/sfx_ui_mouserelease_playlist.tres",
+"sfx_ui_rollover": "res://addons/AudioCafe/dist/playlist/sfx_ui_rollover_playlist.tres",
+"sfx_ui_switch": "res://addons/AudioCafe/dist/playlist/sfx_ui_switch_playlist.tres"
 }

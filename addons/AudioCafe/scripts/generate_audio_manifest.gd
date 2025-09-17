@@ -20,18 +20,14 @@ func _run():
 	_total_files_to_scan = 0
 	_files_scanned = 0
 
-	# Step 1: Count files for progress bar
-	for path in audio_config.sfx_paths:
-		_count_files_in_directory(path)
-	for path in audio_config.music_paths:
+	# Step 1: Count files for progress bar using assets_paths
+	for path in audio_config.assets_paths:
 		_count_files_in_directory(path)
 
-	var collected_sfx_streams: Dictionary = {} # {final_key: [stream1, stream2, ...]}
-	var collected_music_streams: Dictionary = {} # {final_key: [stream1, stream2, ...]}
+	var collected_streams: Dictionary = {} # {final_key: [stream1, stream2, ...]}
 
-	# Step 2: Collect all streams by their final_key
-	var success_sfx = _collect_streams_by_key(audio_config.sfx_paths, collected_sfx_streams, "sfx")
-	var success_music = _collect_streams_by_key(audio_config.music_paths, collected_music_streams, "music")
+	# Step 2: Collect all streams by their final_key using assets_paths
+	var success_collection = _collect_streams_by_key(audio_config.assets_paths, collected_streams)
 
 	var audio_manifest = AudioManifest.new()
 	var overall_success = true
@@ -43,10 +39,10 @@ func _run():
 		dist_dir.make_dir(PLAYLIST_DIST_SAVE_PATH.replace("res://", ""))
 		print("Created directory: %s" % PLAYLIST_DIST_SAVE_PATH)
 
-	# Step 3: Process collected SFX streams into playlists
-	if success_sfx:
-		for final_key in collected_sfx_streams.keys():
-			var streams_for_key = collected_sfx_streams[final_key]
+	# Step 3: Process collected streams into playlists
+	if success_collection:
+		for final_key in collected_streams.keys():
+			var streams_for_key = collected_streams[final_key]
 			var playlist_file_path = "%s%s_playlist.tres" % [PLAYLIST_DIST_SAVE_PATH, final_key]
 			
 			var playlist: AudioStreamPlaylist
@@ -70,52 +66,24 @@ func _run():
 			
 			var err = ResourceSaver.save(playlist, playlist_file_path)
 			if err != OK:
-				printerr("Falha ao salvar playlist SFX %s: %s" % [playlist_file_path, err])
+				printerr("Falha ao salvar playlist %s: %s" % [playlist_file_path, err])
 				overall_success = false
-				message = "Falha ao salvar playlists SFX."
+				message = "Falha ao salvar playlists."
 				break
-			audio_manifest.sfx_data[final_key] = playlist_file_path
+			
+			# Determine if it's music or sfx based on the key (this is a simplification, might need refinement)
+			# For now, let's assume if the key contains "music" it's music, otherwise sfx.
+			# A melhor abordagem seria ter pastas separadas para music e sfx nos assets_paths
+			# ou uma forma de categorizar os arquivos.
+			if final_key.begins_with("music_") or final_key.ends_with("_music"):
+				audio_manifest.music_data[final_key] = playlist_file_path
+			else:
+				audio_manifest.sfx_data[final_key] = playlist_file_path
 	else:
 		overall_success = false
-		message = "Falha ao coletar streams SFX."
+		message = "Falha ao coletar streams de áudio."
 
-	# Step 4: Process collected Music streams into playlists
-	if overall_success and success_music:
-		for final_key in collected_music_streams.keys():
-			var streams_for_key = collected_music_streams[final_key]
-			var playlist_file_path = "%s%s_playlist.tres" % [PLAYLIST_DIST_SAVE_PATH, final_key]
-			
-			var playlist: AudioStreamPlaylist
-			if FileAccess.file_exists(playlist_file_path):
-				playlist = load(playlist_file_path)
-				if playlist == null:
-					playlist = AudioStreamPlaylist.new()
-			else:
-				playlist = AudioStreamPlaylist.new()
-
-			# Clear existing streams in the playlist
-			for i in range(playlist.stream_count):
-				playlist.set("stream_%d" % i, null)
-			playlist.stream_count = 0
-
-			# Add new streams
-			for stream in streams_for_key:
-				var current_index = playlist.stream_count
-				playlist.set("stream_%d" % current_index, stream)
-				playlist.stream_count = current_index + 1
-			
-			var err = ResourceSaver.save(playlist, playlist_file_path)
-			if err != OK:
-				printerr("Falha ao salvar playlist Música %s: %s" % [playlist_file_path, err])
-				overall_success = false
-				message = "Falha ao salvar playlists Música."
-				break
-			audio_manifest.music_data[final_key] = playlist_file_path
-	elif overall_success: # Only set message if previous steps were successful
-		overall_success = false
-		message = "Falha ao coletar streams Música."
-
-	# Step 5: Save the main AudioManifest
+	# Step 4: Save the main AudioManifest
 	if overall_success:
 		var err = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_FILE)
 		if err != OK:
@@ -140,13 +108,13 @@ func _count_files_in_directory(current_path: String):
 			_total_files_to_scan += 1
 		file_or_dir_name = dir.get_next()
 
-func _collect_streams_by_key(paths: Array[String], collected_streams: Dictionary, audio_type: String) -> bool:
+func _collect_streams_by_key(paths: Array[String], collected_streams: Dictionary) -> bool:
 	for path in paths:
-		if not _scan_directory_for_streams(path, collected_streams, audio_type, path):
+		if not _scan_directory_for_streams(path, collected_streams, path):
 			return false
 	return true
 
-func _scan_directory_for_streams(current_path: String, collected_streams: Dictionary, audio_type: String, root_path: String) -> bool:
+func _scan_directory_for_streams(current_path: String, collected_streams: Dictionary, root_path: String) -> bool:
 	var dir = DirAccess.open(current_path)
 	if not dir:
 		printerr("GenerateAudioManifest: Failed to open directory: %s" % current_path)
@@ -156,7 +124,7 @@ func _scan_directory_for_streams(current_path: String, collected_streams: Dictio
 	var file_or_dir_name = dir.get_next()
 	while file_or_dir_name != "":
 		if dir.current_is_dir():
-			if not _scan_directory_for_streams(current_path.path_join(file_or_dir_name), collected_streams, audio_type, root_path):
+			if not _scan_directory_for_streams(current_path.path_join(file_or_dir_name), collected_streams, root_path):
 				return false
 		elif file_or_dir_name.ends_with(".ogg") or file_or_dir_name.ends_with(".wav"):
 			_files_scanned += 1

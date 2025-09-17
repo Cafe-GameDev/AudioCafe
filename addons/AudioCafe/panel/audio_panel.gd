@@ -25,6 +25,8 @@ const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-das
 
 const PLAYLIST_EDITOR_SCENE = preload("res://addons/AudioCafe/panel/playlist_editor.tscn")
 
+const AUDIO_MANIFEST_PATH = "res://addons/AudioCafe/resources/audio_manifest.tres"
+
 
 @export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
 
@@ -136,7 +138,8 @@ func _load_config_to_ui():
 	_clear_resource_editors()
 	_load_resource_editors()
 	
-	print("--- Finished loading config to UI ---")
+	print("--- Finished loading config to UI ---
+")
 
 func _clear_resource_editors():
 	for child in playlists.get_children():
@@ -144,29 +147,45 @@ func _clear_resource_editors():
 	
 
 func _load_resource_editors():
-	if not audio_config: return
+	var audio_manifest = ResourceLoader.load(AUDIO_MANIFEST_PATH)
+	if not audio_manifest:
+		push_error("Falha ao carregar AudioManifest em: %s" % AUDIO_MANIFEST_PATH)
+		return
 
-	for key in audio_config.key_resource.keys():
-		var resource_path = audio_config.key_resource[key]
+	for key in audio_manifest.music_data.keys():
+		var resource_path = audio_manifest.music_data[key]
 		var loaded_resource = ResourceLoader.load(resource_path)
 
 		if not loaded_resource:
-			push_error("Failed to load resource at path: %s" % resource_path)
+			push_error("Falha ao carregar recurso de música em: %s" % resource_path)
 			continue
 
 		if loaded_resource is AudioStreamPlaylist:
 			var editor = PLAYLIST_EDITOR_SCENE.instantiate()
 			editor.audio_stream_playlist = loaded_resource
 			playlists.add_child(editor)
-		
 		else:
-			push_error("Unknown audio resource type for path: %s" % resource_path)
+			push_error("Tipo de recurso de música desconhecido para o caminho: %s" % resource_path)
+	
+	for key in audio_manifest.sfx_data.keys():
+		var resource_path = audio_manifest.sfx_data[key]
+		var loaded_resource = ResourceLoader.load(resource_path)
+
+		if not loaded_resource:
+			push_error("Falha ao carregar recurso SFX em: %s" % resource_path)
+			continue
+
+		if loaded_resource is AudioStreamPlaylist:
+			var editor = PLAYLIST_EDITOR_SCENE.instantiate()
+			editor.audio_stream_playlist = loaded_resource
+			playlists.add_child(editor)
+		else:
+			push_error("Tipo de recurso SFX desconhecido para o caminho: %s" % resource_path)
+
 
 func _on_config_text_changed(new_text: String, config_property: String):
 	if audio_config:
 		var line_edit: LineEdit = null
-		# This part needs to be adapted based on how default keys are structured in the tscn
-		# For now, assuming direct access if they exist
 		
 		var is_valid = true
 		var error_message = ""
@@ -312,8 +331,6 @@ func _update_audio_config_paths():
 
 
 
-
-
 func _on_save_feedback_timer_timeout():
 	save_feedback_label.visible = false
 
@@ -371,7 +388,7 @@ func _on_generate_playlists_pressed():
 	gen_status_label.visible = true
 	gen_status_label.text = "Gerando playlists..."
 
-	var generator = GeneratePlaylists.new()
+	var generator = GenerateAudioManifest.new()
 	generator.audio_config = audio_config
 	generator.connect("generation_finished", Callable(self, "_on_playlists_generation_finished"))
 	print("DEBUG: Gerador de playlists configurado com assets_paths: %s" % audio_config.assets_paths)
