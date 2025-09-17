@@ -1,14 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8u1p14dtwv4j"]
+[gd_scene load_steps=9 format=3 uid="uid://b8u1p14dtwv4j"]
 
 [ext_resource type="Script" uid="uid://db2mvhlm1sjal" path="res://addons/AudioCafe/panel/audio_panel.gd" id="1_bf5yf"]
 [ext_resource type="Texture2D" uid="uid://cqdc43xlhe2rl" path="res://addons/AudioCafe/icons/refresh-cw.svg" id="2_1kouy"]
 [ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_1u6yf"]
+[ext_resource type="Texture2D" uid="uid://onb63xl4bsnu" path="res://addons/AudioCafe/icons/audio-lines.svg" id="2_e2q5v"]
 [ext_resource type="Texture2D" uid="uid://0kp7rnsg2l8y" path="res://addons/AudioCafe/icons/arrow-big-up-dash.svg" id="2_o1mfy"]
+[ext_resource type="Texture2D" uid="uid://q7eh8tuodfrf" path="res://addons/AudioCafe/icons/shuffle.svg" id="6_e2q5v"]
+[ext_resource type="Texture2D" uid="uid://c6olgtqpk02pc" path="res://addons/AudioCafe/icons/boxes.svg" id="7_ca2om"]
+[ext_resource type="Texture2D" uid="uid://dyalvtx8j4x03" path="res://addons/AudioCafe/icons/clapperboard.svg" id="8_jwa4r"]
 
 [node name="AudioPanel" type="VBoxContainer"]
 offset_right = 333.0
 offset_bottom = 363.0
 script = ExtResource("1_bf5yf")
+
+[node name="Audio-lines" type="Sprite2D" parent="."]
+position = Vector2(110, 20)
+texture = ExtResource("2_e2q5v")
 
 [node name="HeaderButton" type="Button" parent="."]
 custom_minimum_size = Vector2(0, 38)
@@ -55,10 +63,11 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="CollapsibleContent"]
 layout_mode = 2
 size_flags_vertical = 0
-current_tab = 0
+current_tab = 1
 tabs_rearrange_group = 0
 
 [node name="Settings" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 232)
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -93,12 +102,36 @@ layout_mode = 2
 text = "Add Dist Path"
 
 [node name="Playlists" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 1
 
+[node name="PlaylistGridContainer" type="GridContainer" parent="CollapsibleContent/TabContainer/Playlists"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/h_separation = 10
+columns = 2
 
+[node name="Label" type="Label" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "music_8-bit_jingles"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("6_e2q5v")
+
+[node name="Button2" type="Button" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("7_ca2om")
+
+[node name="Button3" type="Button" parent="CollapsibleContent/TabContainer/Playlists/PlaylistGridContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("8_jwa4r")
 
 [node name="AssetsFolderDialog" type="FileDialog" parent="CollapsibleContent"]
 title = "Open a Directory"
