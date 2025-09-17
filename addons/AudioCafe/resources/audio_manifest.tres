@@ -37,5 +37,7 @@ playlists = {
 "sfx_ui_switch": "res://dist/playlist/sfx_ui_switch_playlist.tres"
 }
 randomized = {}
-interactive = {}
+interactive = {
+"new_audio_stream_interactive": "res://dist/interactive/new_audio_stream_interactive.tres"
+}
 synchronized = {}

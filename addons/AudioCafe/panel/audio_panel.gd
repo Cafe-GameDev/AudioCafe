@@ -141,21 +141,20 @@ func _load_playlists_to_ui():
 
 	var playlists_text = ""
 	if not audio_manifest.playlists.is_empty():
-		playlists_text += "[b]Playlists:[/b]\n"
 		for key in audio_manifest.playlists.keys():
-			playlists_text += "- %s\n" % key
+			playlists_text += "%s\n" % key
 	
 	if not audio_manifest.randomized.is_empty():
 		if not playlists_text.is_empty(): playlists_text += "\n"
-		playlists_text += "[b]Randomized Streams:[/b]\n"
+		playlists_text += "Randomized Streams:\n"
 		for key in audio_manifest.randomized.keys():
-			playlists_text += "- %s\n" % key
+			playlists_text += "%s\n" % key
 
 	if not audio_manifest.synchronized.is_empty():
 		if not playlists_text.is_empty(): playlists_text += "\n"
-		playlists_text += "[b]Synchronized Streams:[/b]\n"
+		playlists_text += "Synchronized Streams:\n"
 		for key in audio_manifest.synchronized.keys():
-			playlists_text += "- %s\n" % key
+			playlists_text += "%s\n" % key
 
 	if playlists_text.is_empty():
 		playlists_text = "Nenhum stream de áudio gerado ainda. Clique em 'Generate Playlists' para começar."
