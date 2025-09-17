@@ -28,8 +28,11 @@ https://docs.godotengine.org/en/4.4/classes/class_audiostreamsynchronized.html
 
 https://docs.godotengine.org/en/4.4/classes/class_audiostreaminteractive.html
 
-GoogleSearch Godot 4.3:
-AudioStreamPlaybackInteractive
-AudioStreamPlaybackPlaylist
-AudioStreamPlaybackSynchronized
+https://docs.godotengine.org/en/4.5/classes/class_audiostreamrandomizer.html#audiostreamrandomizer
+
+AudioStreamInteractive
+AudioStreamPlaylist
+AudioStreamSynchronized
+AudioStreamRandomizer
+
 

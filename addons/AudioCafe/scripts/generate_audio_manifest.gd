@@ -1,3 +1,43 @@
+Acontece que GenerateAudioManifest deve tb gerar o randomized e o synchronized juntos, não é para pegar o playlist pronto e transformar nesses 2, mas sim para após coletar as audiostream e definir a key de cada playlist, ele ja gerar os 3 resources ao mesmo tempo, seguindo o padrão de cada resource
+
+Eu não quero nenhum resumo sobre a evolução da godot nem nada do tipo, eu preciso que vc estude sobre as novas versões da godot e sobre os sistemas de audio dela, apara assim me ajudar no script do meu plugin
+
+https://godotengine.org/article/godot-4-0-sets-sail/
+
+https://godotengine.org/article/godot-4-1-is-here/
+
+https://godotengine.org/article/godot-4-2-arrives-in-style/
+
+https://godotengine.org/releases/4.3/
+
+https://godotengine.org/releases/4.4/
+
+https://godotengine.org/article/release-candidate-godot-4-5-rc-1/
+
+https://godotengine.org/article/release-candidate-godot-4-5-rc-2/
+
+https://www.youtube.com/watch?v=fMe7ZZt0Ca8
+
+https://docs.godotengine.org/en/4.4/classes/index.html
+
+https://docs.godotengine.org/en/4.4/tutorials/audio/audio_streams.html
+
+https://docs.godotengine.org/en/4.4/classes/class_audiostream.html
+
+https://docs.godotengine.org/en/4.4/classes/class_audiostreamplaylist.html
+
+https://docs.godotengine.org/en/4.4/classes/class_audiostreamsynchronized.html
+
+https://docs.godotengine.org/en/4.4/classes/class_audiostreaminteractive.html
+
+https://docs.godotengine.org/en/4.5/classes/class_audiostreamrandomizer.html#audiostreamrandomizer
+
+AudioStreamInteractive
+AudioStreamPlaylist
+AudioStreamSynchronized
+AudioStreamRandomizer
+
+
 @tool
 extends EditorScript
 class_name GenerateAudioManifest
@@ -31,6 +71,8 @@ func _run():
 
 	var base_dist_path = audio_config.dist_path.trim_suffix("/")
 	var playlist_dist_save_path = base_dist_path + "/playlist/"
+	var random_dist_save_path = base_dist_path + "/random/"
+	var sync_dist_save_path = base_dist_path + "/sync/"
 
 	var dist_dir_access = DirAccess.open("res://")
 	if not dist_dir_access:
