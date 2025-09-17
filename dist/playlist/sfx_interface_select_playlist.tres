@@ -1,0 +1,21 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=9 format=3 uid="uid://dkf35olombla"]
+
+[ext_resource type="AudioStream" uid="uid://cjynavbehsibh" path="res://assets/sfx/interface/select/select_001.ogg" id="1_50gwt"]
+[ext_resource type="AudioStream" uid="uid://4h1bwqswdjb8" path="res://assets/sfx/interface/select/select_002.ogg" id="2_56aux"]
+[ext_resource type="AudioStream" uid="uid://cq1emvj3rq24q" path="res://assets/sfx/interface/select/select_003.ogg" id="3_74m8v"]
+[ext_resource type="AudioStream" uid="uid://c1o5xmhj2l5b1" path="res://assets/sfx/interface/select/select_004.ogg" id="4_addui"]
+[ext_resource type="AudioStream" uid="uid://d08j4jk2byrcx" path="res://assets/sfx/interface/select/select_005.ogg" id="5_fytih"]
+[ext_resource type="AudioStream" uid="uid://bqwxlm7dgs18n" path="res://assets/sfx/interface/select/select_006.ogg" id="6_7ahck"]
+[ext_resource type="AudioStream" uid="uid://b3dv060yhtklj" path="res://assets/sfx/interface/select/select_007.ogg" id="7_kr054"]
+[ext_resource type="AudioStream" uid="uid://4rcfypjngain" path="res://assets/sfx/interface/select/select_008.ogg" id="8_270xx"]
+
+[resource]
+stream_count = 8
+stream_0 = ExtResource("1_50gwt")
+stream_1 = ExtResource("2_56aux")
+stream_2 = ExtResource("3_74m8v")
+stream_3 = ExtResource("4_addui")
+stream_4 = ExtResource("5_fytih")
+stream_5 = ExtResource("6_7ahck")
+stream_6 = ExtResource("7_kr054")
+stream_7 = ExtResource("8_270xx")

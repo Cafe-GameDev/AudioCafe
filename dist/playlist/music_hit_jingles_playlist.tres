@@ -1,0 +1,39 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://2bwpmbt37x68"]
+
+[ext_resource type="AudioStream" uid="uid://b5lkibcl5l4n6" path="res://assets/music/Hit_jingles/jingles_hit_0.ogg" id="1_drpsy"]
+[ext_resource type="AudioStream" uid="uid://dm4yyqu7cvf1c" path="res://assets/music/Hit_jingles/jingles_hit_1.ogg" id="2_em5uk"]
+[ext_resource type="AudioStream" uid="uid://o8ugo4iwltiy" path="res://assets/music/Hit_jingles/jingles_hit_3.ogg" id="3_k1u77"]
+[ext_resource type="AudioStream" uid="uid://iopxhorfql2w" path="res://assets/music/Hit_jingles/jingles_hit_4.ogg" id="4_0rydg"]
+[ext_resource type="AudioStream" uid="uid://d2ud0xwn8t71a" path="res://assets/music/Hit_jingles/jingles_hit_5.ogg" id="5_m7set"]
+[ext_resource type="AudioStream" uid="uid://bwlgbun7sgssh" path="res://assets/music/Hit_jingles/jingles_hit_6.ogg" id="6_ss1v8"]
+[ext_resource type="AudioStream" uid="uid://brh16klebc4dn" path="res://assets/music/Hit_jingles/jingles_hit_7.ogg" id="7_go7sm"]
+[ext_resource type="AudioStream" uid="uid://be4fmhhnmqdnx" path="res://assets/music/Hit_jingles/jingles_hit_8.ogg" id="8_i1vkr"]
+[ext_resource type="AudioStream" uid="uid://dbyypax6w4u1t" path="res://assets/music/Hit_jingles/jingles_hit_9.ogg" id="9_tuui7"]
+[ext_resource type="AudioStream" uid="uid://b6axihxgi04th" path="res://assets/music/Hit_jingles/jingles_hit_10.ogg" id="10_wvk22"]
+[ext_resource type="AudioStream" uid="uid://u52i5cgd3i4b" path="res://assets/music/Hit_jingles/jingles_hit_11.ogg" id="11_5rjr8"]
+[ext_resource type="AudioStream" uid="uid://byqybhjjvma6y" path="res://assets/music/Hit_jingles/jingles_hit_12.ogg" id="12_0a2ep"]
+[ext_resource type="AudioStream" uid="uid://bhn5q0iuapy6m" path="res://assets/music/Hit_jingles/jingles_hit_13.ogg" id="13_s1v2f"]
+[ext_resource type="AudioStream" uid="uid://bmaflsbvpxeof" path="res://assets/music/Hit_jingles/jingles_hit_14.ogg" id="14_5imxy"]
+[ext_resource type="AudioStream" uid="uid://slsa62k1q6vk" path="res://assets/music/Hit_jingles/jingles_hit_15.ogg" id="15_uvf35"]
+[ext_resource type="AudioStream" uid="uid://bx41t4qver88p" path="res://assets/music/Hit_jingles/jingles_hit_16.ogg" id="16_7ou5t"]
+[ext_resource type="AudioStream" uid="uid://bqjrrm5vdyt28" path="res://assets/music/Hit_jingles/jingles_hit_2.ogg" id="17_0cxu3"]
+
+[resource]
+stream_count = 17
+stream_0 = ExtResource("1_drpsy")
+stream_1 = ExtResource("2_em5uk")
+stream_2 = ExtResource("10_wvk22")
+stream_3 = ExtResource("11_5rjr8")
+stream_4 = ExtResource("12_0a2ep")
+stream_5 = ExtResource("13_s1v2f")
+stream_6 = ExtResource("14_5imxy")
+stream_7 = ExtResource("15_uvf35")
+stream_8 = ExtResource("16_7ou5t")
+stream_9 = ExtResource("17_0cxu3")
+stream_10 = ExtResource("3_k1u77")
+stream_11 = ExtResource("4_0rydg")
+stream_12 = ExtResource("5_m7set")
+stream_13 = ExtResource("6_ss1v8")
+stream_14 = ExtResource("7_go7sm")
+stream_15 = ExtResource("8_i1vkr")
+stream_16 = ExtResource("9_tuui7")

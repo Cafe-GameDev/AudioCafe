@@ -1,0 +1,39 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=18 format=3 uid="uid://jegmfuxf32nx"]
+
+[ext_resource type="AudioStream" uid="uid://btpi2i88udbtx" path="res://assets/music/8-Bit_jingles/jingles_nes_0.ogg" id="1_fn8px"]
+[ext_resource type="AudioStream" uid="uid://cgisi2o7ss4a1" path="res://assets/music/8-Bit_jingles/jingles_nes_1.ogg" id="2_rcj7r"]
+[ext_resource type="AudioStream" uid="uid://4ajdsjwp0emg" path="res://assets/music/8-Bit_jingles/jingles_nes_3.ogg" id="3_6v1lr"]
+[ext_resource type="AudioStream" uid="uid://bl00thngwi0gi" path="res://assets/music/8-Bit_jingles/jingles_nes_4.ogg" id="4_kxjaf"]
+[ext_resource type="AudioStream" uid="uid://cfbxff321sto2" path="res://assets/music/8-Bit_jingles/jingles_nes_5.ogg" id="5_7xs60"]
+[ext_resource type="AudioStream" uid="uid://bheuig31ohsvq" path="res://assets/music/8-Bit_jingles/jingles_nes_6.ogg" id="6_ks4tu"]
+[ext_resource type="AudioStream" uid="uid://dee8l7r6ru0gn" path="res://assets/music/8-Bit_jingles/jingles_nes_7.ogg" id="7_g4lk1"]
+[ext_resource type="AudioStream" uid="uid://cik86vslnwvb7" path="res://assets/music/8-Bit_jingles/jingles_nes_8.ogg" id="8_ds1km"]
+[ext_resource type="AudioStream" uid="uid://cuy4uj5nb5ca2" path="res://assets/music/8-Bit_jingles/jingles_nes_9.ogg" id="9_g0n87"]
+[ext_resource type="AudioStream" uid="uid://bp56mosgmk4kh" path="res://assets/music/8-Bit_jingles/jingles_nes_10.ogg" id="10_7ywtg"]
+[ext_resource type="AudioStream" uid="uid://ck3pvvvq8wkec" path="res://assets/music/8-Bit_jingles/jingles_nes_11.ogg" id="11_nv0qc"]
+[ext_resource type="AudioStream" uid="uid://bk217kbqgx5mx" path="res://assets/music/8-Bit_jingles/jingles_nes_12.ogg" id="12_kqiuh"]
+[ext_resource type="AudioStream" uid="uid://c7nihr100ulmc" path="res://assets/music/8-Bit_jingles/jingles_nes_13.ogg" id="13_03g7r"]
+[ext_resource type="AudioStream" uid="uid://dbmgr5vuxcnv8" path="res://assets/music/8-Bit_jingles/jingles_nes_14.ogg" id="14_j7s7y"]
+[ext_resource type="AudioStream" uid="uid://g3byvps500hk" path="res://assets/music/8-Bit_jingles/jingles_nes_15.ogg" id="15_80gj4"]
+[ext_resource type="AudioStream" uid="uid://c0c3acpw3gsks" path="res://assets/music/8-Bit_jingles/jingles_nes_16.ogg" id="16_485ln"]
+[ext_resource type="AudioStream" uid="uid://cfln33rkkd46m" path="res://assets/music/8-Bit_jingles/jingles_nes_2.ogg" id="17_n6fx3"]
+
+[resource]
+stream_count = 17
+stream_0 = ExtResource("1_fn8px")
+stream_1 = ExtResource("2_rcj7r")
+stream_2 = ExtResource("10_7ywtg")
+stream_3 = ExtResource("11_nv0qc")
+stream_4 = ExtResource("12_kqiuh")
+stream_5 = ExtResource("13_03g7r")
+stream_6 = ExtResource("14_j7s7y")
+stream_7 = ExtResource("15_80gj4")
+stream_8 = ExtResource("16_485ln")
+stream_9 = ExtResource("17_n6fx3")
+stream_10 = ExtResource("3_6v1lr")
+stream_11 = ExtResource("4_kxjaf")
+stream_12 = ExtResource("5_7xs60")
+stream_13 = ExtResource("6_ks4tu")
+stream_14 = ExtResource("7_g4lk1")
+stream_15 = ExtResource("8_ds1km")
+stream_16 = ExtResource("9_g0n87")
