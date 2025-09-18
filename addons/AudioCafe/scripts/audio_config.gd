@@ -4,7 +4,7 @@ class_name AudioConfig
 
 signal config_changed
 
-@export var is_panel_expanded: bool = false:
+@export var is_panel_expanded: bool = true:
 	set(value):
 		if is_panel_expanded != value:
 			is_panel_expanded = value
@@ -28,7 +28,7 @@ signal config_changed
 			gen_playlist = value
 			_save_and_emit_changed()
 
-@export var assets_paths: Array[String] = ["res://addons/AudioCafe/assets/audio"]:
+@export var assets_paths: Array[String] = ["res://assets"]:
 	set(value):
 		if assets_paths != value:
 			assets_paths = value
