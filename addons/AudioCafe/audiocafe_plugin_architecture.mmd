@@ -1,0 +1,123 @@
+graph TD
+    subgraph User Interaction
+        U[Usuário]
+    end
+
+    subgraph Editor Plugin Core
+        EP[editor_plugin.gd]:::script
+        EP_UID[editor_plugin.gd.uid]:::uid
+        EEC[EditorExportPlugin]:::script
+        EEC_UID[editor_export_plugin.gd.uid]:::uid
+    end
+
+    subgraph Editor UI
+        AP_TSCN[audio_panel.tscn]:::scene
+        AP[audio_panel.gd]:::script
+        AP_UID[audio_panel.gd.uid]:::uid
+    end
+
+    subgraph Configuration & Manifest Resources
+        AC[audio_config.gd]:::script
+        AC_UID[audio_config.gd.uid]:::uid
+        AM[audio_manifest.gd]:::script
+        AM_UID[audio_manifest.gd.uid]:::uid
+        AC_RES[audio_config.tres]:::resource
+        AM_RES[audio_manifest.tres]:::resource
+    end
+
+    subgraph Audio Generation Logic
+        GAM[generate_audio_manifest.gd]:::script
+        GAM_UID[generate_audio_manifest.gd.uid]:::uid
+    end
+
+    subgraph Generated Audio Resources (dist/)
+        GAR_PL[AudioStreamPlaylist.tres]:::resource
+        GAR_R[AudioStreamRandomizer.tres]:::resource
+        GAR_S[AudioStreamSynchronized.tres]:::resource
+        GAR_I[AudioStreamInteractive.tres]:::resource
+    end
+
+    subgraph Core Godot Engine
+        GE[Godot Engine]
+    end
+
+    style EP fill:#f9f,stroke:#333,stroke-width:2px
+    style EEC fill:#f9f,stroke:#333,stroke-width:2px
+    style AP fill:#f9f,stroke:#333,stroke-width:2px
+    style AC fill:#f9f,stroke:#333,stroke-width:2px
+    style AM fill:#f9f,stroke:#333,stroke-width:2px
+    style GAM fill:#f9f,stroke:#333,stroke-width:2px
+
+    classDef script fill:#DDEEFF,stroke:#3366CC,stroke-width:1px
+    classDef resource fill:#FFF0DD,stroke:#CC9933,stroke-width:1px
+    classDef scene fill:#EEFFDD,stroke:#66CC33,stroke-width:1px
+    classDef uid fill:#F0F0F0,stroke:#999999,stroke-width:0.5px
+
+    %% Descrições dos Componentes
+    EP -- "Plugin principal do editor. Instancia a UI do painel e gerencia o ciclo de vida do plugin."
+    EEC -- "Plugin de exportação do editor. Garante que os recursos de áudio sejam incluídos na build final."
+    AP_TSCN -- "Define a estrutura visual do painel do editor."
+    AP -- "Controla a lógica da UI do painel. Carrega/salva configurações, exibe status e aciona a geração do manifesto."
+    AC -- "Recurso que armazena as configurações do plugin (caminhos de assets, caminho de distribuição, estado do painel). Emite sinal 'config_changed' ao ser salvo."
+    AM -- "Recurso que armazena o mapeamento final das chaves de áudio para os recursos gerados (Playlists, Randomizers, Synchronized, Interactive)."
+    GAM -- "Script principal para escanear diretórios, carregar AudioStreams, gerar os recursos de áudio (.tres) e atualizar o AudioManifest."
+    AC_RES -- "Instância persistente de AudioConfig, editável no editor."
+    AM_RES -- "Instância persistente de AudioManifest, atualizada pelo plugin."
+    GAR_PL -- "Recursos gerados dinamicamente que contêm listas de AudioStream para reprodução sequencial."
+    GAR_R -- "Recursos gerados dinamicamente que contêm AudioStream para reprodução aleatória."
+    GAR_S -- "Recursos gerados dinamicamente que contêm AudioStream para reprodução sincronizada."
+    GAR_I -- "Recursos AudioStreamInteractive existentes, coletados e referenciados pelo manifesto."
+
+    %% Fluxo de Inicialização e Configuração
+    U -- "Ativa o plugin" --> GE
+    GE --> EP: Carrega plugin.cfg
+    EP --> AP_TSCN: Instancia cena do painel
+    AP_TSCN --> AP: Carrega script do painel
+    AP --> AC_RES: Carrega/Cria AudioConfig.tres
+    AC_RES --> AP: Fornece configurações
+    AP --> U: Exibe UI do painel
+
+    U -- "Configura caminhos de assets e dist" --> AP
+    AP --> AC_RES: Salva configurações (assets_paths, dist_path)
+    AC_RES -- "Emite 'config_changed'" --> AP: Atualiza feedback de salvamento
+
+    %% Fluxo de Geração do Manifesto
+    U -- "Clica 'Generate Playlists'" --> AP
+    AP --> GAM: Aciona _run() com audio_config
+    GAM --> AC_RES: Lê assets_paths e dist_path
+    GAM --> GE: Escaneia diretórios (DirAccess.open, DirAccess.list_dir_begin)
+    GE --> GAM: Retorna arquivos de áudio (.ogg, .wav)
+
+    GAM --> GAR_PL: Gera/Atualiza AudioStreamPlaylist.tres
+    GAM --> GAR_R: Gera/Atualiza AudioStreamRandomizer.tres (se aplicável)
+    GAM --> GAR_S: Gera/Atualiza AudioStreamSynchronized.tres (se aplicável)
+    GAM --> GAR_I: Coleta referências de AudioStreamInteractive existentes
+    GAM --> AM_RES: Atualiza AudioManifest.tres com caminhos e UIDs dos recursos gerados
+    GAM -- "Emite 'generation_finished'" --> AP: Notifica sobre o resultado da geração
+
+    AP --> AM_RES: Lê AudioManifest.tres atualizado
+    AM_RES --> AP: Fornece listas de playlists/randomizers/synchronized
+    AP --> U: Exibe listas atualizadas no painel
+
+    %% Fluxo de Uso em Tempo de Execução
+    U -- "Acessa áudio via código" --> AM_RES: Ex: AudioManifest.playlists.ui_click
+    AM_RES --> GE: Fornece caminho/UID do recurso
+    GE --> GAR_PL: Carrega AudioStreamPlaylist.tres
+    GAR_PL --> U: Áudio disponível para reprodução
+
+    U -- "Cria AudioStreamInteractive manualmente" --> GE: Cria .tres no editor
+    GE --> GAR_I: Salva AudioStreamInteractive.tres
+    GAM -- "Coleta Interactive existente" --> GAR_I: GAM inclui GAR_I na próxima geração
+    GAR_I --> AM_RES: Referenciado no AudioManifest
+
+    %% Outras Interações
+    U -- "Clica 'Docs'" --> AP
+    AP --> GE: Abre URL da documentação (OS.shell_open)
+
+    %% UIDs
+    EP_UID -- "Identificador único para editor_plugin.gd"
+    EEC_UID -- "Identificador único para editor_export_plugin.gd"
+    AP_UID -- "Identificador único para audio_panel.gd"
+    AC_UID -- "Identificador único para audio_config.gd"
+    AM_UID -- "Identificador único para audio_manifest.gd"
+    GAM_UID -- "Identificador único para generate_audio_manifest.gd"
