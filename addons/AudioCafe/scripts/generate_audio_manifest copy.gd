@@ -6,7 +6,6 @@ signal progress_updated(current: int, total: int)
 signal generation_finished(success: bool, message: String)
 
 const MANIFEST_SAVE_FILE = "res://addons/AudioCafe/resources/audio_manifest.tres"
-const MAX_SYNC_STREAMS = 64
 
 var _total_files_to_scan = 0
 var _files_scanned = 0
@@ -17,11 +16,13 @@ func _run():
 	_total_files_to_scan = 0
 	_files_scanned = 0
 
+	# Step 1: Count files for progress bar using assets_paths
 	for path in audio_config.assets_paths:
 		_count_files_in_directory(path)
 
-	var collected_streams: Dictionary = {} # {final_key: [res_path1, res_path2, ...]}
+	var collected_streams: Dictionary = {} # {final_key: [stream1, stream2, ...]}
 
+	# Step 2: Collect all streams by their final_key using assets_paths
 	var success_collection = _collect_streams_by_key(audio_config.assets_paths, collected_streams)
 
 	var audio_manifest = AudioManifest.new()
@@ -39,6 +40,7 @@ func _run():
 		emit_signal("generation_finished", false, "Falha ao acessar o diretório base do projeto.")
 		return
 
+	# Garante que diretórios de saída existam
 	for path_to_create in [playlist_dist_save_path, randomized_dist_save_path, interactive_dist_save_path, synchronized_dist_save_path]:
 		var relative_path = path_to_create.replace("res://", "")
 		if not dist_dir_access.dir_exists(relative_path):
@@ -48,17 +50,19 @@ func _run():
 				overall_success = false
 				message = "Falha ao criar diretórios de distribuição."
 				break
+			else:
+				print("Diretório criado: %s" % path_to_create)
 	
 	if not overall_success:
 		emit_signal("generation_finished", overall_success, message)
 		return
 
+	# Step 3: Process collected streams into playlists
 	if success_collection:
 		for final_key in collected_streams.keys():
 			var streams_for_key = collected_streams[final_key]
-			
-			# Processar AudioStreamPlaylist
 			var playlist_file_path = "%s%s_playlist.tres" % [playlist_dist_save_path, final_key]
+			
 			var playlist: AudioStreamPlaylist
 			if FileAccess.file_exists(playlist_file_path):
 				playlist = load(playlist_file_path)
@@ -67,11 +71,16 @@ func _run():
 			else:
 				playlist = AudioStreamPlaylist.new()
 
+			# Limpa streams anteriores
+			for i in range(playlist.stream_count):
+				playlist.set("stream_%d" % i, null)
 			playlist.stream_count = 0
-			for res_path in streams_for_key:
-				var stream = load(res_path)
-				if stream:
-					playlist.add_stream(stream)
+
+			# Adiciona novos streams
+			for stream in streams_for_key:
+				var current_index = playlist.stream_count
+				playlist.set("stream_%d" % current_index, stream)
+				playlist.stream_count = current_index + 1
 			
 			var err = ResourceSaver.save(playlist, playlist_file_path)
 			if err != OK:
@@ -80,6 +89,7 @@ func _run():
 				message = "Falha ao salvar playlists."
 				break
 			
+			# Agora todos entram como playlists no manifest
 			audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count), ResourceLoader.get_resource_uid(playlist_file_path)]
 
 			# Processar AudioStreamRandomizer
@@ -141,6 +151,7 @@ func _run():
 		overall_success = false
 		message = "Falha ao coletar streams de áudio."
 
+	# Step 4: Collect existing AudioStreamInteractive resources
 	var collected_interactive_streams: Dictionary = {}
 	if not _scan_directory_for_resources(interactive_dist_save_path, "AudioStreamInteractive", collected_interactive_streams):
 		overall_success = false
@@ -148,12 +159,15 @@ func _run():
 	else:
 		audio_manifest.interactive = collected_interactive_streams
 
+	# Step 5: Save the main AudioManifest
 	if overall_success:
 		var err = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_FILE)
 		if err != OK:
 			overall_success = false
 			message = "Falha ao salvar AudioManifest.tres: %s" % err
-		
+		else:
+			print("AudioManifest gerado e salvo em: %s" % MANIFEST_SAVE_FILE)
+
 	emit_signal("generation_finished", overall_success, message)
 
 func _count_files_in_directory(current_path: String):
@@ -166,7 +180,7 @@ func _count_files_in_directory(current_path: String):
 	while file_or_dir_name != "":
 		if dir.current_is_dir():
 			_count_files_in_directory(current_path.path_join(file_or_dir_name))
-		elif file_or_dir_name.to_lower().ends_with(".ogg") or file_or_dir_name.to_lower().ends_with(".wav"):
+		elif file_or_dir_name.ends_with(".ogg") or file_or_dir_name.ends_with(".wav"):
 			_total_files_to_scan += 1
 		file_or_dir_name = dir.get_next()
 
@@ -188,12 +202,17 @@ func _scan_directory_for_streams(current_path: String, collected_streams: Dictio
 		if dir.current_is_dir():
 			if not _scan_directory_for_streams(current_path.path_join(file_or_dir_name), collected_streams, root_path):
 				return false
-		elif file_or_dir_name.to_lower().ends_with(".ogg") or file_or_dir_name.to_lower().ends_with(".wav"):
+		elif file_or_dir_name.ends_with(".ogg") or file_or_dir_name.ends_with(".wav"):
 			_files_scanned += 1
 			emit_signal("progress_updated", _files_scanned, _total_files_to_scan)
 
 			var resource_path = current_path.path_join(file_or_dir_name)
-			# Store resource path instead of loading the stream directly for memory optimization
+			var audio_stream = load(resource_path)
+			if audio_stream == null:
+				printerr("Falha ao carregar AudioStream: %s" % resource_path)
+				file_or_dir_name = dir.get_next()
+				continue
+
 			var relative_dir_path = resource_path.replace(root_path, "").trim_prefix("/").get_base_dir().trim_suffix("/")
 			var final_key = ""
 			if not relative_dir_path.is_empty():
@@ -203,12 +222,7 @@ func _scan_directory_for_streams(current_path: String, collected_streams: Dictio
 
 			if not collected_streams.has(final_key):
 				collected_streams[final_key] = []
-			
-			# Deduplicação de caminhos
-			var unique_paths: Array[String> = collected_streams[final_key]
-			if not unique_paths.has(resource_path):
-				unique_paths.append(resource_path)
-				collected_streams[final_key] = unique_paths
+			collected_streams[final_key].append(audio_stream)
 			
 		file_or_dir_name = dir.get_next()
 
@@ -226,12 +240,12 @@ func _scan_directory_for_resources(current_path: String, resource_class_name: St
 		if dir.current_is_dir():
 			if not _scan_directory_for_resources(current_path.path_join(file_or_dir_name), resource_class_name, collected_resources):
 				return false
-		elif file_or_dir_name.to_lower().ends_with(".tres"):
+		elif file_or_dir_name.ends_with(".tres"):
 			var resource_path = current_path.path_join(file_or_dir_name)
 			var loaded_resource = load(resource_path)
 			if loaded_resource and loaded_resource.get_class() == resource_class_name:
 				var final_key = file_or_dir_name.get_basename().to_lower()
-				collected_resources[final_key] = [resource_path, str(loaded_resource.get_stream_count() if loaded_resource.has_method("get_stream_count") else 0), ResourceLoader.get_resource_uid(resource_path)]
+				collected_resources[final_key] = resource_path
 			
 		file_or_dir_name = dir.get_next()
 
