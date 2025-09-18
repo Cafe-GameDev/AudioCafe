@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant User as Usuário
+    participant Panel as AudioPanel
+    participant Config as AudioConfig
+    participant Generator as GenerateAudioManifest
+    participant Manifest as AudioManifest
+    participant Dist as Dist Resources (.tres)
+
+    User ->> Panel: Abre o painel de áudio
+    Panel ->> Config: Cria/Carrega AudioConfig zerado
+    User ->> Panel: Define assets_paths e dist_paths
+    Panel ->> Config: Salva configurações
+
+    User ->> Panel: Clica "Update Audio Manifest"
+    Panel ->> Generator: Executa _run()
+    Generator ->> Config: Lê paths configurados
+    Generator ->> Generator: Escaneia assets_paths
+    Generator ->> Dist: Gera AudioStreamPlaylist.tres
+    Generator ->> Dist: Gera AudioStreamRandomizer.tres
+    Generator ->> Dist: Gera AudioStreamSynchronized.tres
+    Generator ->> Manifest: Atualiza dicionários com referências
+
+    Generator -->> Panel: Emite sinal de conclusão
+    Panel ->> Manifest: Lê referências atualizadas
+    Panel -->> User: Exibe playlists/randomizers/synchronized disponíveis
+
+    User ->> Manifest: Acessa via código (ex: AudioManifest.randomizer.ui_click)
+    User ->> Dist: Ou referencia .tres diretamente no script
+    User ->> Dist: Cria Interactive manualmente no Inspetor
