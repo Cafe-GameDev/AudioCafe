@@ -131,8 +131,12 @@ func generate_playlist(audio_manifest: AudioManifest, collected_streams: Diction
 func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dictionary, randomizer_dist_save_path: String) -> Array:
 	for final_key in collected_streams.keys():
 		var streams_for_key = collected_streams[final_key]
+		if streams_for_key.size() == 0:
+			continue
+
 		var randomizer_file_path = "%s%s_randomizer.tres" % [randomizer_dist_save_path, final_key]
-		
+
+		# Cria ou carrega recurso
 		var randomizer: AudioStreamRandomizer
 		if FileAccess.file_exists(randomizer_file_path):
 			randomizer = load(randomizer_file_path)
@@ -141,27 +145,44 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 		else:
 			randomizer = AudioStreamRandomizer.new()
 
-		# Limpa streams anteriores
-		randomizer.clear_streams()
+		# Zera streams antigos
+		randomizer.streams_count = 0
 
-		# Adiciona novos streams com peso padrão de 1.0
-		for stream in streams_for_key:
-			randomizer.add_stream(randomizer.get_stream_count(), stream, 1.0)
-		
+		# Adiciona novos streams
+		var idx := 0
+		for s in streams_for_key:
+			if s == null:
+				continue
+			randomizer.set("stream_%d/stream" % idx, s)
+			randomizer.set("stream_%d/weight" % idx, 1.0) # peso padrão
+			idx += 1
+
+		randomizer.streams_count = idx
+
+		# Salva o recurso
 		var err = ResourceSaver.save(randomizer, randomizer_file_path)
 		if err != OK:
 			printerr("Falha ao salvar Randomizer %s: %s" % [randomizer_file_path, err])
-			return [false, "Falha ao salvar Randomizer."]
+			return [false, "[Randomizer:%s] Falha ao salvar: %s" % [final_key, str(err)]]
 
-		# Adiciona ao manifest
-		audio_manifest.randomizer[final_key] = [randomizer_file_path, str(randomizer.get_stream_count()), ResourceLoader.get_resource_uid(randomizer_file_path)]
+		# Atualiza manifest
+		audio_manifest.randomizer[final_key] = [
+			randomizer_file_path,
+			str(randomizer.streams_count),
+			ResourceLoader.get_resource_uid(randomizer_file_path)
+		]
 
 	return [true, ""]
+
+
 func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dictionary, synchronized_dist_save_path: String) -> Array:
 	for final_key in collected_streams.keys():
 		var streams_for_key = collected_streams[final_key]
+		if streams_for_key.size() == 0:
+			continue
+
 		var synchronized_file_path = "%s%s_synchronized.tres" % [synchronized_dist_save_path, final_key]
-		
+
 		var sync: AudioStreamSynchronized
 		if FileAccess.file_exists(synchronized_file_path):
 			sync = load(synchronized_file_path)
@@ -171,26 +192,30 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 			sync = AudioStreamSynchronized.new()
 
 		# Limpa streams anteriores
-		sync.sync_streams.clear()
+		for i in range(sync.stream_count):
+			sync.set("stream_%d" % i, null)
 		sync.stream_count = 0
 
-		# Adiciona novos streams e define o volume
-		for i in range(streams_for_key.size()):
-			var stream = streams_for_key[i]
-			sync.sync_streams.append(stream)
-			sync.set_stream_volume(i, 0.0)
+		# --- Adiciona novos streams e define volume (obrigatório no .tres) ---
+		var idx := 0
+		for s in streams_for_key:
+			if s == null:
+				continue
+			sync.set("stream_%d/stream" % idx, s)
+			sync.set("stream_%d/volume" % idx, 0.0) # volume padrão (0.0)
+			idx += 1
 
-		sync.stream_count = sync.sync_streams.size()
-		
+		sync.stream_count = idx
+
 		var err = ResourceSaver.save(sync, synchronized_file_path)
 		if err != OK:
 			printerr("Falha ao salvar Synchronized %s: %s" % [synchronized_file_path, err])
-			return [false, "Falha ao salvar Synchronized."]
+			return [false, "[Synchronized:%s] Falha ao salvar: %s" % [final_key, str(err)]]
 
-		# Adiciona ao manifest
+		# Atualiza manifest
 		audio_manifest.synchronized[final_key] = [synchronized_file_path, str(sync.stream_count), ResourceLoader.get_resource_uid(synchronized_file_path)]
 
-	# ✅ Retorna sucesso ao final
+	# todos os keys processados com sucesso
 	return [true, ""]
 
 func _count_files_in_directory(current_path: String):

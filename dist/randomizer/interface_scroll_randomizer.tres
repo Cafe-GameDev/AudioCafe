@@ -1,0 +1,4 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://cq8a6j2ywqjmm"]
+
+[resource]
+streams_count = 5
