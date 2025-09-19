@@ -18,14 +18,14 @@ signal config_changed
 
 @export var gen_randomizer: bool = true:
 	set(value):
-		if gen_playlist != value:
-			gen_playlist = value
+		if gen_randomizer != value:
+			gen_randomizer = value
 			_save_and_emit_changed()
 
 @export var gen_synchronized: bool = true:
 	set(value):
-		if gen_playlist != value:
-			gen_playlist = value
+		if gen_synchronized != value:
+			gen_synchronized = value
 			_save_and_emit_changed()
 
 @export var assets_paths: Array[String] = ["res://assets"]:
