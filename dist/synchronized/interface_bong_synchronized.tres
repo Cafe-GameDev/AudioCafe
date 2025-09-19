@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamSynchronized" load_steps=2 format=3 uid="uid://c7hsqwurbxu1u"]
+
+[ext_resource type="AudioStream" uid="uid://cbpmv0uvuvhlb" path="res://assets/interface/bong/bong_001.ogg" id="1_8nbea"]
+
+[resource]
+stream_count = 1
+stream_0/stream = ExtResource("1_8nbea")
+stream_0/volume = 0.0

@@ -1,0 +1,23 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=10 format=3 uid="uid://bavlhw8yfwfmn"]
+
+[ext_resource type="AudioStream" uid="uid://utb3y8c27vt3" path="res://assets/interface/maximize/maximize_001.ogg" id="1_osqsh"]
+[ext_resource type="AudioStream" uid="uid://dxym3ygd4mfgj" path="res://assets/interface/maximize/maximize_002.ogg" id="2_ch8ql"]
+[ext_resource type="AudioStream" uid="uid://belmnmwydhtda" path="res://assets/interface/maximize/maximize_003.ogg" id="3_j1gck"]
+[ext_resource type="AudioStream" uid="uid://yrg50tfsn427" path="res://assets/interface/maximize/maximize_004.ogg" id="4_nkhc0"]
+[ext_resource type="AudioStream" uid="uid://bn2j8xkc1cnsf" path="res://assets/interface/maximize/maximize_005.ogg" id="5_8ojtr"]
+[ext_resource type="AudioStream" uid="uid://dqfv5tlqgtewj" path="res://assets/interface/maximize/maximize_006.ogg" id="6_067yj"]
+[ext_resource type="AudioStream" uid="uid://bqdtyc1477ncy" path="res://assets/interface/maximize/maximize_007.ogg" id="7_bxbu3"]
+[ext_resource type="AudioStream" uid="uid://dff7gy1ssocqg" path="res://assets/interface/maximize/maximize_008.ogg" id="8_m67su"]
+[ext_resource type="AudioStream" uid="uid://dkyf3inn8hgnb" path="res://assets/interface/maximize/maximize_009.ogg" id="9_f7eml"]
+
+[resource]
+stream_count = 9
+stream_0 = ExtResource("1_osqsh")
+stream_1 = ExtResource("2_ch8ql")
+stream_2 = ExtResource("3_j1gck")
+stream_3 = ExtResource("4_nkhc0")
+stream_4 = ExtResource("5_8ojtr")
+stream_5 = ExtResource("6_067yj")
+stream_6 = ExtResource("7_bxbu3")
+stream_7 = ExtResource("8_m67su")
+stream_8 = ExtResource("9_f7eml")
