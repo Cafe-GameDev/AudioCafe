@@ -146,7 +146,7 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 
 		# Adiciona novos streams com peso padrão de 1.0
 		for stream in streams_for_key:
-			randomizer.add_stream(stream, 1.0)
+			randomizer.add_stream(randomizer.get_stream_count(), stream, 1.0)
 		
 		var err = ResourceSaver.save(randomizer, randomizer_file_path)
 		if err != OK:
@@ -173,23 +173,15 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 
 		# Limpa streams anteriores
 		sync.sync_streams.clear()
+		sync.stream_count = 0
 
-		# Adiciona novos streams com volume padrão de 0.0
-		for stream in streams_for_key:
-			var new_stream_data = AudioStreamSynchronized.SynchronizedStream.new()
-			new_stream_data.stream = stream
-			new_stream_data.volume = 0.0
-			sync.sync_streams.append(new_stream_data)
-		
-		var err = ResourceSaver.save(sync, synchronized_file_path)
-		if err != OK:
-			printerr("Falha ao salvar Synchronized %s: %s" % [synchronized_file_path, err])
-			return [false, "Falha ao salvar Synchronized."]
+		# Adiciona novos streams e define o volume
+		for i in range(streams_for_key.size()):
+			var stream = streams_for_key[i]
+			sync.sync_streams.append(stream)
+			sync.set_stream_volume(i, 0.0)
 
-		# Adiciona ao manifest
-		audio_manifest.synchronized[final_key] = [synchronized_file_path, str(sync.sync_streams.size()), ResourceLoader.get_resource_uid(synchronized_file_path)]
-
-	return [true, ""]
+		sync.stream_count = sync.sync_streams.size()
 
 func _count_files_in_directory(current_path: String):
 	var dir = DirAccess.open(current_path)
