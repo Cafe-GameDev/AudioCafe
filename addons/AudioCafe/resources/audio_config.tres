@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_ufiej")
 is_panel_expanded = true
-gen_playlist = false
-gen_randomizer = false
+gen_playlist = true
+gen_randomizer = true
 gen_synchronized = true
 assets_paths = Array[String](["res://assets"])
 dist_path = "res://dist"

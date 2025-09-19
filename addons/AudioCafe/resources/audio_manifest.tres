@@ -5,37 +5,6 @@
 [resource]
 script = ExtResource("1_o47oy")
 playlists = {}
-randomizer = {
-"8-bit_jingles": ["res://dist/randomizer/8-bit_jingles_randomizer.tres", "17", 5835221461326721440],
-"hit_jingles": ["res://dist/randomizer/hit_jingles_randomizer.tres", "17", 1068386579478211456],
-"interface_back": ["res://dist/randomizer/interface_back_randomizer.tres", "4", 1174143746134531961],
-"interface_bong": ["res://dist/randomizer/interface_bong_randomizer.tres", "1", 1646926895900274840],
-"interface_click": ["res://dist/randomizer/interface_click_randomizer.tres", "5", 1858597232639759094],
-"interface_close": ["res://dist/randomizer/interface_close_randomizer.tres", "4", 8811830257344341054],
-"interface_confirmation": ["res://dist/randomizer/interface_confirmation_randomizer.tres", "4", 8245164252374263447],
-"interface_drop": ["res://dist/randomizer/interface_drop_randomizer.tres", "4", 7168134985642476970],
-"interface_error": ["res://dist/randomizer/interface_error_randomizer.tres", "8", 2921012649648162050],
-"interface_glass": ["res://dist/randomizer/interface_glass_randomizer.tres", "6", 8053874260984369828],
-"interface_glitch": ["res://dist/randomizer/interface_glitch_randomizer.tres", "4", 8996672477434181763],
-"interface_maximize": ["res://dist/randomizer/interface_maximize_randomizer.tres", "9", 1407287205124298979],
-"interface_minimize": ["res://dist/randomizer/interface_minimize_randomizer.tres", "9", 5925793299660377886],
-"interface_open": ["res://dist/randomizer/interface_open_randomizer.tres", "4", 2962290126685661895],
-"interface_pluck": ["res://dist/randomizer/interface_pluck_randomizer.tres", "2", 531964478892231601],
-"interface_question": ["res://dist/randomizer/interface_question_randomizer.tres", "4", 2788536038224370204],
-"interface_scratch": ["res://dist/randomizer/interface_scratch_randomizer.tres", "5", 4859510073575889165],
-"interface_scroll": ["res://dist/randomizer/interface_scroll_randomizer.tres", "5", 5964043206630104424],
-"interface_select": ["res://dist/randomizer/interface_select_randomizer.tres", "8", 6602214938183119581],
-"interface_switch": ["res://dist/randomizer/interface_switch_randomizer.tres", "7", 200395277571754158],
-"interface_tick": ["res://dist/randomizer/interface_tick_randomizer.tres", "3", 303408632405298123],
-"interface_toggle": ["res://dist/randomizer/interface_toggle_randomizer.tres", "4", 1705146020525254126],
-"pizzicato_jingles": ["res://dist/randomizer/pizzicato_jingles_randomizer.tres", "17", 613795289109149426],
-"sax_jingles": ["res://dist/randomizer/sax_jingles_randomizer.tres", "17", 7583648129341829776],
-"steel_jingles": ["res://dist/randomizer/steel_jingles_randomizer.tres", "17", 4433951174125425756],
-"ui_click": ["res://dist/randomizer/ui_click_randomizer.tres", "5", 162866875001439771],
-"ui_mouseclick": ["res://dist/randomizer/ui_mouseclick_randomizer.tres", "1", 5728639482150073806],
-"ui_mouserelease": ["res://dist/randomizer/ui_mouserelease_randomizer.tres", "1", 2579045677741000909],
-"ui_rollover": ["res://dist/randomizer/ui_rollover_randomizer.tres", "6", 1124258312127084468],
-"ui_switch": ["res://dist/randomizer/ui_switch_randomizer.tres", "38", 5044050141502386639]
-}
+randomizer = {}
 interactive = {}
 synchronized = {}
