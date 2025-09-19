@@ -30,7 +30,7 @@ func _run():
 	var message = ""
 
 	var playlist_dist_save_path = audio_config.get_playlist_save_path()
-	var randomized_dist_save_path = audio_config.get_randomized_save_path()
+	var randomizer_dist_save_path = audio_config.get_randomized_save_path()
 	var interactive_dist_save_path = audio_config.get_interactive_save_path()
 	var synchronized_dist_save_path = audio_config.get_synchronized_save_path()
 
@@ -41,7 +41,7 @@ func _run():
 		return
 
 	# Garante que diretórios de saída existam
-	for path_to_create in [playlist_dist_save_path, randomized_dist_save_path, interactive_dist_save_path, synchronized_dist_save_path]:
+	for path_to_create in [playlist_dist_save_path, randomizer_dist_save_path, interactive_dist_save_path, synchronized_dist_save_path]:
 		var relative_path = path_to_create.replace("res://", "")
 		if not dist_dir_access.dir_exists(relative_path):
 			var error = dist_dir_access.make_dir_recursive(relative_path)
@@ -64,12 +64,12 @@ func _run():
 		message = result[1]
 		
 	if audio_config.gen_randomizer:
-		var result = generate_randomizer(audio_manifest, collected_streams, playlist_dist_save_path, overall_success, message)
+		var result = generate_randomizer(audio_manifest, collected_streams, randomizer_dist_save_path)
 		overall_success = result[0]
 		message = result[1]
 		
 	if audio_config.gen_synchronized:
-		var result = generate_synchronized(audio_manifest, collected_streams, playlist_dist_save_path, overall_success, message)
+		var result = generate_synchronized(audio_manifest, collected_streams, synchronized_dist_save_path)
 		overall_success = result[0]
 		message = result[1]
 
@@ -128,78 +128,73 @@ func generate_playlist(audio_manifest: AudioManifest, collected_streams: Diction
 
 	return [overall_success, message]
 
-func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dictionary, playlist_dist_save_path: String, overall_success: bool, message: String) -> Array:
+func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dictionary, randomizer_dist_save_path: String) -> Array:
 	for final_key in collected_streams.keys():
 		var streams_for_key = collected_streams[final_key]
-		var playlist_file_path = "%s%s_playlist.tres" % [playlist_dist_save_path, final_key]
+		var randomizer_file_path = "%s%s_randomizer.tres" % [randomizer_dist_save_path, final_key]
 		
-		var playlist: AudioStreamPlaylist
-		if FileAccess.file_exists(playlist_file_path):
-			playlist = load(playlist_file_path)
-			if playlist == null:
-				playlist = AudioStreamPlaylist.new()
+		var randomizer: AudioStreamRandomizer
+		if FileAccess.file_exists(randomizer_file_path):
+			randomizer = load(randomizer_file_path)
+			if randomizer == null:
+				randomizer = AudioStreamRandomizer.new()
 		else:
-			playlist = AudioStreamPlaylist.new()
+			randomizer = AudioStreamRandomizer.new()
 
 		# Limpa streams anteriores
-		for i in range(playlist.stream_count):
-			playlist.set("stream_%d" % i, null)
-		playlist.stream_count = 0
+		for i in range(randomizer.stream_count):
+			randomizer.set("stream_%d" % i, null)
+		randomizer.stream_count = 0
 
 		# Adiciona novos streams
 		for stream in streams_for_key:
-			var current_index = playlist.stream_count
-			playlist.set("stream_%d" % current_index, stream)
-			playlist.stream_count = current_index + 1
+			var current_index = randomizer.stream_count
+			randomizer.set("stream_%d" % current_index, stream)
+			randomizer.stream_count = current_index + 1
 		
-		var err = ResourceSaver.save(playlist, playlist_file_path)
+		var err = ResourceSaver.save(randomizer, randomizer_file_path)
 		if err != OK:
-			printerr("Falha ao salvar playlist %s: %s" % [playlist_file_path, err])
-			overall_success = false
-			message = "Falha ao salvar playlists."
-			break
-		
-		# Agora todos entram como playlists no manifest
-		audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count), ResourceLoader.get_resource_uid(playlist_file_path)]
+			printerr("Falha ao salvar Randomizer %s: %s" % [randomizer_file_path, err])
+			return [false, "Falha ao salvar Randomizer."]
 
-	return [overall_success, message]
+		# Adiciona ao manifest
+		audio_manifest.randomized[final_key] = [randomizer_file_path, str(randomizer.stream_count), ResourceLoader.get_resource_uid(randomizer_file_path)]
 
-func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dictionary, playlist_dist_save_path: String, overall_success: bool, message: String) -> Array:
+	return [true, ""]
+
+func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dictionary, synchronized_dist_save_path: String) -> Array:
 	for final_key in collected_streams.keys():
 		var streams_for_key = collected_streams[final_key]
-		var playlist_file_path = "%s%s_playlist.tres" % [playlist_dist_save_path, final_key]
+		var synchronized_file_path = "%s%s_synchronized.tres" % [synchronized_dist_save_path, final_key]
 		
-		var playlist: AudioStreamPlaylist
-		if FileAccess.file_exists(playlist_file_path):
-			playlist = load(playlist_file_path)
-			if playlist == null:
-				playlist = AudioStreamPlaylist.new()
+		var sync: AudioStreamSynchronized
+		if FileAccess.file_exists(synchronized_file_path):
+			sync = load(synchronized_file_path)
+			if sync == null:
+				sync = AudioStreamSynchronized.new()
 		else:
-			playlist = AudioStreamPlaylist.new()
+			sync = AudioStreamSynchronized.new()
 
 		# Limpa streams anteriores
-		for i in range(playlist.stream_count):
-			playlist.set("stream_%d" % i, null)
-		playlist.stream_count = 0
+		for i in range(sync.stream_count):
+			sync.set("stream_%d" % i, null)
+		sync.stream_count = 0
 
 		# Adiciona novos streams
 		for stream in streams_for_key:
-			var current_index = playlist.stream_count
-			playlist.set("stream_%d" % current_index, stream)
-			playlist.stream_count = current_index + 1
+			var current_index = sync.stream_count
+			sync.set("stream_%d" % current_index, stream)
+			sync.stream_count = current_index + 1
 		
-		var err = ResourceSaver.save(playlist, playlist_file_path)
+		var err = ResourceSaver.save(sync, synchronized_file_path)
 		if err != OK:
-			printerr("Falha ao salvar playlist %s: %s" % [playlist_file_path, err])
-			overall_success = false
-			message = "Falha ao salvar playlists."
-			break
-		
-		# Agora todos entram como playlists no manifest
-		audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count), ResourceLoader.get_resource_uid(playlist_file_path)]
+			printerr("Falha ao salvar Synchronized %s: %s" % [synchronized_file_path, err])
+			return [false, "Falha ao salvar Synchronized."]
 
-	return [overall_success, message]
+		# Adiciona ao manifest
+		audio_manifest.synchronized[final_key] = [synchronized_file_path, str(sync.stream_count), ResourceLoader.get_resource_uid(synchronized_file_path)]
 
+	return [true, ""]
 
 func _count_files_in_directory(current_path: String):
 	var dir = DirAccess.open(current_path)
