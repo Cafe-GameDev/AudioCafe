@@ -25,6 +25,7 @@ alignment = 0
 icon_alignment = 2
 
 [node name="CollapsibleContent" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 13741)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent"]
@@ -104,6 +105,37 @@ metadata/_tab_index = 1
 
 [node name="PlaylistRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Playlists"]
 layout_mode = 2
+text = "8-bit_jingles (17)
+hit_jingles (17)
+interface_back (4)
+interface_bong (1)
+interface_click (5)
+interface_close (4)
+interface_confirmation (4)
+interface_drop (4)
+interface_error (8)
+interface_glass (6)
+interface_glitch (4)
+interface_maximize (9)
+interface_minimize (9)
+interface_open (4)
+interface_pluck (2)
+interface_question (4)
+interface_scratch (5)
+interface_scroll (5)
+interface_select (8)
+interface_switch (7)
+interface_tick (3)
+interface_toggle (4)
+pizzicato_jingles (17)
+sax_jingles (17)
+steel_jingles (17)
+ui_click (4)
+ui_mouseclick (1)
+ui_mouserelease (1)
+ui_rollover (6)
+ui_switch (38)
+"
 fit_content = true
 
 [node name="Interactive" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
