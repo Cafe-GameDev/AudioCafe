@@ -61,17 +61,17 @@ func _run():
 	if audio_config.gen_playlist:
 		var result = generate_playlist(audio_manifest, collected_streams, playlist_dist_save_path, overall_success, message)
 		overall_success = result[0]
-		message = result[1]
+		message += result[1]
 		
 	if audio_config.gen_randomizer:
 		var result = generate_randomizer(audio_manifest, collected_streams, randomizer_dist_save_path)
 		overall_success = result[0]
-		message = result[1]
+		message += result[1]
 		
 	if audio_config.gen_synchronized:
 		var result = generate_synchronized(audio_manifest, collected_streams, synchronized_dist_save_path)
 		overall_success = result[0]
-		message = result[1]
+		message += result[1]
 
 	# Step 4: Collect existing AudioStreamInteractive resources
 	var collected_interactive_streams: Dictionary = {}
@@ -157,7 +157,6 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 		audio_manifest.randomizer[final_key] = [randomizer_file_path, str(randomizer.get_stream_count()), ResourceLoader.get_resource_uid(randomizer_file_path)]
 
 	return [true, ""]
-
 func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dictionary, synchronized_dist_save_path: String) -> Array:
 	for final_key in collected_streams.keys():
 		var streams_for_key = collected_streams[final_key]
@@ -182,6 +181,17 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 			sync.set_stream_volume(i, 0.0)
 
 		sync.stream_count = sync.sync_streams.size()
+		
+		var err = ResourceSaver.save(sync, synchronized_file_path)
+		if err != OK:
+			printerr("Falha ao salvar Synchronized %s: %s" % [synchronized_file_path, err])
+			return [false, "Falha ao salvar Synchronized."]
+
+		# Adiciona ao manifest
+		audio_manifest.synchronized[final_key] = [synchronized_file_path, str(sync.stream_count), ResourceLoader.get_resource_uid(synchronized_file_path)]
+
+	# ✅ Retorna sucesso ao final
+	return [true, ""]
 
 func _count_files_in_directory(current_path: String):
 	var dir = DirAccess.open(current_path)
