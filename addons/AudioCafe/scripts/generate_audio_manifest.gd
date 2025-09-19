@@ -142,15 +142,11 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 			randomizer = AudioStreamRandomizer.new()
 
 		# Limpa streams anteriores
-		for i in range(randomizer.stream_count):
-			randomizer.set("stream_%d" % i, null)
-		randomizer.stream_count = 0
+		randomizer.clear_streams()
 
-		# Adiciona novos streams
+		# Adiciona novos streams com peso padrão de 1.0
 		for stream in streams_for_key:
-			var current_index = randomizer.stream_count
-			randomizer.set("stream_%d" % current_index, stream)
-			randomizer.stream_count = current_index + 1
+			randomizer.add_stream(stream, 1.0)
 		
 		var err = ResourceSaver.save(randomizer, randomizer_file_path)
 		if err != OK:
@@ -158,7 +154,7 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 			return [false, "Falha ao salvar Randomizer."]
 
 		# Adiciona ao manifest
-		audio_manifest.randomized[final_key] = [randomizer_file_path, str(randomizer.stream_count), ResourceLoader.get_resource_uid(randomizer_file_path)]
+		audio_manifest.randomizer[final_key] = [randomizer_file_path, str(randomizer.get_stream_count()), ResourceLoader.get_resource_uid(randomizer_file_path)]
 
 	return [true, ""]
 
@@ -176,15 +172,14 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 			sync = AudioStreamSynchronized.new()
 
 		# Limpa streams anteriores
-		for i in range(sync.stream_count):
-			sync.set("stream_%d" % i, null)
-		sync.stream_count = 0
+		sync.sync_streams.clear()
 
-		# Adiciona novos streams
+		# Adiciona novos streams com volume padrão de 0.0
 		for stream in streams_for_key:
-			var current_index = sync.stream_count
-			sync.set("stream_%d" % current_index, stream)
-			sync.stream_count = current_index + 1
+			var new_stream_data = AudioStreamSynchronized.SynchronizedStream.new()
+			new_stream_data.stream = stream
+			new_stream_data.volume = 0.0
+			sync.sync_streams.append(new_stream_data)
 		
 		var err = ResourceSaver.save(sync, synchronized_file_path)
 		if err != OK:
@@ -192,7 +187,7 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 			return [false, "Falha ao salvar Synchronized."]
 
 		# Adiciona ao manifest
-		audio_manifest.synchronized[final_key] = [synchronized_file_path, str(sync.stream_count), ResourceLoader.get_resource_uid(synchronized_file_path)]
+		audio_manifest.synchronized[final_key] = [synchronized_file_path, str(sync.sync_streams.size()), ResourceLoader.get_resource_uid(synchronized_file_path)]
 
 	return [true, ""]
 
