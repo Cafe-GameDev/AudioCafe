@@ -174,8 +174,9 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 
 	return [true, ""]
 
-
 func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dictionary, synchronized_dist_save_path: String) -> Array:
+	const MAX_SYNCHRONIZED_STREAMS = 32
+
 	for final_key in collected_streams.keys():
 		var streams_for_key = collected_streams[final_key]
 		if streams_for_key.size() == 0:
@@ -196,13 +197,15 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 			sync.set("stream_%d" % i, null)
 		sync.stream_count = 0
 
-		# --- Adiciona novos streams e define volume (obrigatório no .tres) ---
+		# Adiciona novos streams até o máximo permitido
 		var idx := 0
 		for s in streams_for_key:
 			if s == null:
 				continue
+			if idx >= MAX_SYNCHRONIZED_STREAMS:
+				break
 			sync.set("stream_%d/stream" % idx, s)
-			sync.set("stream_%d/volume" % idx, 0.0) # volume padrão (0.0)
+			sync.set("stream_%d/volume" % idx, 0.0) # volume padrão
 			idx += 1
 
 		sync.stream_count = idx
@@ -213,10 +216,14 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 			return [false, "[Synchronized:%s] Falha ao salvar: %s" % [final_key, str(err)]]
 
 		# Atualiza manifest
-		audio_manifest.synchronized[final_key] = [synchronized_file_path, str(sync.stream_count), ResourceLoader.get_resource_uid(synchronized_file_path)]
+		audio_manifest.synchronized[final_key] = [
+			synchronized_file_path,
+			str(sync.stream_count),
+			ResourceLoader.get_resource_uid(synchronized_file_path)
+		]
 
-	# todos os keys processados com sucesso
 	return [true, ""]
+
 
 func _count_files_in_directory(current_path: String):
 	var dir = DirAccess.open(current_path)

@@ -98,6 +98,6 @@ synchronized = {
 "ui_mouseclick": ["res://dist/synchronized/ui_mouseclick_synchronized.tres", "1", 9149472701212562642],
 "ui_mouserelease": ["res://dist/synchronized/ui_mouserelease_synchronized.tres", "1", 4261057655522123284],
 "ui_rollover": ["res://dist/synchronized/ui_rollover_synchronized.tres", "6", 25015572625555550],
-"ui_switch": ["res://dist/synchronized/ui_switch_synchronized.tres", "0", 8981085077079624892]
+"ui_switch": ["res://dist/synchronized/ui_switch_synchronized.tres", "32", 8981085077079624892]
 }
 interactive = {}
