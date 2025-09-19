@@ -1,0 +1,7 @@
+[gd_resource type="AudioStreamPlaylist" load_steps=2 format=3 uid="uid://b0stdge4v5ny5"]
+
+[ext_resource type="AudioStream" uid="uid://b1plfjjcl2sp3" path="res://assets/ui/mouseclick/mouseclick1.ogg" id="1_llhfv"]
+
+[resource]
+stream_count = 1
+stream_0 = ExtResource("1_llhfv")
