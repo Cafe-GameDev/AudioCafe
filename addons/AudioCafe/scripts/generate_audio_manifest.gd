@@ -57,43 +57,11 @@ func _run():
 		emit_signal("generation_finished", overall_success, message)
 		return
 
-	# Step 3: Process collected streams into playlists
-	if success_collection:
-		for final_key in collected_streams.keys():
-			var streams_for_key = collected_streams[final_key]
-			var playlist_file_path = "%s%s_playlist.tres" % [playlist_dist_save_path, final_key]
-			
-			var playlist: AudioStreamPlaylist
-			if FileAccess.file_exists(playlist_file_path):
-				playlist = load(playlist_file_path)
-				if playlist == null:
-					playlist = AudioStreamPlaylist.new()
-			else:
-				playlist = AudioStreamPlaylist.new()
-
-			# Limpa streams anteriores
-			for i in range(playlist.stream_count):
-				playlist.set("stream_%d" % i, null)
-			playlist.stream_count = 0
-
-			# Adiciona novos streams
-			for stream in streams_for_key:
-				var current_index = playlist.stream_count
-				playlist.set("stream_%d" % current_index, stream)
-				playlist.stream_count = current_index + 1
-			
-			var err = ResourceSaver.save(playlist, playlist_file_path)
-			if err != OK:
-				printerr("Falha ao salvar playlist %s: %s" % [playlist_file_path, err])
-				overall_success = false
-				message = "Falha ao salvar playlists."
-				break
-			
-			# Agora todos entram como playlists no manifest
-			audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count), ResourceLoader.get_resource_uid(playlist_file_path)]
-	else:
-		overall_success = false
-		message = "Falha ao coletar streams de áudio."
+	# Step 3: Generate playlists (somente se a flag estiver ativa no AudioConfig)
+	if audio_config.gen_playlist:
+		var result = generate_playlists(audio_manifest, collected_streams, playlist_dist_save_path, overall_success, message)
+		overall_success = result[0]
+		message = result[1]
 
 	# Step 4: Collect existing AudioStreamInteractive resources
 	var collected_interactive_streams: Dictionary = {}
@@ -113,6 +81,45 @@ func _run():
 			print("AudioManifest gerado e salvo em: %s" % MANIFEST_SAVE_FILE)
 
 	emit_signal("generation_finished", overall_success, message)
+
+
+# === Nova função gen_playlist, fiel ao passo 3 original ===
+func generate_playlists(audio_manifest: AudioManifest, collected_streams: Dictionary, playlist_dist_save_path: String, overall_success: bool, message: String) -> Array:
+	for final_key in collected_streams.keys():
+		var streams_for_key = collected_streams[final_key]
+		var playlist_file_path = "%s%s_playlist.tres" % [playlist_dist_save_path, final_key]
+		
+		var playlist: AudioStreamPlaylist
+		if FileAccess.file_exists(playlist_file_path):
+			playlist = load(playlist_file_path)
+			if playlist == null:
+				playlist = AudioStreamPlaylist.new()
+		else:
+			playlist = AudioStreamPlaylist.new()
+
+		# Limpa streams anteriores
+		for i in range(playlist.stream_count):
+			playlist.set("stream_%d" % i, null)
+		playlist.stream_count = 0
+
+		# Adiciona novos streams
+		for stream in streams_for_key:
+			var current_index = playlist.stream_count
+			playlist.set("stream_%d" % current_index, stream)
+			playlist.stream_count = current_index + 1
+		
+		var err = ResourceSaver.save(playlist, playlist_file_path)
+		if err != OK:
+			printerr("Falha ao salvar playlist %s: %s" % [playlist_file_path, err])
+			overall_success = false
+			message = "Falha ao salvar playlists."
+			break
+		
+		# Agora todos entram como playlists no manifest
+		audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count), ResourceLoader.get_resource_uid(playlist_file_path)]
+
+	return [overall_success, message]
+
 
 func _count_files_in_directory(current_path: String):
 	var dir = DirAccess.open(current_path)
