@@ -1,0 +1,15 @@
+graph TD
+    AM_GD[audio_manifest.gd]:::script
+    AM_RES[audio_manifest.tres]:::resource
+    GAM[GenerateAudioManifest]
+
+    AM_GD -- "Extends Resource" --> AM_RES
+    AM_GD -- "@export vars: playlists, randomizer, synchronized, interactive" --> AM_RES
+    GAM -- "Atualiza" --> AM_GD
+
+    classDef script fill:#DDEEFF,stroke:#3366CC,stroke-width:1px
+    classDef resource fill:#FFF0DD,stroke:#CC9933,stroke-width:1px
+    style AM_GD fill:#f9f,stroke:#333,stroke-width:2px
+
+    %% Descrição
+    AM_GD -- "Recurso que armazena o mapeamento final das chaves de áudio para os recursos gerados (Playlists, Randomizers, Synchronized, Interactive)." 
