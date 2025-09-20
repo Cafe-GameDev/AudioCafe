@@ -1,0 +1,18 @@
+graph TD
+    AM_RES[audio_manifest.tres]:::resource
+    AM_GD[audio_manifest.gd]:::script
+    GAM[GenerateAudioManifest]
+    AP[AudioPanel]
+    U[User (Runtime)]
+
+    AM_RES -- "Instance of" --> AM_GD
+    AM_RES -- "Updated by" --> GAM
+    AM_RES -- "Read by" --> AP
+    AM_RES -- "Accessed by" --> U
+
+    classDef script fill:#DDEEFF,stroke:#3366CC,stroke-width:1px
+    classDef resource fill:#FFF0DD,stroke:#CC9933,stroke-width:1px
+    style AM_RES fill:#f9f,stroke:#333,stroke-width:2px
+
+    %% Description
+    AM_RES -- "Persistent instance of AudioManifest, updated by the plugin, which maps audio keys to generated resources."

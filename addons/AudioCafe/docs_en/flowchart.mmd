@@ -1,0 +1,30 @@
+flowchart TD
+    A[Plugin Activated] --> B[AudioPanel instantiated]
+    B --> C[AudioConfig created empty]
+    C --> D[User configures in AudioPanel]
+    D --> D1[Define assets_paths]
+    D --> D2[Define dist_paths]
+    
+    D --> E[User clicks "Update Audio Manifest"]
+    
+    E --> F[GenerateAudioManifest runs]
+    F --> F1[Scans assets_paths]
+    F --> F2[Generates Playlists]
+    F --> F3[Generates Randomizers]
+    F --> F4[Generates Synchronized]
+    F --> F5[Collects existing Interactives]
+    
+    F --> G[Saves Resources to dist]
+    G --> G1[.tres files created (playlist, randomizer, synchronized)]
+    G --> G2[References saved in AudioManifest]
+    
+    G --> H[AudioManifest updated]
+    H --> I[AudioPanel receives references]
+    I --> J[User sees list of Playlists/Randomizers/Synchronized]
+    
+    J --> K[User accesses via code]
+    K --> K1[Direct: @onready var my_playlist = preload("res://dist/ui_click_playlist.tres")]
+    K --> K2[Centralized: AudioManifest.randomizer.ui_click]
+    
+    J --> L[User creates Interactive manually]
+    L --> M[Interactive uses already generated resources]

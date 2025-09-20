@@ -1,0 +1,16 @@
+graph TD
+    AC_RES[audio_config.tres]:::resource
+    AC_GD[audio_config.gd]:::script
+    AP[AudioPanel]
+    GAM[GenerateAudioManifest]
+
+    AC_RES -- "Instance of" --> AC_GD
+    AC_RES -- "Editable in editor" --> AP
+    AC_RES -- "Read by" --> GAM
+
+    classDef script fill:#DDEEFF,stroke:#3366CC,stroke-width:1px
+    classDef resource fill:#FFF0DD,stroke:#CC9933,stroke-width:1px
+    style AC_RES fill:#f9f,stroke:#333,stroke-width:2px
+
+    %% Description
+    AC_RES -- "Persistent instance of AudioConfig, editable in the editor, which stores plugin configurations."

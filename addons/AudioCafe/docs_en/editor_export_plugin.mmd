@@ -1,0 +1,13 @@
+graph TD
+    EEC[editor_export_plugin.gd]:::script
+    GE[Godot Engine]
+
+    EEC -- "Extends" --> GE
+    EEC -- "_export_begin(features, is_debug, path, flags)" --> GE
+    EEC -- "_export_file(path, type, features)" --> GE
+
+    classDef script fill:#DDEEFF,stroke:#3366CC,stroke-width:1px
+    style EEC fill:#f9f,stroke:#333,stroke-width:2px
+
+    %% Description
+    EEC -- "Editor export plugin. Ensures audio resources are included in the final build."
