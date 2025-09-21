@@ -16,13 +16,11 @@ func _run():
 	_total_files_to_scan = 0
 	_files_scanned = 0
 
-	# Step 1: Count files for progress bar using assets_paths
 	for path in audio_config.assets_paths:
 		_count_files_in_directory(path)
 
-	var collected_streams: Dictionary = {} # {final_key: [stream1, stream2, ...]}
+	var collected_streams: Dictionary = {}
 
-	# Step 2: Collect all streams by their final_key using assets_paths
 	var success_collection = _collect_streams_by_key(audio_config.assets_paths, collected_streams)
 
 	var audio_manifest = AudioManifest.new()
@@ -40,7 +38,6 @@ func _run():
 		emit_signal("generation_finished", false, "Falha ao acessar o diretório base do projeto.")
 		return
 
-	# Garante que diretórios de saída existam
 	for path_to_create in [playlist_dist_save_path, randomizer_dist_save_path, interactive_dist_save_path, synchronized_dist_save_path]:
 		var relative_path = path_to_create.replace("res://", "")
 		if not dist_dir_access.dir_exists(relative_path):
@@ -57,7 +54,6 @@ func _run():
 		emit_signal("generation_finished", overall_success, message)
 		return
 
-	# Step 3: Generate playlists (somente se a flag estiver ativa no AudioConfig)
 	if audio_config.gen_playlist:
 		var result = generate_playlist(audio_manifest, collected_streams, playlist_dist_save_path, overall_success, message)
 		overall_success = result[0]
@@ -73,7 +69,6 @@ func _run():
 		overall_success = result[0]
 		message += result[1]
 
-	# Step 4: Collect existing AudioStreamInteractive resources
 	var collected_interactive_streams: Dictionary = {}
 	if not _scan_directory_for_resources(interactive_dist_save_path, "AudioStreamInteractive", collected_interactive_streams):
 		overall_success = false
@@ -81,7 +76,6 @@ func _run():
 	else:
 		audio_manifest.interactive = collected_interactive_streams
 
-	# Step 5: Save the main AudioManifest
 	if overall_success:
 		var err = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_FILE)
 		if err != OK:
@@ -105,12 +99,10 @@ func generate_playlist(audio_manifest: AudioManifest, collected_streams: Diction
 		else:
 			playlist = AudioStreamPlaylist.new()
 
-		# Limpa streams anteriores
 		for i in range(playlist.stream_count):
 			playlist.set("stream_%d" % i, null)
 		playlist.stream_count = 0
 
-		# Adiciona novos streams
 		for stream in streams_for_key:
 			var current_index = playlist.stream_count
 			playlist.set("stream_%d" % current_index, stream)
@@ -123,7 +115,6 @@ func generate_playlist(audio_manifest: AudioManifest, collected_streams: Diction
 			message = "Falha ao salvar playlists."
 			break
 		
-		# Agora todos entram como playlists no manifest
 		audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count), ResourceLoader.get_resource_uid(playlist_file_path)]
 
 	return [overall_success, message]
@@ -136,7 +127,6 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 
 		var randomizer_file_path = "%s%s_randomizer.tres" % [randomizer_dist_save_path, final_key]
 
-		# Cria ou carrega recurso
 		var randomizer: AudioStreamRandomizer
 		if FileAccess.file_exists(randomizer_file_path):
 			randomizer = load(randomizer_file_path)
@@ -145,27 +135,23 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 		else:
 			randomizer = AudioStreamRandomizer.new()
 
-		# Zera streams antigos
 		randomizer.streams_count = 0
 
-		# Adiciona novos streams
 		var idx := 0
 		for s in streams_for_key:
 			if s == null:
 				continue
 			randomizer.set("stream_%d/stream" % idx, s)
-			randomizer.set("stream_%d/weight" % idx, 1.0) # peso padrão
+			randomizer.set("stream_%d/weight" % idx, 1.0)
 			idx += 1
 
 		randomizer.streams_count = idx
 
-		# Salva o recurso
 		var err = ResourceSaver.save(randomizer, randomizer_file_path)
 		if err != OK:
 			printerr("Falha ao salvar Randomizer %s: %s" % [randomizer_file_path, err])
 			return [false, "[Randomizer:%s] Falha ao salvar: %s" % [final_key, str(err)]]
 
-		# Atualiza manifest
 		audio_manifest.randomizer[final_key] = [
 			randomizer_file_path,
 			str(randomizer.streams_count),
@@ -192,12 +178,10 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 		else:
 			sync = AudioStreamSynchronized.new()
 
-		# Limpa streams anteriores
 		for i in range(sync.stream_count):
 			sync.set("stream_%d" % i, null)
 		sync.stream_count = 0
 
-		# Adiciona novos streams até o máximo permitido
 		var idx := 0
 		for s in streams_for_key:
 			if s == null:
@@ -205,7 +189,7 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 			if idx >= MAX_SYNCHRONIZED_STREAMS:
 				break
 			sync.set("stream_%d/stream" % idx, s)
-			sync.set("stream_%d/volume" % idx, 0.0) # volume padrão
+			sync.set("stream_%d/volume" % idx, 0.0)
 			idx += 1
 
 		sync.stream_count = idx
@@ -215,7 +199,6 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 			printerr("Falha ao salvar Synchronized %s: %s" % [synchronized_file_path, err])
 			return [false, "[Synchronized:%s] Falha ao salvar: %s" % [final_key, str(err)]]
 
-		# Atualiza manifest
 		audio_manifest.synchronized[final_key] = [
 			synchronized_file_path,
 			str(sync.stream_count),
