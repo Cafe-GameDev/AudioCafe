@@ -109,21 +109,17 @@ func _initialize_panel_state():
 func _load_config_to_ui():
 	if not audio_config: return
 
-	# Clean up assets_paths if dist_path is accidentally included
 	if audio_config.assets_paths.has(audio_config.dist_path):
 		audio_config.assets_paths.erase(audio_config.dist_path)
 		print("DEBUG: Removed dist_path from assets_paths during cleanup.")
-		# Save the config after cleanup to prevent recurrence
 		audio_config._save_and_emit_changed()
 	
-	# Load Assets Paths
 	if assets_paths_grid_container:
 		for child in assets_paths_grid_container.get_children():
 			child.queue_free()
 		for path in audio_config.assets_paths:
 			_create_path_entry(path, false)
 	
-	# Load Dist Path
 	if dist_path_grid_container and not audio_config.dist_path.is_empty():
 		for child in dist_path_grid_container.get_children():
 			child.queue_free()
@@ -149,10 +145,6 @@ func _load_playlists_to_ui():
 		playlists_text = "Nenhuma playlist encontrada."
 
 	playlist_rich_text_label.bbcode_text = playlists_text
-
-
-
-
 
 func _on_config_text_changed(new_text: String, config_property: String):
 	if audio_config:
@@ -331,7 +323,6 @@ func _on_add_assets_path_button_pressed() -> void:
 	_on_browse_button_pressed(new_line_edit, false)
 
 func _on_add_dist_path_button_pressed() -> void:
-	# Remove any existing dist path entries
 	if dist_path_grid_container:
 		for child in dist_path_grid_container.get_children():
 			child.queue_free()
@@ -387,9 +378,9 @@ func _on_generate_playlists_pressed():
 func _on_playlists_generation_finished(success: bool, message: String):
 	if success:
 		gen_status_label.text = "Playlists geradas com sucesso!"
-		_load_config_to_ui() # Recarrega a UI para mostrar as novas playlists
-		_load_interactive_streams_to_ui() # Recarrega a UI para mostrar os interactive streams
+		_load_config_to_ui()
+		_load_interactive_streams_to_ui()
 	else:
 		gen_status_label.text = "Erro ao gerar playlists: %s" % message
 
-	save_feedback_timer.start() # Usa o timer de feedback para esconder a mensagem após um tempo
+	save_feedback_timer.start()
