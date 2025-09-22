@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://coxg44jppb0xr"]
+[gd_scene load_steps=4 format=3 uid="uid://coxg44jppb0xr"]
 
 [ext_resource type="Script" uid="uid://d2ef30fykkyii" path="res://addons/AudioCafe/components/audio_position_2d.gd" id="1_qjpga"]
+[ext_resource type="Script" uid="uid://dm025oelcsdag" path="res://addons/AudioCafe/resources/resource_position.gd" id="2_bxlgx"]
+
+[sub_resource type="Resource" id="Resource_glvve"]
+script = ExtResource("2_bxlgx")
 
 [node name="AudioPosition2D" type="AudioStreamPlayer2D"]
 script = ExtResource("1_qjpga")
+resource_position = SubResource("Resource_glvve")
