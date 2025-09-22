@@ -57,9 +57,18 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 
 	group_panel = content_container.find_child(group_name, false)
 	if group_panel:
-		var audio_config_res = _load_or_create_audio_config()
-		if audio_config_res:
-			group_panel.set_audio_config(audio_config_res)
+		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
+		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
+		if not audio_config_res:
+			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
+			var dir = AUDIO_CONFIG_PATH.get_base_dir()
+			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
+				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
+			
+			var error = ResourceSaver.save(audio_config_res, AUDIO_CONFIG_PATH)
+			if error != OK:
+				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
+		group_panel.set_audio_config(audio_config_res)
 		return group_panel
 
 	var group_scene = load(GROUP_SCENE_PATH)
@@ -68,27 +77,22 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		content_container.add_child(group_panel)
 		group_panel.name = group_name
 
-		var audio_config_res = _load_or_create_audio_config()
-		if audio_config_res:
-			group_panel.set_audio_config(audio_config_res)
+		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
+		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
+
+		if not audio_config_res:
+			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
+			var dir = AUDIO_CONFIG_PATH.get_base_dir()
+			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
+				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
+			
+			var error = ResourceSaver.save(audio_config_res, AUDIO_CONFIG_PATH)
+			if error != OK:
+				push_error("Failed to create and save a new AudioConfig resource: %s" % error)
+		
+		group_panel.set_audio_config(audio_config_res)
 
 		return group_panel
 	
 	push_error("Não foi possível carregar a cena do grupo: " + group_name)
 	return null
-
-func _load_or_create_audio_config() -> AudioConfig:
-	const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
-	var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
-
-	if not audio_config_res:
-		audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
-		var dir = AUDIO_CONFIG_PATH.get_base_dir()
-		if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
-			DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
-		
-		var error = ResourceSaver.save(audio_config_res, AUDIO_CONFIG_PATH)
-		if error != OK:
-			push_error("Failed to create and save a new AudioConfig resource: %s" % error)
-			return null
-	return audio_config_res

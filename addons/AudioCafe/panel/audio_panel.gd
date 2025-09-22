@@ -9,10 +9,9 @@ class_name AudioPanel
 
 @onready var assets_paths_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AssetsPathsGridContainer
 @onready var dist_path_grid_container: GridContainer = $CollapsibleContent/TabContainer/Settings/DistPathSection/DistPathGridContainer
-@onready var dist_path_line_edit: LineEdit = $CollapsibleContent/TabContainer/Settings/DistPathSection/HBoxContainer/DistPathLineEdit
 
 @onready var add_assets_path_button: Button = $CollapsibleContent/TabContainer/Settings/AssetsPathsSection/AddAssetsPathButton
-
+@onready var add_dist_path_button: Button = $CollapsibleContent/TabContainer/Settings/DistPathSection/AddDistPathButton
 
 @onready var playlists_vbox_container: VBoxContainer = $CollapsibleContent/TabContainer/Playlists
 @onready var playlist_rich_text_label: RichTextLabel = $CollapsibleContent/TabContainer/Playlists/PlaylistRichTextLabel
@@ -34,7 +33,7 @@ const ICON_X = preload("res://addons/AudioCafe/icons/x.svg")
 const AUDIO_MANIFEST_PATH = "res://addons/AudioCafe/resources/audio_manifest.tres"
 
 
-@export var audio_config: AudioConfig
+@export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
 
 const DOCS : String = "https://cafegame.dev/plugins/audiocafe"
 
@@ -71,13 +70,12 @@ func _ready():
 		
 		if not add_assets_path_button.pressed.is_connected(Callable(self, "_on_add_assets_path_button_pressed")):
 			add_assets_path_button.pressed.connect(Callable(self, "_on_add_assets_path_button_pressed"))
-
+		if not add_dist_path_button.pressed.is_connected(Callable(self, "_on_add_dist_path_button_pressed")):
+			add_dist_path_button.pressed.connect(Callable(self, "_on_add_dist_path_button_pressed"))
 		if not assets_folder_dialog.dir_selected.is_connected(Callable(self, "_on_assets_folder_dialog_dir_selected")):
 			assets_folder_dialog.dir_selected.connect(Callable(self, "_on_assets_folder_dialog_dir_selected"))
 		if not dist_folder_dialog.dir_selected.is_connected(Callable(self, "_on_dist_folder_dialog_dir_selected")):
 			dist_folder_dialog.dir_selected.connect(Callable(self, "_on_dist_folder_dialog_dir_selected"))
-		if dist_path_line_edit and not dist_path_line_edit.text_changed.is_connected(Callable(self, "_on_path_line_edit_text_changed")):
-			dist_path_line_edit.text_changed.connect(Callable(self, "_on_path_line_edit_text_changed").bind(dist_path_line_edit, true))
 
 func _initialize_panel_state():
 	if not has_node("HeaderButton") or not has_node("CollapsibleContent"):
@@ -122,9 +120,10 @@ func _load_config_to_ui():
 		for path in audio_config.assets_paths:
 			_create_path_entry(path, false)
 	
-	if dist_path_line_edit:
-		dist_path_line_edit.text = audio_config.dist_path
-		_validate_path_line_edit(dist_path_line_edit)
+	if dist_path_grid_container and not audio_config.dist_path.is_empty():
+		for child in dist_path_grid_container.get_children():
+			child.queue_free()
+		_create_path_entry(audio_config.dist_path, true)
 
 	_load_playlists_to_ui()
 	_load_interactive_streams_to_ui()
@@ -147,9 +146,39 @@ func _load_playlists_to_ui():
 
 	playlist_rich_text_label.bbcode_text = playlists_text
 
+func _on_config_text_changed(new_text: String, config_property: String):
+	if audio_config:
+		var line_edit: LineEdit = null
+		
+		var is_valid = true
+		var error_message = ""
 
+		if new_text.is_empty():
+			is_valid = false
+			error_message = "Key cannot be empty."
+		elif config_property == "dist_path" and not new_text.begins_with("res://"):
+			is_valid = false
+			error_message = "Path must start with 'res://'."
 
+		if is_valid:
+			if line_edit:
+				line_edit.add_theme_color_override("font_color", VALID_COLOR)
+				line_edit.tooltip_text = ""
+			audio_config.set(config_property, new_text)
+			print("Configuration updated: %s = %s" % [config_property, new_text])
+		else:
+			if line_edit:
+				line_edit.add_theme_color_override("font_color", INVALID_COLOR)
+				line_edit.tooltip_text = error_message
 
+func _on_volume_slider_value_changed(new_value: float, bus_name: String, value_label: Label, config_property: String):
+	if audio_config:
+		audio_config.set(config_property, new_value)
+		_update_volume_label(value_label, new_value)
+		print("Volume atualizado para %s: %s" % [bus_name, new_value])
+
+func _update_volume_label(label: Label, volume_value: float):
+	label.text = str(int(volume_value * 100)) + "%"
 
 func _create_path_entry(path_value: String, is_dist_path: bool = false):
 	var path_entry = HBoxContainer.new()
@@ -171,7 +200,7 @@ func _create_path_entry(path_value: String, is_dist_path: bool = false):
 
 	var remove_button = Button.new()
 	remove_button.text = "X"
-	remove_button.pressed.connect(Callable(self, "_on_remove_path_button_pressed").bind(path_entry))
+	remove_button.pressed.connect(Callable(self, "_on_remove_path_button_pressed").bind(path_entry, is_dist_path))
 	path_entry.add_child(remove_button)
 
 	if is_dist_path:
@@ -239,9 +268,12 @@ func _validate_path_line_edit(line_edit: LineEdit):
 		line_edit.add_theme_color_override("font_color", INVALID_COLOR)
 		line_edit.tooltip_text = error_message
 
-func _on_remove_path_button_pressed(path_entry: HBoxContainer):
+func _on_remove_path_button_pressed(path_entry: HBoxContainer, is_dist_path: bool):
 	path_entry.get_parent().remove_child(path_entry)
-	_update_audio_config_paths()
+	if is_dist_path:
+		audio_config.dist_path = ""
+	else:
+		_update_audio_config_paths()
 	path_entry.queue_free()
 
 func _update_audio_config_paths():
@@ -290,8 +322,14 @@ func _on_add_assets_path_button_pressed() -> void:
 	var new_line_edit = assets_paths_grid_container.get_child(assets_paths_grid_container.get_child_count() - 1).get_child(0)
 	_on_browse_button_pressed(new_line_edit, false)
 
-func _on_dist_path_browse_button_pressed(line_edit: LineEdit) -> void:
-	_on_browse_button_pressed(line_edit, true)
+func _on_add_dist_path_button_pressed() -> void:
+	if dist_path_grid_container:
+		for child in dist_path_grid_container.get_children():
+			child.queue_free()
+	
+	_create_path_entry("", true)
+	var new_line_edit = dist_path_grid_container.get_child(dist_path_grid_container.get_child_count() - 1).get_child(0)
+	_on_browse_button_pressed(new_line_edit, true)
 
 func _on_header_button_pressed():
 	if not is_node_ready():

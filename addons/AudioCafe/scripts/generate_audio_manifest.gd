@@ -10,7 +10,7 @@ const MANIFEST_SAVE_FILE = "res://addons/AudioCafe/resources/audio_manifest.tres
 var _total_files_to_scan = 0
 var _files_scanned = 0
 
-@export var audio_config: AudioConfig
+@export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
 
 func _run():
 	_total_files_to_scan = 0
@@ -56,17 +56,17 @@ func _run():
 
 	if audio_config.gen_playlist:
 		var result = generate_playlist(audio_manifest, collected_streams, playlist_dist_save_path, overall_success, message)
-		overall_success = overall_success and result[0]
+		overall_success = result[0]
 		message += result[1]
 		
 	if audio_config.gen_randomizer:
 		var result = generate_randomizer(audio_manifest, collected_streams, randomizer_dist_save_path)
-		overall_success = overall_success and result[0]
+		overall_success = result[0]
 		message += result[1]
 		
 	if audio_config.gen_synchronized:
 		var result = generate_synchronized(audio_manifest, collected_streams, synchronized_dist_save_path)
-		overall_success = overall_success and result[0]
+		overall_success = result[0]
 		message += result[1]
 
 	var collected_interactive_streams: Dictionary = {}
