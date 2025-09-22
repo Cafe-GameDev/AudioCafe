@@ -1,0 +1,3 @@
+@tool
+class_name AudioPosition2D
+extends AudioStreamPlayer2D
