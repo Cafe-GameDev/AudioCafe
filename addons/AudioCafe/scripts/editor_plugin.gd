@@ -1,15 +1,26 @@
 @tool
 extends EditorPlugin
 
+
+const AUTOLOAD_NAME = "AudioManager"
+const AUTOLOAD_PATH = "res://addons/AudioCafe/components/audio_manager.tscn"
 const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
 
 var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
 func _enter_tree():
+	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
+		add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
+		print("CafeAudioManager Plugin: Autoload '%s' added." % AUTOLOAD_NAME)
+	
 	_create_plugin_panel()
+	_register_custom_types()
 
 func _exit_tree():
+	if ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
+		remove_autoload_singleton(AUTOLOAD_NAME)
+	
 	if is_instance_valid(group_panel):
 		group_panel.free()
 
@@ -19,6 +30,8 @@ func _exit_tree():
 			if plugin_panel.get_parent() != null:
 				remove_control_from_docks(plugin_panel)
 			plugin_panel.free()
+	
+	_unregister_custom_types()
 
 func _create_plugin_panel():
 	plugin_panel = get_editor_interface().get_base_control().find_child("CafeEngine", true, false)
@@ -96,3 +109,12 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	
 	push_error("Não foi possível carregar a cena do grupo: " + group_name)
 	return null
+
+
+func _register_custom_types():
+	add_custom_type("AudioPosition2D", "AudioStreamPlayer2D", preload("res://addons/AudioCafe/components/audio_position_2d.gd"), null)
+	add_custom_type("AudioPosition3D", "AudioStreamPlayer3D", preload("res://addons/AudioCafe/components/audio_position_3d.gd"), null)
+
+func _unregister_custom_types():
+	remove_custom_type("AudioPosition2D")
+	remove_custom_type("AudioPosition3D")
