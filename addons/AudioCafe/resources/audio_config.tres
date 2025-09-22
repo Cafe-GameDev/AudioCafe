@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AudioConfig" load_steps=2 format=3 uid="uid://bud5q6ufk4ka8"]
 
-[ext_resource type="Script" uid="uid://cif18k5sk72l" path="res://addons/AudioCafe/scripts/audio_config.gd" id="1_ufiej"]
+[ext_resource type="Script" uid="uid://cif18k5sk72l" path="res://addons/AudioCafe/resources/audio_config.gd" id="1_ufiej"]
 
 [resource]
 script = ExtResource("1_ufiej")

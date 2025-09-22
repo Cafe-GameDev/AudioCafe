@@ -73,7 +73,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 		if not audio_config_res:
-			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
+			audio_config_res = preload("res://addons/AudioCafe/resources/audio_config.gd").new()
 			var dir = AUDIO_CONFIG_PATH.get_base_dir()
 			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
 				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
@@ -94,7 +94,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 
 		if not audio_config_res:
-			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
+			audio_config_res = preload("res://addons/AudioCafe/resources/audio_config.gd").new()
 			var dir = AUDIO_CONFIG_PATH.get_base_dir()
 			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
 				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
