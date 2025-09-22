@@ -14,6 +14,10 @@ config/name="AudioCafe"
 run/main_scene="uid://ds81g7wk5jsss"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 
+[autoload]
+
+AudioManager="*res://addons/AudioCafe/components/audio_manager.tscn"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AudioCafe/plugin.cfg")
