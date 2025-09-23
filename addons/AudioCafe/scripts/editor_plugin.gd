@@ -1,6 +1,7 @@
 @tool
 extends EditorPlugin
 
+
 const AUTOLOAD_NAME = "AudioManager"
 const AUTOLOAD_PATH = "res://addons/AudioCafe/components/audio_manager.tscn"
 const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
@@ -11,7 +12,7 @@ var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
 func _enter_tree():
-	inspector = InspectorPlugin.new()
+	inspector = preload(INSPECTOR_PLUGIN_PATH).new()
 	add_inspector_plugin(inspector)
 
 	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
