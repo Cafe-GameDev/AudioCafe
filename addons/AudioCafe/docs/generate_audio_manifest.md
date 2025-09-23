@@ -21,7 +21,7 @@ Este script automatiza a criação de `AudioStreamPlaylist`, `AudioStreamRandomi
 
 ## Constantes
 
-*   **`MANIFEST_SAVE_PATH`**: O caminho para o arquivo `audio_manifest.tres` (`res://addons/AudioCafe/resources/audio_manifest.tres`).
+*   **`MANIFEST_SAVE_FILE`**: O caminho para o arquivo `audio_manifest.tres` (`res://addons/AudioCafe/resources/audio_manifest.tres`).
 
 ## Métodos Principais
 

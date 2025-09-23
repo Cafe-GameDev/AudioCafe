@@ -13,14 +13,12 @@ Este script orquestra a integração do AudioCafe no ambiente do editor Godot. E
 ## Propriedades Chave
 
 *   **`GROUP_SCENE_PATH`**: Uma constante que armazena o caminho para a cena do painel do AudioCafe (`res://addons/AudioCafe/panel/audio_panel.tscn`).
-*   **`INSPECTOR_PLUGIN_PATH`**: Uma constante que armazena o caminho para o script do plugin do inspetor (`res://addons/AudioCafe/scripts/inspector_plugin.gd`).
 *   **`plugin_panel: ScrollContainer`**: A referência ao contêiner principal do painel do plugin, que é adicionado à dock do editor.
 *   **`group_panel: VBoxContainer`**: A referência ao painel específico do AudioCafe (instância de `audio_panel.tscn`) que é adicionado ao `plugin_panel`.
-*   **`inspector_plugin_instance: EditorInspectorPlugin`**: A instância do `InspectorPlugin` que é adicionada e removida do editor.
 
 ## Métodos
 
-*   **`_enter_tree()`**: Este método é chamado quando o plugin é ativado. Ele invoca `_create_plugin_panel()` para configurar a interface do usuário do plugin, instancia o `InspectorPlugin` e o adiciona ao editor.
+*   **`_enter_tree()`**: Este método é chamado quando o plugin é ativado. Ele invoca `_create_plugin_panel()` para configurar a interface do usuário do plugin.
 
 *   **`_exit_tree()`**: Este método é chamado quando o plugin é desativado. Ele é responsável por liberar os recursos alocados, como o `group_panel` e o `plugin_panel`, para evitar vazamentos de memória e garantir uma desativação limpa.
 

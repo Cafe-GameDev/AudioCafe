@@ -5,26 +5,19 @@ extends EditorPlugin
 const AUTOLOAD_NAME = "AudioManager"
 const AUTOLOAD_PATH = "res://addons/AudioCafe/components/audio_manager.tscn"
 const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
-const INSPECTOR_PLUGIN_PATH = "res://addons/AudioCafe/scripts/inspector_plugin.gd"
-var inspector : EditorInspectorPlugin
 
 var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
 func _enter_tree():
-	inspector = preload(INSPECTOR_PLUGIN_PATH).new()
-	add_inspector_plugin(inspector)
-
 	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
 		add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
-
+		print("CafeAudioManager Plugin: Autoload '%s' added." % AUTOLOAD_NAME)
+	
 	_create_plugin_panel()
+	_register_custom_types()
 
 func _exit_tree():
-	if is_instance_valid(inspector):
-		remove_inspector_plugin(inspector)
-		inspector.free()
-
 	if ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
 		remove_autoload_singleton(AUTOLOAD_NAME)
 	
@@ -37,6 +30,8 @@ func _exit_tree():
 			if plugin_panel.get_parent() != null:
 				remove_control_from_docks(plugin_panel)
 			plugin_panel.free()
+	
+	_unregister_custom_types()
 
 func _create_plugin_panel():
 	plugin_panel = get_editor_interface().get_base_control().find_child("CafeEngine", true, false)
@@ -78,7 +73,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 		if not audio_config_res:
-			audio_config_res = preload("res://addons/AudioCafe/resources/audio_config.gd").new()
+			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
 			var dir = AUDIO_CONFIG_PATH.get_base_dir()
 			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
 				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
@@ -99,7 +94,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 
 		if not audio_config_res:
-			audio_config_res = preload("res://addons/AudioCafe/resources/audio_config.gd").new()
+			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
 			var dir = AUDIO_CONFIG_PATH.get_base_dir()
 			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
 				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
@@ -114,3 +109,12 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 	
 	push_error("Não foi possível carregar a cena do grupo: " + group_name)
 	return null
+
+
+func _register_custom_types():
+	add_custom_type("AudioPosition2D", "AudioStreamPlayer2D", preload("res://addons/AudioCafe/components/audio_position_2d.gd"), null)
+	add_custom_type("AudioPosition3D", "AudioStreamPlayer3D", preload("res://addons/AudioCafe/components/audio_position_3d.gd"), null)
+
+func _unregister_custom_types():
+	remove_custom_type("AudioPosition2D")
+	remove_custom_type("AudioPosition3D")
