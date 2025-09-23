@@ -5,11 +5,16 @@ extends EditorPlugin
 const AUTOLOAD_NAME = "AudioManager"
 const AUTOLOAD_PATH = "res://addons/AudioCafe/components/audio_manager.tscn"
 const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
+const INSPECTOR_PATH = "res://addons/AudioCafe/scripts/inspector_plugin.gd"
+var inspector : EditorInspectorPlugin
 
 var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
 
 func _enter_tree():
+	inspector = preload(INSPECTOR_PATH).new()
+	add_inspector_plugin(inspector)
+
 	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
 		add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
 		print("CafeAudioManager Plugin: Autoload '%s' added." % AUTOLOAD_NAME)
@@ -17,6 +22,10 @@ func _enter_tree():
 	_create_plugin_panel()
 
 func _exit_tree():
+	if is_instance_valid(inspector):
+		remove_inspector_plugin(inspector)
+		inspector.free()
+
 	if ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
 		remove_autoload_singleton(AUTOLOAD_NAME)
 	

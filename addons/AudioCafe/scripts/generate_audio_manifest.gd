@@ -5,7 +5,7 @@ class_name GenerateAudioManifest
 signal progress_updated(current: int, total: int)
 signal generation_finished(success: bool, message: String)
 
-const MANIFEST_SAVE_FILE = "res://addons/AudioCafe/resources/audio_manifest.tres"
+const MANIFEST_SAVE_PATH = "res://addons/AudioCafe/resources/audio_manifest.tres"
 
 var _total_files_to_scan = 0
 var _files_scanned = 0
@@ -77,12 +77,12 @@ func _run():
 		audio_manifest.interactive = collected_interactive_streams
 
 	if overall_success:
-		var err = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_FILE)
+		var err = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_PATH)
 		if err != OK:
 			overall_success = false
 			message = "Falha ao salvar AudioManifest.tres: %s" % err
 		else:
-			print("AudioManifest gerado e salvo em: %s" % MANIFEST_SAVE_FILE)
+			print("AudioManifest gerado e salvo em: %s" % MANIFEST_SAVE_PATH)
 
 	emit_signal("generation_finished", overall_success, message)
 
