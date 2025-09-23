@@ -2,24 +2,35 @@
 extends EditorProperty
 class_name PropertyPlugin
 
-var resource_position: ResourcePosition
+var resource_position: ResourcePosition:
+	set(value):
+		resource_position = value
+		_update_ui()
+
+var _checkbox: CheckBox
 
 func _init():
-	# Aqui você pode criar UI customizada
 	var label = Label.new()
 	label.text = "Resource Position"
 	add_child(label)
 
-	var button = Button.new()
-	button.text = "Editar Resource"
-	button.pressed.connect(_on_edit_pressed)
-	add_child(button)
+	_checkbox = CheckBox.new()
+	_checkbox.text = "Teste"
+	_checkbox.pressed.connect(Callable(self, "_on_checkbox_pressed"))
+	add_child(_checkbox)
 
-func _on_edit_pressed():
-	# Abre o inspetor do resource real
+func _update_ui():
 	if resource_position:
-		emit_changed("resource_position", resource_position)
+		_checkbox.button_pressed = resource_position.teste
+	else:
+		_checkbox.button_pressed = false
+
+func _on_checkbox_pressed():
+	if resource_position:
+		resource_position.teste = _checkbox.button_pressed
+		emit_changed("resource_position", resource_position) # Notify inspector of change
 
 func update_property():
-	# Atualiza o valor da prop
-	emit_changed("resource_position", resource_position)
+	# This method is called by the inspector when the property value might have changed externally.
+	# We need to update our UI to reflect the current value of resource_position.
+	_update_ui()
