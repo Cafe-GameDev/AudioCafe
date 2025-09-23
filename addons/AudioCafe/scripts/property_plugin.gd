@@ -5,16 +5,21 @@ class_name PropertyPlugin
 var resource_position: ResourcePosition
 
 func _init():
-    resource_position = ResourcePosition.new()
-    # Controle customizado
-    var label = Label.new()
-    label.text = "Audio Position"
-    add_child(label)
+	# Aqui você pode criar UI customizada
+	var label = Label.new()
+	label.text = "Resource Position"
+	add_child(label)
+
+	var button = Button.new()
+	button.text = "Editar Resource"
+	button.pressed.connect(_on_edit_pressed)
+	add_child(button)
+
+func _on_edit_pressed():
+	# Abre o inspetor do resource real
+	if resource_position:
+		emit_changed("resource_position", resource_position)
 
 func update_property():
-    emit_changed(get_edited_property(), resource_position)
-
-func _set_read_only(read_only: bool) -> void:
-    for child in get_children():
-        if child is Control:
-            child.editable = not read_only
+	# Atualiza o valor da prop
+	emit_changed("resource_position", resource_position)

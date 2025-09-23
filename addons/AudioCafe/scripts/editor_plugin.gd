@@ -17,8 +17,7 @@ func _enter_tree():
 
 	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
 		add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
-		print("CafeAudioManager Plugin: Autoload '%s' added." % AUTOLOAD_NAME)
-	
+
 	_create_plugin_panel()
 
 func _exit_tree():
