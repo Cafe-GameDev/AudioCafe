@@ -5,15 +5,17 @@ class_name InspectorPlugin
 func _can_handle(object: Object) -> bool:
 	return object is AudioStreamPlayer2D or object is AudioStreamPlayer3D
 
-func _parse_begin(object: Object):
-	var editor_property = ClassDB.instantiate("EditorPropertyResource")
-	if not editor_property:
-		push_error("Failed to instantiate EditorPropertyResource.")
-		return
-	editor_property.set_label("Spatial Audio Config")
-	editor_property.set_object_and_property(object, "spatial_config")
-	editor_property.set_base_type("ResourcePosition")
-	add_custom_property("spatial_config", editor_property)
-
 func _parse_property(object: Object, type: int, name: String, hint_type: int, hint_string: String, usage_flags: int, wide: bool) -> bool:
-	return false # Não precisamos mais disso, pois _parse_begin adiciona a propriedade.
+	return false # Não precisamos mais disso, pois _parse_end adiciona a propriedade.
+
+func _parse_end(object: Object):
+	# Este método é chamado depois que todas as propriedades padrão foram analisadas.
+	# Adicionamos nossa propriedade customizada aqui.
+
+	var custom_editor_property = preload("res://addons/AudioCafe/scripts/editor_property.gd").new()
+	custom_editor_property.set_object_and_property(object, "spatial_config") # O nome da propriedade que queremos injetar
+	custom_editor_property.set_label("Spatial Audio Config")
+	
+	# Adiciona o EditorProperty customizado como um controle.
+	# Isso fará com que ele apareça no inspetor.
+	add_custom_control(custom_editor_property)
