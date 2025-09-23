@@ -1,6 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://clh4fqg3ljmyf"]
-
-[ext_resource type="Script" uid="uid://b2qp7465s1j4q" path="res://addons/AudioCafe/components/audio_position_3d.gd" id="1_58nqq"]
+[gd_scene format=3 uid="uid://vultnq53k3xb"]
 
 [node name="AudioPosition3D" type="AudioStreamPlayer3D"]
-script = ExtResource("1_58nqq")
