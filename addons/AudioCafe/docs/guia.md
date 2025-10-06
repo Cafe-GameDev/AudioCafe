@@ -9,7 +9,7 @@ O AudioCafe automatiza a criação de recursos `AudioStreamPlaylist`, `AudioStre
 ## 2. Instalação
 
 1.  **Baixe o Plugin**: Obtenha a versão mais recente do AudioCafe no repositório oficial ou no Godot Asset Library.
-2.  **Copie para o Projeto**: Descompacte o conteúdo do plugin na pasta `addons/` do seu projeto Godot. A estrutura deve ser `res://addons/AudioCafe/`.
+2.  **Copie para o Projeto**: Descompacte o conteúdo do plugin na pasta `addons/` do seu projeto Godot. A estrutura deve ser `res://addons/audiocafe/`.
 3.  **Ative o Plugin**: No Godot Editor, vá em `Projeto -> Configurações do Projeto -> Plugins`. Encontre "AudioCafe" na lista e certifique-se de que seu status esteja como "Ativo".
 
 Após a ativação, um novo painel chamado "AudioCafe" aparecerá em uma das docks do editor (geralmente à direita).
@@ -64,7 +64,7 @@ Após configurar os caminhos, você pode gerar o manifesto:
 O `audio_manifest.tres` é o seu catálogo central. Você pode carregá-lo em qualquer script e acessar os recursos de áudio por chaves.
 
 ```gdscript
-@onready var audio_manifest = preload("res://addons/AudioCafe/resources/audio_manifest.tres")
+@onready var audio_manifest = preload("res://addons/audiocafe/resources/audio_manifest.tres")
 
 func _ready():
     # Exemplo de acesso a uma playlist

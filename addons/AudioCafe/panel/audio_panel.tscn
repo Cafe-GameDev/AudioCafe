@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8u1p14dtwv4j"]
 
-[ext_resource type="Script" uid="uid://db2mvhlm1sjal" path="res://addons/AudioCafe/panel/audio_panel.gd" id="1_bf5yf"]
-[ext_resource type="Texture2D" uid="uid://cqdc43xlhe2rl" path="res://addons/AudioCafe/icons/refresh-cw.svg" id="2_1kouy"]
-[ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_1u6yf"]
-[ext_resource type="Texture2D" uid="uid://onb63xl4bsnu" path="res://addons/AudioCafe/icons/audio-lines.svg" id="2_e2q5v"]
-[ext_resource type="Texture2D" uid="uid://0kp7rnsg2l8y" path="res://addons/AudioCafe/icons/arrow-big-up-dash.svg" id="2_o1mfy"]
+[ext_resource type="Script" uid="uid://durgs0pkrv624" path="res://addons/audiocafe/panel/audio_panel.gd" id="1_bf5yf"]
+[ext_resource type="Texture2D" uid="uid://bc3t6xfa8406w" path="res://addons/audiocafe/icons/refresh-cw.svg" id="2_1kouy"]
+[ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/audiocafe/icons/book-open-text.svg" id="2_1u6yf"]
+[ext_resource type="Texture2D" uid="uid://ddvmhbfhsvsjw" path="res://addons/audiocafe/icons/audio-lines.svg" id="2_e2q5v"]
+[ext_resource type="Texture2D" uid="uid://brbtv442wf7vx" path="res://addons/audiocafe/icons/arrow-big-up-dash.svg" id="2_o1mfy"]
 
 [node name="AudioPanel" type="VBoxContainer"]
 offset_right = 333.0
@@ -59,11 +59,10 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="CollapsibleContent"]
 layout_mode = 2
 size_flags_vertical = 0
-current_tab = 1
+current_tab = 0
 tabs_rearrange_group = 0
 
 [node name="Settings" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 232)
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -98,6 +97,7 @@ layout_mode = 2
 text = "Add Dist Path"
 
 [node name="Playlists" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 metadata/_tab_index = 1

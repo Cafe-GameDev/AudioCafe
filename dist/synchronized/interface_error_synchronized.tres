@@ -1,13 +1,13 @@
-[gd_resource type="AudioStreamSynchronized" load_steps=9 format=3 uid="uid://bwqdlmcwe8cdv"]
+[gd_resource type="AudioStreamSynchronized" load_steps=9 format=3 uid="uid://0nxljak28t1m"]
 
-[ext_resource type="AudioStream" uid="uid://cikcg43fkjftn" path="res://assets/interface/error/error_001.ogg" id="1_8w6y5"]
-[ext_resource type="AudioStream" uid="uid://cvmovdcaud2n0" path="res://assets/interface/error/error_002.ogg" id="2_er0wm"]
-[ext_resource type="AudioStream" uid="uid://c6os65xfc7ief" path="res://assets/interface/error/error_003.ogg" id="3_351i7"]
-[ext_resource type="AudioStream" uid="uid://b4msolamnvvjo" path="res://assets/interface/error/error_004.ogg" id="4_wfc2b"]
-[ext_resource type="AudioStream" uid="uid://cuxrx8fmilc0f" path="res://assets/interface/error/error_005.ogg" id="5_pwayx"]
-[ext_resource type="AudioStream" uid="uid://bmvhwpao25k60" path="res://assets/interface/error/error_006.ogg" id="6_lw7fc"]
-[ext_resource type="AudioStream" uid="uid://bfshgvjqxqt65" path="res://assets/interface/error/error_007.ogg" id="7_o6luv"]
-[ext_resource type="AudioStream" uid="uid://cpauc373bbyqx" path="res://assets/interface/error/error_008.ogg" id="8_v42mi"]
+[ext_resource type="AudioStream" uid="uid://drbgcd7tuycst" path="res://assets/interface/error/error_001.ogg" id="1_8w6y5"]
+[ext_resource type="AudioStream" uid="uid://b57sif3l2lg04" path="res://assets/interface/error/error_002.ogg" id="2_er0wm"]
+[ext_resource type="AudioStream" uid="uid://148eafrjurpf" path="res://assets/interface/error/error_003.ogg" id="3_351i7"]
+[ext_resource type="AudioStream" uid="uid://cdcm6s1uwxoiu" path="res://assets/interface/error/error_004.ogg" id="4_wfc2b"]
+[ext_resource type="AudioStream" uid="uid://cscer8bcuwv2m" path="res://assets/interface/error/error_005.ogg" id="5_pwayx"]
+[ext_resource type="AudioStream" uid="uid://bp0j2oil4yuen" path="res://assets/interface/error/error_006.ogg" id="6_lw7fc"]
+[ext_resource type="AudioStream" uid="uid://cdr1iiqejls04" path="res://assets/interface/error/error_007.ogg" id="7_o6luv"]
+[ext_resource type="AudioStream" uid="uid://b35xn3tk0c4rn" path="res://assets/interface/error/error_008.ogg" id="8_v42mi"]
 
 [resource]
 stream_count = 8

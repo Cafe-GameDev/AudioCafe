@@ -15,7 +15,7 @@ O AudioCafe gera `AudioStreamPlaylist.tres` para cada "chave" de áudio encontra
 
 **Exemplo de Uso (via `AudioManifest`):**
 ```gdscript
-@onready var audio_manifest = preload("res://addons/AudioCafe/resources/audio_manifest.tres")
+@onready var audio_manifest = preload("res://addons/audiocafe/resources/audio_manifest.tres")
 
 func _ready():
     var level1_music_playlist = audio_manifest.playlists["music_level1"]
@@ -38,7 +38,7 @@ Para cada "chave" de áudio, o AudioCafe pode gerar um `AudioStreamRandomizer.tr
 
 **Exemplo de Uso (via `AudioManifest`):**
 ```gdscript
-@onready var audio_manifest = preload("res://addons/AudioCafe/resources/audio_manifest.tres")
+@onready var audio_manifest = preload("res://addons/audiocafe/resources/audio_manifest.tres")
 
 func _on_player_hit():
     var hit_sfx_randomizer = audio_manifest.randomizer["sfx_hit"]
@@ -57,7 +57,7 @@ O AudioCafe pode gerar `AudioStreamSynchronized.tres` para chaves de áudio que 
 
 **Exemplo de Uso (via `AudioManifest`):**
 ```gdscript
-@onready var audio_manifest = preload("res://addons/AudioCafe/resources/audio_manifest.tres")
+@onready var audio_manifest = preload("res://addons/audiocafe/resources/audio_manifest.tres")
 
 func _start_ambience():
     var ambience_sync = audio_manifest.synchronized["ambience_forest"]
@@ -83,7 +83,7 @@ Você cria um `AudioStreamInteractive.tres` no editor do Godot, configura seus p
 
 **Exemplo de Uso (via `AudioManifest`):**
 ```gdscript
-@onready var audio_manifest = preload("res://addons/AudioCafe/resources/audio_manifest.tres")
+@onready var audio_manifest = preload("res://addons/audiocafe/resources/audio_manifest.tres")
 
 func _on_player_move():
     var footsteps_interactive_path = audio_manifest.interactive["player_footsteps_interactive"]

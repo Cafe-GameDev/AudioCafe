@@ -1,6 +1,6 @@
-[gd_resource type="AudioStreamSynchronized" load_steps=2 format=3 uid="uid://b32wys1ok4qq3"]
+[gd_resource type="AudioStreamSynchronized" load_steps=2 format=3 uid="uid://drr54jbcevsfk"]
 
-[ext_resource type="AudioStream" uid="uid://b1plfjjcl2sp3" path="res://assets/ui/mouseclick/mouseclick1.ogg" id="1_rp732"]
+[ext_resource type="AudioStream" uid="uid://brer1l4gj8or0" path="res://assets/ui/mouseclick/mouseclick1.ogg" id="1_rp732"]
 
 [resource]
 stream_count = 1

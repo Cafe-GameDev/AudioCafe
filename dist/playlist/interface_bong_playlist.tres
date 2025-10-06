@@ -1,6 +1,6 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=2 format=3 uid="uid://dr34ma5cmjjry"]
+[gd_resource type="AudioStreamPlaylist" load_steps=2 format=3 uid="uid://cofrnq5ov7ha2"]
 
-[ext_resource type="AudioStream" uid="uid://cbpmv0uvuvhlb" path="res://assets/interface/bong/bong_001.ogg" id="1_skmd7"]
+[ext_resource type="AudioStream" uid="uid://defywo6pjnmsw" path="res://assets/interface/bong/bong_001.ogg" id="1_skmd7"]
 
 [resource]
 stream_count = 1

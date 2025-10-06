@@ -1,9 +1,9 @@
-[gd_resource type="AudioStreamSynchronized" load_steps=5 format=3 uid="uid://cywbc7hwq0thc"]
+[gd_resource type="AudioStreamSynchronized" load_steps=5 format=3 uid="uid://c3htxlb8hh5xq"]
 
-[ext_resource type="AudioStream" uid="uid://bhukomhd03cs" path="res://assets/interface/question/question_001.ogg" id="1_u4500"]
-[ext_resource type="AudioStream" uid="uid://o4h0evng02rd" path="res://assets/interface/question/question_002.ogg" id="2_skijd"]
-[ext_resource type="AudioStream" uid="uid://dv7qnxi4db4hm" path="res://assets/interface/question/question_003.ogg" id="3_f07f2"]
-[ext_resource type="AudioStream" uid="uid://cbj7a30wc76g7" path="res://assets/interface/question/question_004.ogg" id="4_i8v8o"]
+[ext_resource type="AudioStream" uid="uid://dauq4wrgobjuy" path="res://assets/interface/question/question_001.ogg" id="1_u4500"]
+[ext_resource type="AudioStream" uid="uid://cwach53nruite" path="res://assets/interface/question/question_002.ogg" id="2_skijd"]
+[ext_resource type="AudioStream" uid="uid://dryahujrpbt0j" path="res://assets/interface/question/question_003.ogg" id="3_f07f2"]
+[ext_resource type="AudioStream" uid="uid://ol2t4ru57a7j" path="res://assets/interface/question/question_004.ogg" id="4_i8v8o"]
 
 [resource]
 stream_count = 4

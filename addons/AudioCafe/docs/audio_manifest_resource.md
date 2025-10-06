@@ -31,7 +31,7 @@ O `audio_manifest.tres` contém os seguintes dicionários, onde cada chave é um
 Para acessar um recurso de áudio em seu código, você pode carregar o `audio_manifest.tres` e então usar as chaves para obter os caminhos dos recursos:
 
 ```gdscript
-@onready var audio_manifest = preload("res://addons/AudioCafe/resources/audio_manifest.tres")
+@onready var audio_manifest = preload("res://addons/audiocafe/resources/audio_manifest.tres")
 
 func _ready():
     # Acessando uma playlist

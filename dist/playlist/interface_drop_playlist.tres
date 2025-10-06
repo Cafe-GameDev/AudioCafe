@@ -1,9 +1,9 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://bhogvclgpfili"]
+[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://3v6lo6k65bda"]
 
-[ext_resource type="AudioStream" uid="uid://wpi7f52vvjrm" path="res://assets/interface/drop/drop_001.ogg" id="1_684g1"]
-[ext_resource type="AudioStream" uid="uid://u35eqsx1c1so" path="res://assets/interface/drop/drop_002.ogg" id="2_qxqr4"]
-[ext_resource type="AudioStream" uid="uid://djfuye6uakqos" path="res://assets/interface/drop/drop_003.ogg" id="3_m0gte"]
-[ext_resource type="AudioStream" uid="uid://dkkm34xiocp7d" path="res://assets/interface/drop/drop_004.ogg" id="4_dat78"]
+[ext_resource type="AudioStream" uid="uid://b6h86jh0a35r7" path="res://assets/interface/drop/drop_001.ogg" id="1_684g1"]
+[ext_resource type="AudioStream" uid="uid://d286k836daab3" path="res://assets/interface/drop/drop_002.ogg" id="2_qxqr4"]
+[ext_resource type="AudioStream" uid="uid://cqb3ffj76tw5a" path="res://assets/interface/drop/drop_003.ogg" id="3_m0gte"]
+[ext_resource type="AudioStream" uid="uid://bemax05jra2o2" path="res://assets/interface/drop/drop_004.ogg" id="4_dat78"]
 
 [resource]
 stream_count = 4

@@ -1,10 +1,10 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=6 format=3 uid="uid://c70b6shplhr1v"]
+[gd_resource type="AudioStreamPlaylist" load_steps=6 format=3 uid="uid://j48jmkt1yl5v"]
 
-[ext_resource type="AudioStream" uid="uid://b5rvnutxgfuue" path="res://assets/interface/click/click_001.ogg" id="1_0a3cb"]
-[ext_resource type="AudioStream" uid="uid://dp7epqj63rnwh" path="res://assets/interface/click/click_002.ogg" id="2_5e7mg"]
-[ext_resource type="AudioStream" uid="uid://bijaa8tcslxwg" path="res://assets/interface/click/click_003.ogg" id="3_aptfv"]
-[ext_resource type="AudioStream" uid="uid://b3fvdy8qp6otr" path="res://assets/interface/click/click_004.ogg" id="4_2ggp5"]
-[ext_resource type="AudioStream" uid="uid://cna1c358ie4mv" path="res://assets/interface/click/click_005.ogg" id="5_mbs4n"]
+[ext_resource type="AudioStream" uid="uid://bce173v2yf08u" path="res://assets/interface/click/click_001.ogg" id="1_0a3cb"]
+[ext_resource type="AudioStream" uid="uid://bpkcwv2dmv4kg" path="res://assets/interface/click/click_002.ogg" id="2_5e7mg"]
+[ext_resource type="AudioStream" uid="uid://boxoecdb52ov1" path="res://assets/interface/click/click_003.ogg" id="3_aptfv"]
+[ext_resource type="AudioStream" uid="uid://dwr5pnxwiiw01" path="res://assets/interface/click/click_004.ogg" id="4_2ggp5"]
+[ext_resource type="AudioStream" uid="uid://cqpbtx22en7gs" path="res://assets/interface/click/click_005.ogg" id="5_mbs4n"]
 
 [resource]
 stream_count = 5

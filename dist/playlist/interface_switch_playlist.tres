@@ -1,12 +1,12 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=8 format=3 uid="uid://bargwknhkwa3g"]
+[gd_resource type="AudioStreamPlaylist" load_steps=8 format=3 uid="uid://dt2ql8icp0rlo"]
 
-[ext_resource type="AudioStream" uid="uid://b0wbi75emy2p7" path="res://assets/interface/switch/switch_001.ogg" id="1_h8t7h"]
-[ext_resource type="AudioStream" uid="uid://bbvibbsy4m2od" path="res://assets/interface/switch/switch_002.ogg" id="2_a0jrc"]
-[ext_resource type="AudioStream" uid="uid://lu8mcor0mo5x" path="res://assets/interface/switch/switch_003.ogg" id="3_1lfdm"]
-[ext_resource type="AudioStream" uid="uid://bqrd3loe8w5ab" path="res://assets/interface/switch/switch_004.ogg" id="4_1fs8c"]
-[ext_resource type="AudioStream" uid="uid://q71ku6fkqlg1" path="res://assets/interface/switch/switch_005.ogg" id="5_7j8ii"]
-[ext_resource type="AudioStream" uid="uid://ckvveshkajreo" path="res://assets/interface/switch/switch_006.ogg" id="6_20bxj"]
-[ext_resource type="AudioStream" uid="uid://c0iumclc5q5rc" path="res://assets/interface/switch/switch_007.ogg" id="7_1h0lk"]
+[ext_resource type="AudioStream" uid="uid://ww22a2cs6oqp" path="res://assets/interface/switch/switch_001.ogg" id="1_h8t7h"]
+[ext_resource type="AudioStream" uid="uid://c1p2l2y6h6q2o" path="res://assets/interface/switch/switch_002.ogg" id="2_a0jrc"]
+[ext_resource type="AudioStream" uid="uid://c13ap5skbqykf" path="res://assets/interface/switch/switch_003.ogg" id="3_1lfdm"]
+[ext_resource type="AudioStream" uid="uid://dmfvogfv6hjgg" path="res://assets/interface/switch/switch_004.ogg" id="4_1fs8c"]
+[ext_resource type="AudioStream" uid="uid://d0srbgll4tf3p" path="res://assets/interface/switch/switch_005.ogg" id="5_7j8ii"]
+[ext_resource type="AudioStream" uid="uid://cmqsinflfoin1" path="res://assets/interface/switch/switch_006.ogg" id="6_20bxj"]
+[ext_resource type="AudioStream" uid="uid://d2ngpstw2wbpy" path="res://assets/interface/switch/switch_007.ogg" id="7_1h0lk"]
 
 [resource]
 stream_count = 7

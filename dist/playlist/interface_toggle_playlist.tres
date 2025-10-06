@@ -1,9 +1,9 @@
-[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://bbmhyugsy2n5p"]
+[gd_resource type="AudioStreamPlaylist" load_steps=5 format=3 uid="uid://cmdmfrevtjuqc"]
 
-[ext_resource type="AudioStream" uid="uid://ei3wky372kuf" path="res://assets/interface/toggle/toggle_001.ogg" id="1_1ltsv"]
-[ext_resource type="AudioStream" uid="uid://b44ae0f80dwsr" path="res://assets/interface/toggle/toggle_002.ogg" id="2_2chth"]
-[ext_resource type="AudioStream" uid="uid://b3qqwrcvyn2db" path="res://assets/interface/toggle/toggle_003.ogg" id="3_ftu7m"]
-[ext_resource type="AudioStream" uid="uid://dnjn07pd6n4bb" path="res://assets/interface/toggle/toggle_004.ogg" id="4_wblb4"]
+[ext_resource type="AudioStream" uid="uid://bsoxy5a7d322k" path="res://assets/interface/toggle/toggle_001.ogg" id="1_1ltsv"]
+[ext_resource type="AudioStream" uid="uid://6ykh082fj6x" path="res://assets/interface/toggle/toggle_002.ogg" id="2_2chth"]
+[ext_resource type="AudioStream" uid="uid://bdyrlj4mephmh" path="res://assets/interface/toggle/toggle_003.ogg" id="3_ftu7m"]
+[ext_resource type="AudioStream" uid="uid://bj66bj1it3t5e" path="res://assets/interface/toggle/toggle_004.ogg" id="4_wblb4"]
 
 [resource]
 stream_count = 4

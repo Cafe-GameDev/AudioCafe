@@ -1,13 +1,13 @@
-[gd_resource type="AudioStreamSynchronized" load_steps=9 format=3 uid="uid://fshr6f8f0xfn"]
+[gd_resource type="AudioStreamSynchronized" load_steps=9 format=3 uid="uid://b0xu73jx8hkxu"]
 
-[ext_resource type="AudioStream" uid="uid://cui5i7233x1ge" path="res://assets/interface/select/select_001.ogg" id="1_1ojhf"]
-[ext_resource type="AudioStream" uid="uid://dq270s057tlf7" path="res://assets/interface/select/select_002.ogg" id="2_5ru06"]
-[ext_resource type="AudioStream" uid="uid://d1t7xxrj2w67b" path="res://assets/interface/select/select_003.ogg" id="3_rlwfk"]
-[ext_resource type="AudioStream" uid="uid://svllelyivvhi" path="res://assets/interface/select/select_004.ogg" id="4_rf46f"]
-[ext_resource type="AudioStream" uid="uid://ckktwau81j4g5" path="res://assets/interface/select/select_005.ogg" id="5_0s8kh"]
-[ext_resource type="AudioStream" uid="uid://0c77sksp6u2y" path="res://assets/interface/select/select_006.ogg" id="6_b1mtq"]
-[ext_resource type="AudioStream" uid="uid://cvd4mish2p2qk" path="res://assets/interface/select/select_007.ogg" id="7_h7tyi"]
-[ext_resource type="AudioStream" uid="uid://c6sb3j1qo7gbp" path="res://assets/interface/select/select_008.ogg" id="8_4177v"]
+[ext_resource type="AudioStream" uid="uid://brha8hrtxxqie" path="res://assets/interface/select/select_001.ogg" id="1_1ojhf"]
+[ext_resource type="AudioStream" uid="uid://dp3hi41bhh1kb" path="res://assets/interface/select/select_002.ogg" id="2_5ru06"]
+[ext_resource type="AudioStream" uid="uid://ekfka6j20blx" path="res://assets/interface/select/select_003.ogg" id="3_rlwfk"]
+[ext_resource type="AudioStream" uid="uid://b286802itijfy" path="res://assets/interface/select/select_004.ogg" id="4_rf46f"]
+[ext_resource type="AudioStream" uid="uid://bl0wns8ruqtcc" path="res://assets/interface/select/select_005.ogg" id="5_0s8kh"]
+[ext_resource type="AudioStream" uid="uid://dvblbmhg5c8wm" path="res://assets/interface/select/select_006.ogg" id="6_b1mtq"]
+[ext_resource type="AudioStream" uid="uid://cq21teo6ajlyb" path="res://assets/interface/select/select_007.ogg" id="7_h7tyi"]
+[ext_resource type="AudioStream" uid="uid://da6vd2iqi8syi" path="res://assets/interface/select/select_008.ogg" id="8_4177v"]
 
 [resource]
 stream_count = 8

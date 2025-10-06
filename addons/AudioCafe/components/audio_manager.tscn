@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://h4aimi8s8hvw"]
 
-[ext_resource type="Script" uid="uid://lkbcm7q3a51d" path="res://addons/AudioCafe/components/audio_manager.gd" id="1_46mvi"]
-[ext_resource type="Script" uid="uid://d2ef30fykkyii" path="res://addons/AudioCafe/components/audio_position_2d.gd" id="2_bca4w"]
+[ext_resource type="Script" uid="uid://lkbcm7q3a51d" path="res://addons/audiocafe/components/audio_manager.gd" id="1_46mvi"]
+[ext_resource type="Script" uid="uid://d2ef30fykkyii" path="res://addons/audiocafe/components/audio_position_2d.gd" id="2_bca4w"]
 
 [node name="AudioManager" type="Node2D"]
 script = ExtResource("1_46mvi")
