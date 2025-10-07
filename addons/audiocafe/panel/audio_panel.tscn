@@ -105,7 +105,7 @@ metadata/_tab_index = 1
 
 [node name="PlaylistRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Playlists"]
 layout_mode = 2
-text = "Nenhuma playlist encontrada."
+text = "No playlists found."
 fit_content = true
 
 [node name="Interactive" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]
@@ -116,7 +116,7 @@ metadata/_tab_index = 2
 
 [node name="InteractiveRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Interactive"]
 layout_mode = 2
-text = "Nenhum stream interativo encontrado."
+text = "No interactive streams found."
 fit_content = true
 
 [node name="AssetsFolderDialog" type="FileDialog" parent="CollapsibleContent"]
