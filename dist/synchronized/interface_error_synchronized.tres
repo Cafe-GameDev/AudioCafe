@@ -1,0 +1,29 @@
+[gd_resource type="AudioStreamSynchronized" load_steps=9 format=3 uid="uid://0nxljak28t1m"]
+
+[ext_resource type="AudioStream" uid="uid://cikcg43fkjftn" path="res://assets/interface/error/error_001.ogg" id="1_8w6y5"]
+[ext_resource type="AudioStream" uid="uid://cvmovdcaud2n0" path="res://assets/interface/error/error_002.ogg" id="2_er0wm"]
+[ext_resource type="AudioStream" uid="uid://c6os65xfc7ief" path="res://assets/interface/error/error_003.ogg" id="3_351i7"]
+[ext_resource type="AudioStream" uid="uid://b4msolamnvvjo" path="res://assets/interface/error/error_004.ogg" id="4_wfc2b"]
+[ext_resource type="AudioStream" uid="uid://cuxrx8fmilc0f" path="res://assets/interface/error/error_005.ogg" id="5_pwayx"]
+[ext_resource type="AudioStream" uid="uid://bmvhwpao25k60" path="res://assets/interface/error/error_006.ogg" id="6_lw7fc"]
+[ext_resource type="AudioStream" uid="uid://bfshgvjqxqt65" path="res://assets/interface/error/error_007.ogg" id="7_o6luv"]
+[ext_resource type="AudioStream" uid="uid://cpauc373bbyqx" path="res://assets/interface/error/error_008.ogg" id="8_v42mi"]
+
+[resource]
+stream_count = 8
+stream_0/stream = ExtResource("1_8w6y5")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("2_er0wm")
+stream_1/volume = 0.0
+stream_2/stream = ExtResource("3_351i7")
+stream_2/volume = 0.0
+stream_3/stream = ExtResource("4_wfc2b")
+stream_3/volume = 0.0
+stream_4/stream = ExtResource("5_pwayx")
+stream_4/volume = 0.0
+stream_5/stream = ExtResource("6_lw7fc")
+stream_5/volume = 0.0
+stream_6/stream = ExtResource("7_o6luv")
+stream_6/volume = 0.0
+stream_7/stream = ExtResource("8_v42mi")
+stream_7/volume = 0.0

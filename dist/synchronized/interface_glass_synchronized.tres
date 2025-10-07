@@ -1,0 +1,23 @@
+[gd_resource type="AudioStreamSynchronized" load_steps=7 format=3 uid="uid://gpum4s2n04x1"]
+
+[ext_resource type="AudioStream" uid="uid://crpwap1num22j" path="res://assets/interface/glass/glass_001.ogg" id="1_dtns4"]
+[ext_resource type="AudioStream" uid="uid://bxeebyq5bdngy" path="res://assets/interface/glass/glass_002.ogg" id="2_jcx6e"]
+[ext_resource type="AudioStream" uid="uid://basp22l8hstnx" path="res://assets/interface/glass/glass_003.ogg" id="3_64vm3"]
+[ext_resource type="AudioStream" uid="uid://cy15pdd7iqfw7" path="res://assets/interface/glass/glass_004.ogg" id="4_26t78"]
+[ext_resource type="AudioStream" uid="uid://bbmlb77jjvsi4" path="res://assets/interface/glass/glass_005.ogg" id="5_lyysy"]
+[ext_resource type="AudioStream" uid="uid://des7cg0d0vsk7" path="res://assets/interface/glass/glass_006.ogg" id="6_4fogi"]
+
+[resource]
+stream_count = 6
+stream_0/stream = ExtResource("1_dtns4")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("2_jcx6e")
+stream_1/volume = 0.0
+stream_2/stream = ExtResource("3_64vm3")
+stream_2/volume = 0.0
+stream_3/stream = ExtResource("4_26t78")
+stream_3/volume = 0.0
+stream_4/stream = ExtResource("5_lyysy")
+stream_4/volume = 0.0
+stream_5/stream = ExtResource("6_4fogi")
+stream_5/volume = 0.0
