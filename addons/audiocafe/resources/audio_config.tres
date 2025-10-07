@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="AudioConfig" load_steps=2 format=3 uid="uid://b0q3x2leklg6i"]
-
-[ext_resource type="Script" uid="uid://d0mrcthgrtg54" path="res://addons/audiocafe/scripts/audio_config.gd" id="1_r2kyp"]
-
-[resource]
-script = ExtResource("1_r2kyp")
-metadata/_custom_type_script = "uid://d0mrcthgrtg54"
