@@ -1,8 +1,0 @@
-[gd_resource type="AudioStreamSynchronized" load_steps=2 format=3 uid="uid://te16u2pqpskm"]
-
-[ext_resource type="AudioStream" uid="uid://celnps7dgp6ve" path="res://assets/ui/mouserelease/mouserelease1.ogg" id="1_n7ahu"]
-
-[resource]
-stream_count = 1
-stream_0/stream = ExtResource("1_n7ahu")
-stream_0/volume = 0.0

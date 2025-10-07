@@ -3,8 +3,8 @@ extends EditorPlugin
 
 
 const AUTOLOAD_NAME = "AudioManager"
-const AUTOLOAD_PATH = "res://addons/AudioCafe/components/audio_manager.tscn"
-const GROUP_SCENE_PATH = "res://addons/AudioCafe/panel/audio_panel.tscn"
+const AUTOLOAD_PATH = "res://addons/audiocafe/components/audio_manager.tscn"
+const GROUP_SCENE_PATH = "res://addons/audiocafe/panel/audio_panel.tscn"
 
 var plugin_panel: ScrollContainer
 var group_panel: VBoxContainer
@@ -70,10 +70,10 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 
 	group_panel = content_container.find_child(group_name, false)
 	if group_panel:
-		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
+		const AUDIO_CONFIG_PATH = "res://addons/audiocafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 		if not audio_config_res:
-			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
+			audio_config_res = preload("res://addons/audiocafe/scripts/audio_config.gd").new()
 			var dir = AUDIO_CONFIG_PATH.get_base_dir()
 			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
 				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
@@ -90,11 +90,11 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 		content_container.add_child(group_panel)
 		group_panel.name = group_name
 
-		const AUDIO_CONFIG_PATH = "res://addons/AudioCafe/resources/audio_config.tres"
+		const AUDIO_CONFIG_PATH = "res://addons/audiocafe/resources/audio_config.tres"
 		var audio_config_res = ResourceLoader.load(AUDIO_CONFIG_PATH)
 
 		if not audio_config_res:
-			audio_config_res = preload("res://addons/AudioCafe/scripts/audio_config.gd").new()
+			audio_config_res = preload("res://addons/audiocafe/scripts/audio_config.gd").new()
 			var dir = AUDIO_CONFIG_PATH.get_base_dir()
 			if not DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(dir)):
 				DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(dir))
@@ -112,8 +112,8 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 
 
 func _register_custom_types():
-	add_custom_type("AudioPosition2D", "AudioStreamPlayer2D", preload("res://addons/AudioCafe/components/audio_position_2d.gd"), null)
-	add_custom_type("AudioPosition3D", "AudioStreamPlayer3D", preload("res://addons/AudioCafe/components/audio_position_3d.gd"), null)
+	add_custom_type("AudioPosition2D", "AudioStreamPlayer2D", preload("res://addons/audiocafe/components/audio_position_2d.gd"), null)
+	add_custom_type("AudioPosition3D", "AudioStreamPlayer3D", preload("res://addons/audiocafe/components/audio_position_3d.gd"), null)
 
 func _unregister_custom_types():
 	remove_custom_type("AudioPosition2D")

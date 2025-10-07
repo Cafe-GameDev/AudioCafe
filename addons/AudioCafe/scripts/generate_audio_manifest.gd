@@ -5,12 +5,12 @@ class_name GenerateAudioManifest
 signal progress_updated(current: int, total: int)
 signal generation_finished(success: bool, message: String)
 
-const MANIFEST_SAVE_FILE = "res://addons/AudioCafe/resources/audio_manifest.tres"
+const MANIFEST_SAVE_FILE = "res://addons/audiocafe/resources/audio_manifest.tres"
 
 var _total_files_to_scan = 0
 var _files_scanned = 0
 
-@export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
+@export var audio_config: AudioConfig = preload("res://addons/audiocafe/resources/audio_config.tres")
 
 func _run():
 	_total_files_to_scan = 0
@@ -47,8 +47,6 @@ func _run():
 				overall_success = false
 				message = "Falha ao criar diretórios de distribuição."
 				break
-			else:
-				print("Diretório criado: %s" % path_to_create)
 	
 	if not overall_success:
 		emit_signal("generation_finished", overall_success, message)
@@ -81,8 +79,6 @@ func _run():
 		if err != OK:
 			overall_success = false
 			message = "Falha ao salvar AudioManifest.tres: %s" % err
-		else:
-			print("AudioManifest gerado e salvo em: %s" % MANIFEST_SAVE_FILE)
 
 	emit_signal("generation_finished", overall_success, message)
 
@@ -202,7 +198,7 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 		audio_manifest.synchronized[final_key] = [
 			synchronized_file_path,
 			str(sync.stream_count),
-			ResourceLoader.get_resource_uid(synchronized_file_path)
+				var synchronized_uid = _get_uid_from_tres_file(synchronized_file_path)
 		]
 
 	return [true, ""]
@@ -288,3 +284,21 @@ func _scan_directory_for_resources(current_path: String, resource_class_name: St
 		file_or_dir_name = dir.get_next()
 
 	return true
+
+func _get_uid_from_tres_file(file_path: String) -> String:
+	var file = FileAccess.open(file_path, FileAccess.READ)
+	if file == null:
+		printerr("Falha ao abrir o arquivo .tres para ler o UID: %s" % file_path)
+		return ""
+
+	while not file.eof_reached():
+		var line = file.get_line()
+					if line.contains("uid=\"uid://"):
+					var start_index = line.find("uid=\"uid://") + len("uid=\"uid://")			var end_index = line.find(""", start_index)
+			if start_index != -1 and end_index != -1:
+				var uid = line.substr(start_index, end_index - start_index)
+				file.close()
+				return uid
+	file.close()
+	printerr("UID não encontrado no arquivo .tres: %s" % file_path)
+	return ""

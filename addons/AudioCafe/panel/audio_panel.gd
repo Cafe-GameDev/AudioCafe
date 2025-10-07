@@ -24,16 +24,16 @@ class_name AudioPanel
 @onready var save_feedback_label: Label = $CollapsibleContent/SaveFeedbackLabel
 @onready var save_feedback_timer: Timer = $CollapsibleContent/SaveFeedbackTimer
 
-const ARROW_BIG_DOWN_DASH = preload("res://addons/AudioCafe/icons/arrow-big-down-dash.svg")
-const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-dash.svg")
-const ICON_X = preload("res://addons/AudioCafe/icons/x.svg")
+const ARROW_BIG_DOWN_DASH = preload("res://addons/audiocafe/icons/arrow-big-down-dash.svg")
+const ARROW_BIG_UP_DASH = preload("res://addons/audiocafe/icons/arrow-big-up-dash.svg")
+const ICON_X = preload("res://addons/audiocafe/icons/x.svg")
 
 
 
-const AUDIO_MANIFEST_PATH = "res://addons/AudioCafe/resources/audio_manifest.tres"
+const AUDIO_MANIFEST_PATH = "res://addons/audiocafe/resources/audio_manifest.tres"
 
 
-@export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
+@export var audio_config: AudioConfig = preload("res://addons/audiocafe/resources/audio_config.tres")
 
 const DOCS : String = "https://cafegame.dev/plugins/audiocafe"
 
@@ -111,7 +111,6 @@ func _load_config_to_ui():
 
 	if audio_config.assets_paths.has(audio_config.dist_path):
 		audio_config.assets_paths.erase(audio_config.dist_path)
-		print("DEBUG: Removed dist_path from assets_paths during cleanup.")
 		audio_config._save_and_emit_changed()
 	
 	if assets_paths_grid_container:
@@ -372,7 +371,6 @@ func _on_generate_playlists_pressed():
 	var generator = GenerateAudioManifest.new()
 	generator.audio_config = audio_config
 	generator.connect("generation_finished", Callable(self, "_on_playlists_generation_finished"))
-	print("DEBUG: Gerador de playlists configurado com assets_paths: %s" % audio_config.assets_paths)
 	generator._run()
 
 func _on_playlists_generation_finished(success: bool, message: String):

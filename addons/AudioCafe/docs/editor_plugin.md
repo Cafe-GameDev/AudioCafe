@@ -12,7 +12,7 @@ Este script orquestra a integração do AudioCafe no ambiente do editor Godot. E
 
 ## Propriedades Chave
 
-*   **`GROUP_SCENE_PATH`**: Uma constante que armazena o caminho para a cena do painel do AudioCafe (`res://addons/AudioCafe/panel/audio_panel.tscn`).
+*   **`GROUP_SCENE_PATH`**: Uma constante que armazena o caminho para a cena do painel do AudioCafe (`res://addons/audiocafe/panel/audio_panel.tscn`).
 *   **`plugin_panel: ScrollContainer`**: A referência ao contêiner principal do painel do plugin, que é adicionado à dock do editor.
 *   **`group_panel: VBoxContainer`**: A referência ao painel específico do AudioCafe (instância de `audio_panel.tscn`) que é adicionado ao `plugin_panel`.
 

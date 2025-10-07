@@ -16,11 +16,11 @@ config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [autoload]
 
-AudioManager="*res://addons/AudioCafe/components/audio_manager.tscn"
+AudioManager="*res://addons/audiocafe/components/audio_manager.tscn"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AudioCafe/plugin.cfg")
+enabled=PackedStringArray("res://addons/audiocafe/plugin.cfg")
 
 [rendering]
 
