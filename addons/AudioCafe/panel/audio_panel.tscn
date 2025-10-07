@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://b8u1p14dtwv4j"]
 
-[ext_resource type="Script" uid="uid://durgs0pkrv624" path="res://addons/AudioCafe/panel/audio_panel.gd" id="1_bf5yf"]
-[ext_resource type="Texture2D" uid="uid://bc3t6xfa8406w" path="res://addons/AudioCafe/icons/refresh-cw.svg" id="2_1kouy"]
-[ext_resource type="Texture2D" uid="uid://cbagaxsdgndkc" path="res://addons/AudioCafe/icons/book-open-text.svg" id="2_1u6yf"]
-[ext_resource type="Texture2D" uid="uid://ddvmhbfhsvsjw" path="res://addons/AudioCafe/icons/audio-lines.svg" id="2_e2q5v"]
-[ext_resource type="Texture2D" uid="uid://brbtv442wf7vx" path="res://addons/AudioCafe/icons/arrow-big-up-dash.svg" id="2_o1mfy"]
+[ext_resource type="Script" uid="uid://durgs0pkrv624" path="res://addons/audiocafe/panel/audio_panel.gd" id="1_bf5yf"]
+[ext_resource type="Texture2D" uid="uid://xks4yjnwv07o" path="res://addons/audiocafe/icons/audio-lines.svg" id="2_27051"]
+[ext_resource type="Texture2D" uid="uid://cuaeoldwsshxc" path="res://addons/audiocafe/icons/arrow-big-up-dash.svg" id="3_pgqbs"]
+[ext_resource type="Texture2D" uid="uid://b2e5wlg6t6ywq" path="res://addons/audiocafe/icons/refresh-cw.svg" id="4_tsgsf"]
+[ext_resource type="Texture2D" uid="uid://dgsrrusj032sf" path="res://addons/audiocafe/icons/book-open-text.svg" id="5_xx4nf"]
 
 [node name="AudioPanel" type="VBoxContainer"]
 offset_right = 333.0
@@ -13,18 +13,19 @@ script = ExtResource("1_bf5yf")
 
 [node name="Audio-lines" type="Sprite2D" parent="."]
 position = Vector2(110, 20)
-texture = ExtResource("2_e2q5v")
+texture = ExtResource("2_27051")
 
 [node name="HeaderButton" type="Button" parent="."]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
 text = "AudioCafe"
-icon = ExtResource("2_o1mfy")
+icon = ExtResource("3_pgqbs")
 flat = true
 alignment = 0
 icon_alignment = 2
 
 [node name="CollapsibleContent" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 311)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent"]
@@ -37,7 +38,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Generates the key_playlist.tres file."
 text = "Generate Playlists"
-icon = ExtResource("2_1kouy")
+icon = ExtResource("4_tsgsf")
 autowrap_mode = 3
 
 [node name="DocsButton" type="Button" parent="CollapsibleContent/HBoxContainer"]
@@ -46,7 +47,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Docs"
-icon = ExtResource("2_1u6yf")
+icon = ExtResource("5_xx4nf")
 
 [node name="GenStatusLabel" type="Label" parent="CollapsibleContent"]
 visible = false
@@ -104,37 +105,7 @@ metadata/_tab_index = 1
 
 [node name="PlaylistRichTextLabel" type="RichTextLabel" parent="CollapsibleContent/TabContainer/Playlists"]
 layout_mode = 2
-text = "8-bit_jingles (17)
-hit_jingles (17)
-interface_back (4)
-interface_bong (1)
-interface_click (5)
-interface_close (4)
-interface_confirmation (4)
-interface_drop (4)
-interface_error (8)
-interface_glass (6)
-interface_glitch (4)
-interface_maximize (9)
-interface_minimize (9)
-interface_open (4)
-interface_pluck (2)
-interface_question (4)
-interface_scratch (5)
-interface_scroll (5)
-interface_select (8)
-interface_switch (7)
-interface_tick (3)
-interface_toggle (4)
-pizzicato_jingles (17)
-sax_jingles (17)
-steel_jingles (17)
-ui_click (5)
-ui_mouseclick (1)
-ui_mouserelease (1)
-ui_rollover (6)
-ui_switch (38)
-"
+text = "Nenhuma playlist encontrada."
 fit_content = true
 
 [node name="Interactive" type="VBoxContainer" parent="CollapsibleContent/TabContainer"]

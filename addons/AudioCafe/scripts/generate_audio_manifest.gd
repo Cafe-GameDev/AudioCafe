@@ -5,12 +5,12 @@ class_name GenerateAudioManifest
 signal progress_updated(current: int, total: int)
 signal generation_finished(success: bool, message: String)
 
-const MANIFEST_SAVE_FILE = "res://addons/AudioCafe/resources/audio_manifest.tres"
+const MANIFEST_SAVE_FILE = "res://addons/audiocafe/resources/audio_manifest.tres"
 
 var _total_files_to_scan = 0
 var _files_scanned = 0
 
-@export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
+@export var audio_config: AudioConfig = preload("res://addons/audiocafe/resources/audio_config.tres")
 
 func _run():
 	_total_files_to_scan = 0

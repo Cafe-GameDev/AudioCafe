@@ -24,16 +24,16 @@ class_name AudioPanel
 @onready var save_feedback_label: Label = $CollapsibleContent/SaveFeedbackLabel
 @onready var save_feedback_timer: Timer = $CollapsibleContent/SaveFeedbackTimer
 
-const ARROW_BIG_DOWN_DASH = preload("res://addons/AudioCafe/icons/arrow-big-down-dash.svg")
-const ARROW_BIG_UP_DASH = preload("res://addons/AudioCafe/icons/arrow-big-up-dash.svg")
-const ICON_X = preload("res://addons/AudioCafe/icons/x.svg")
+const ARROW_BIG_DOWN_DASH = preload("res://addons/audiocafe/icons/arrow-big-down-dash.svg")
+const ARROW_BIG_UP_DASH = preload("res://addons/audiocafe/icons/arrow-big-up-dash.svg")
+const ICON_X = preload("res://addons/audiocafe/icons/x.svg")
 
 
 
-const AUDIO_MANIFEST_PATH = "res://addons/AudioCafe/resources/audio_manifest.tres"
+const AUDIO_MANIFEST_PATH = "res://addons/audiocafe/resources/audio_manifest.tres"
 
 
-@export var audio_config: AudioConfig = preload("res://addons/AudioCafe/resources/audio_config.tres")
+@export var audio_config: AudioConfig = preload("res://addons/audiocafe/resources/audio_config.tres")
 
 const DOCS : String = "https://cafegame.dev/plugins/audiocafe"
 
