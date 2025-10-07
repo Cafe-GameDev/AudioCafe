@@ -77,6 +77,7 @@ func _run():
 		audio_manifest.interactive = collected_interactive_streams
 
 	if overall_success:
+		_update_manifest_with_uids(audio_manifest) # Call this before saving
 		var err = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_FILE)
 		if err != OK:
 			overall_success = false
@@ -85,6 +86,29 @@ func _run():
 			print("AudioManifest gerado e salvo em: %s" % MANIFEST_SAVE_FILE)
 
 	emit_signal("generation_finished", overall_success, message)
+
+func _update_manifest_with_uids(audio_manifest: AudioManifest):
+	_add_uids_to_category(audio_manifest.playlists)
+	_add_uids_to_category(audio_manifest.randomizer)
+	_add_uids_to_category(audio_manifest.synchronized)
+
+func _add_uids_to_category(category_dict: Dictionary):
+	for key in category_dict.keys():
+		var entry = category_dict[key]
+		if entry.size() >= 2: # Ensure it has at least path and count
+			var resource_path = entry[0]
+			var uid = ResourceLoader.get_resource_uid(resource_path)
+			if uid != -1:
+				# Convert the entry to a WritableArray to modify it
+				var new_entry = Array(entry)
+				if new_entry.size() < 3:
+					new_entry.append("uid://%s" % str(uid))
+				else:
+					new_entry[2] = "uid://%s" % str(uid)
+				category_dict[key] = new_entry
+			else:
+				printerr("Failed to get UID for resource: %s" % resource_path)
+
 
 func generate_playlist(audio_manifest: AudioManifest, collected_streams: Dictionary, playlist_dist_save_path: String, overall_success: bool, message: String) -> Array:
 	for final_key in collected_streams.keys():
