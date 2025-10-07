@@ -1,7 +1,0 @@
-[gd_resource type="AudioStreamRandomizer" load_steps=2 format=3 uid="uid://bcemskakx4omi"]
-
-[ext_resource type="AudioStream" uid="uid://ck1167e50wf70" path="res://assets/ui/mouserelease/mouserelease1.ogg" id="1_7c65w"]
-
-[resource]
-streams_count = 1
-stream_0/stream = ExtResource("1_7c65w")
