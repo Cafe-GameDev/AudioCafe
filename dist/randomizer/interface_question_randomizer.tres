@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://pa8jhcfid2l6"]
+
+[ext_resource type="AudioStream" uid="uid://bhukomhd03cs" path="res://assets/interface/question/question_001.ogg" id="1_xmems"]
+[ext_resource type="AudioStream" uid="uid://o4h0evng02rd" path="res://assets/interface/question/question_002.ogg" id="2_48p5u"]
+[ext_resource type="AudioStream" uid="uid://dv7qnxi4db4hm" path="res://assets/interface/question/question_003.ogg" id="3_mfwrm"]
+[ext_resource type="AudioStream" uid="uid://cbj7a30wc76g7" path="res://assets/interface/question/question_004.ogg" id="4_mj54h"]
+
+[resource]
+streams_count = 4
+stream_0/stream = ExtResource("1_xmems")
+stream_1/stream = ExtResource("2_48p5u")
+stream_2/stream = ExtResource("3_mfwrm")
+stream_3/stream = ExtResource("4_mj54h")
