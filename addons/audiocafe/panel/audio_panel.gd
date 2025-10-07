@@ -35,7 +35,7 @@ const AUDIO_MANIFEST_PATH = "res://addons/audiocafe/resources/audio_manifest.tre
 
 @export var audio_config: AudioConfig = preload("res://addons/audiocafe/resources/audio_config.tres")
 
-const DOCS : String = "https://cafegame.dev/plugins/audiocafe"
+const DOCS : String = "https://www.cafegame.dev/cafeengine/audiocafe"
 
 
 
