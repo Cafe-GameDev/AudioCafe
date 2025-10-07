@@ -1,8 +1,6 @@
 /.godot
 *.*.import
 *.*.uid
-/addons/audiocafe/assets
 *.zip
-/addons/audiocafe/godocs
 /dist
 /assets
