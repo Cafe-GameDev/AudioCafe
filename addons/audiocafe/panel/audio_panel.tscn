@@ -8,7 +8,7 @@
 
 [node name="AudioPanel" type="VBoxContainer"]
 offset_right = 333.0
-offset_bottom = 1077.0
+offset_bottom = 353.0
 script = ExtResource("1_bf5yf")
 
 [node name="Audio-lines" type="Sprite2D" parent="."]
