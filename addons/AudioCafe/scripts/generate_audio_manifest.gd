@@ -159,14 +159,16 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 		else:
 			randomizer = AudioStreamRandomizer.new()
 
+		# Explicitly remove all existing streams
+		for i in range(randomizer.streams_count - 1, -1, -1):
+			randomizer.remove_stream(i)
 		randomizer.streams_count = 0
 
 		var idx := 0
 		for s in streams_for_key:
 			if s == null:
 				continue
-			randomizer.set("stream_%d/stream" % idx, s)
-			randomizer.set("stream_%d/weight" % idx, 1.0)
+			randomizer.add_stream(-1, s, 1.0)
 			idx += 1
 
 		randomizer.streams_count = idx
