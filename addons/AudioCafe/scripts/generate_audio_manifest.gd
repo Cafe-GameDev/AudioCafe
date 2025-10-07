@@ -115,7 +115,7 @@ func generate_playlist(audio_manifest: AudioManifest, collected_streams: Diction
 			message = "Falha ao salvar playlists."
 			break
 		
-		audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count), ResourceLoader.get_resource_uid(playlist_file_path)]
+		audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count)]
 
 	return [overall_success, message]
 
@@ -154,8 +154,7 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 
 		audio_manifest.randomizer[final_key] = [
 			randomizer_file_path,
-			str(randomizer.streams_count),
-			ResourceLoader.get_resource_uid(randomizer_file_path)
+			str(randomizer.streams_count)
 		]
 
 	return [true, ""]
@@ -201,8 +200,7 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 
 		audio_manifest.synchronized[final_key] = [
 			synchronized_file_path,
-			str(sync.stream_count),
-			ResourceLoader.get_resource_uid(synchronized_file_path)
+			str(sync.stream_count)
 		]
 
 	return [true, ""]
