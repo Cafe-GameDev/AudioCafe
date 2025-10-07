@@ -1,0 +1,26 @@
+[gd_resource type="AudioStreamSynchronized" load_steps=8 format=3 uid="uid://dqhtkp5wjg16j"]
+
+[ext_resource type="AudioStream" uid="uid://ww22a2cs6oqp" path="res://assets/interface/switch/switch_001.ogg" id="1_f4r0p"]
+[ext_resource type="AudioStream" uid="uid://c1p2l2y6h6q2o" path="res://assets/interface/switch/switch_002.ogg" id="2_ie4mw"]
+[ext_resource type="AudioStream" uid="uid://c13ap5skbqykf" path="res://assets/interface/switch/switch_003.ogg" id="3_v25hk"]
+[ext_resource type="AudioStream" uid="uid://dmfvogfv6hjgg" path="res://assets/interface/switch/switch_004.ogg" id="4_yky8m"]
+[ext_resource type="AudioStream" uid="uid://d0srbgll4tf3p" path="res://assets/interface/switch/switch_005.ogg" id="5_ybp2e"]
+[ext_resource type="AudioStream" uid="uid://cmqsinflfoin1" path="res://assets/interface/switch/switch_006.ogg" id="6_006s3"]
+[ext_resource type="AudioStream" uid="uid://d2ngpstw2wbpy" path="res://assets/interface/switch/switch_007.ogg" id="7_bhuto"]
+
+[resource]
+stream_count = 7
+stream_0/stream = ExtResource("1_f4r0p")
+stream_0/volume = 0.0
+stream_1/stream = ExtResource("2_ie4mw")
+stream_1/volume = 0.0
+stream_2/stream = ExtResource("3_v25hk")
+stream_2/volume = 0.0
+stream_3/stream = ExtResource("4_yky8m")
+stream_3/volume = 0.0
+stream_4/stream = ExtResource("5_ybp2e")
+stream_4/volume = 0.0
+stream_5/stream = ExtResource("6_006s3")
+stream_5/volume = 0.0
+stream_6/stream = ExtResource("7_bhuto")
+stream_6/volume = 0.0
