@@ -5,3 +5,5 @@
 *.zip
 /addons/audiocafe/godocs
 /dist
+/assets
+/docs

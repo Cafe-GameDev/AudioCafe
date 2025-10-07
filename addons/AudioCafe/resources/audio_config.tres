@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AudioConfig" load_steps=2 format=3 uid="uid://cle813c4mnkml"]
+
+[ext_resource type="Script" uid="uid://d0mrcthgrtg54" path="res://addons/AudioCafe/scripts/audio_config.gd" id="1_ufiej"]
+
+[resource]
+script = ExtResource("1_ufiej")
+is_panel_expanded = true
+gen_playlist = true
+gen_randomizer = true
+gen_synchronized = true
+assets_paths = Array[String](["res://assets"])
+dist_path = "res://dist"
