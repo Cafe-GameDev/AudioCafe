@@ -79,7 +79,7 @@ func _ready():
 
 func _initialize_panel_state():
 	if not has_node("HeaderButton") or not has_node("CollapsibleContent"):
-		push_error("HeaderButton or CollapsibleContent node not found. Please ensure they exist and are correctly named.")
+		push_error("HeaderButton or CollapsibleContent node not found. Ensure they exist and are correctly named.")
 		return
 
 	var collapsible_content_node = get_node("CollapsibleContent")
@@ -111,7 +111,6 @@ func _load_config_to_ui():
 
 	if audio_config.assets_paths.has(audio_config.dist_path):
 		audio_config.assets_paths.erase(audio_config.dist_path)
-		print("DEBUG: Removed dist_path from assets_paths during cleanup.")
 		audio_config._save_and_emit_changed()
 	
 	if assets_paths_grid_container:
@@ -129,11 +128,8 @@ func _load_config_to_ui():
 	_load_interactive_streams_to_ui()
 
 func _load_playlists_to_ui():
-	if not playlist_rich_text_label: return
-
-	var audio_manifest = load(AUDIO_MANIFEST_PATH)
 	if not audio_manifest:
-		push_error("AudioManifest não encontrado em: " + AUDIO_MANIFEST_PATH)
+		push_error("AudioManifest not found at: " + AUDIO_MANIFEST_PATH)
 		return
 
 	var playlists_text = ""
@@ -142,7 +138,7 @@ func _load_playlists_to_ui():
 			playlists_text += "%s (%s)\n" % [key, audio_manifest.playlists[key][1]]
 
 	if playlists_text.is_empty():
-		playlists_text = "Nenhuma playlist encontrada."
+		playlists_text = "No playlists found."
 
 	playlist_rich_text_label.bbcode_text = playlists_text
 
@@ -165,7 +161,6 @@ func _on_config_text_changed(new_text: String, config_property: String):
 				line_edit.add_theme_color_override("font_color", VALID_COLOR)
 				line_edit.tooltip_text = ""
 			audio_config.set(config_property, new_text)
-			print("Configuration updated: %s = %s" % [config_property, new_text])
 		else:
 			if line_edit:
 				line_edit.add_theme_color_override("font_color", INVALID_COLOR)
@@ -175,7 +170,6 @@ func _on_volume_slider_value_changed(new_value: float, bus_name: String, value_l
 	if audio_config:
 		audio_config.set(config_property, new_value)
 		_update_volume_label(value_label, new_value)
-		print("Volume atualizado para %s: %s" % [bus_name, new_value])
 
 func _update_volume_label(label: Label, volume_value: float):
 	label.text = str(int(volume_value * 100)) + "%"
@@ -302,7 +296,7 @@ func _load_interactive_streams_to_ui():
 
 	var audio_manifest = load(AUDIO_MANIFEST_PATH)
 	if not audio_manifest:
-		push_error("AudioManifest não encontrado em: " + AUDIO_MANIFEST_PATH)
+		push_error("AudioManifest not found at: " + AUDIO_MANIFEST_PATH)
 		return
 
 	var interactive_text = ""
@@ -310,7 +304,7 @@ func _load_interactive_streams_to_ui():
 		for key in audio_manifest.interactive.keys():
 			interactive_text += "%s\n" % key
 	else:
-		interactive_text = "Nenhum stream interativo encontrado."
+		interactive_text = "No interactive streams found."
 
 	interactive_rich_text_label.bbcode_text = interactive_text
 
@@ -336,7 +330,7 @@ func _on_header_button_pressed():
 		await ready
 
 	if not has_node("CollapsibleContent") or not has_node("HeaderButton"):
-		push_error("CollapsibleContent or HeaderButton node not found. Please ensure they exist and are correctly named.")
+		push_error("CollapsibleContent or HeaderButton node not found. Ensure they exist and are correctly named.")
 		return
 
 	var collapsible_content_node = get_node("CollapsibleContent")
@@ -367,20 +361,19 @@ func _on_generate_playlists_pressed():
 	if not audio_config: return
 
 	gen_status_label.visible = true
-	gen_status_label.text = "Gerando playlists..."
+	gen_status_label.text = "Generating playlists..."
 
 	var generator = GenerateAudioManifest.new()
 	generator.audio_config = audio_config
 	generator.connect("generation_finished", Callable(self, "_on_playlists_generation_finished"))
-	print("DEBUG: Gerador de playlists configurado com assets_paths: %s" % audio_config.assets_paths)
 	generator._run()
 
 func _on_playlists_generation_finished(success: bool, message: String):
 	if success:
-		gen_status_label.text = "Playlists geradas com sucesso!"
+		gen_status_label.text = "Playlists generated successfully!"
 		_load_config_to_ui()
 		_load_interactive_streams_to_ui()
 	else:
-		gen_status_label.text = "Erro ao gerar playlists: %s" % message
+		gen_status_label.text = "Error generating playlists: %s" % message
 
 	save_feedback_timer.start()

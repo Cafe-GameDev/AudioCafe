@@ -34,8 +34,8 @@ func _run():
 
 	var dist_dir_access = DirAccess.open("res://")
 	if not dist_dir_access:
-		printerr("Falha ao abrir o diretório 'res://'.")
-		emit_signal("generation_finished", false, "Falha ao acessar o diretório base do projeto.")
+		printerr("Failed to open directory 'res://'.")
+		emit_signal("generation_finished", false, "Failed to access the project's base directory.")
 		return
 
 	for path_to_create in [playlist_dist_save_path, randomizer_dist_save_path, interactive_dist_save_path, synchronized_dist_save_path]:
@@ -43,12 +43,12 @@ func _run():
 		if not dist_dir_access.dir_exists(relative_path):
 			var error = dist_dir_access.make_dir_recursive(relative_path)
 			if error != OK:
-				printerr("Falha ao criar o diretório: %s, Erro: %s" % [path_to_create, error])
+				printerr("Failed to create directory: %s, Error: %s" % [path_to_create, error])
 				overall_success = false
-				message = "Falha ao criar diretórios de distribuição."
+				message = "Failed to create distribution directories."
 				break
 			else:
-				print("Diretório criado: %s" % path_to_create)
+				pass
 	
 	if not overall_success:
 		emit_signal("generation_finished", overall_success, message)
@@ -72,7 +72,7 @@ func _run():
 	var collected_interactive_streams: Dictionary = {}
 	if not _scan_directory_for_resources(interactive_dist_save_path, "AudioStreamInteractive", collected_interactive_streams):
 		overall_success = false
-		message = "Falha ao coletar AudioStreamInteractive."
+		message = "Failed to collect AudioStreamInteractive."
 	else:
 		audio_manifest.interactive = collected_interactive_streams
 
@@ -81,9 +81,9 @@ func _run():
 		var err = ResourceSaver.save(audio_manifest, MANIFEST_SAVE_FILE)
 		if err != OK:
 			overall_success = false
-			message = "Falha ao salvar AudioManifest.tres: %s" % err
+			message = "Failed to save AudioManifest.tres: %s" % err
 		else:
-			print("AudioManifest gerado e salvo em: %s" % MANIFEST_SAVE_FILE)
+			pass
 
 	emit_signal("generation_finished", overall_success, message)
 
@@ -134,9 +134,9 @@ func generate_playlist(audio_manifest: AudioManifest, collected_streams: Diction
 		
 		var err = ResourceSaver.save(playlist, playlist_file_path)
 		if err != OK:
-			printerr("Falha ao salvar playlist %s: %s" % [playlist_file_path, err])
+			printerr("Failed to save playlist %s: %s" % [playlist_file_path, err])
 			overall_success = false
-			message = "Falha ao salvar playlists."
+			message = "Failed to save playlists."
 			break
 		
 		audio_manifest.playlists[final_key] = [playlist_file_path, str(playlist.stream_count)]
@@ -175,8 +175,8 @@ func generate_randomizer(audio_manifest: AudioManifest, collected_streams: Dicti
 
 		var err = ResourceSaver.save(randomizer, randomizer_file_path)
 		if err != OK:
-			printerr("Falha ao salvar Randomizer %s: %s" % [randomizer_file_path, err])
-			return [false, "[Randomizer:%s] Falha ao salvar: %s" % [final_key, str(err)]]
+			printerr("Failed to save Randomizer %s: %s" % [randomizer_file_path, err])
+			return [false, "[Randomizer:%s] Failed to save: %s" % [final_key, str(err)]]
 
 		audio_manifest.randomizer[final_key] = [
 			randomizer_file_path,
@@ -221,8 +221,8 @@ func generate_synchronized(audio_manifest: AudioManifest, collected_streams: Dic
 
 		var err = ResourceSaver.save(sync, synchronized_file_path)
 		if err != OK:
-			printerr("Falha ao salvar Synchronized %s: %s" % [synchronized_file_path, err])
-			return [false, "[Synchronized:%s] Falha ao salvar: %s" % [final_key, str(err)]]
+			printerr("Failed to save Synchronized %s: %s" % [synchronized_file_path, err])
+			return [false, "[Synchronized:%s] Failed to save: %s" % [final_key, str(err)]]
 
 		audio_manifest.synchronized[final_key] = [
 			synchronized_file_path,
@@ -271,7 +271,7 @@ func _scan_directory_for_streams(current_path: String, collected_streams: Dictio
 			var resource_path = current_path.path_join(file_or_dir_name)
 			var audio_stream = load(resource_path)
 			if audio_stream == null:
-				printerr("Falha ao carregar AudioStream: %s" % resource_path)
+				printerr("Failed to load AudioStream: %s" % resource_path)
 				file_or_dir_name = dir.get_next()
 				continue
 
@@ -293,7 +293,7 @@ func _scan_directory_for_streams(current_path: String, collected_streams: Dictio
 func _scan_directory_for_resources(current_path: String, resource_class_name: String, collected_resources: Dictionary) -> bool:
 	var dir = DirAccess.open(current_path)
 	if not dir:
-		printerr("GenerateAudioManifest: Falha ao abrir o diretório: %s" % current_path)
+		printerr("GenerateAudioManifest: Failed to open directory: %s" % current_path)
 		return false
 	
 	dir.list_dir_begin()

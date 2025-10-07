@@ -12,7 +12,6 @@ var group_panel: VBoxContainer
 func _enter_tree():
 	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
 		add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
-		print("CafeAudioManager Plugin: Autoload '%s' added." % AUTOLOAD_NAME)
 	
 	_create_plugin_panel()
 	_register_custom_types()
@@ -60,12 +59,12 @@ func _create_plugin_panel():
 
 func _ensure_group(group_name: String) -> VBoxContainer:
 	if not plugin_panel:
-		push_error("Referência ao painel principal 'CafeEngine' não encontrada.")
+		push_error("Main panel 'CafeEngine' reference not found.")
 		return null
 
 	var content_container = plugin_panel.get_node_or_null("VBoxContainer")
 	if not content_container:
-		push_error("O painel 'CafeEngine' não contém o 'VBoxContainer' esperado.")
+		push_error("The 'CafeEngine' panel does not contain the expected 'VBoxContainer'.")
 		return null
 
 	group_panel = content_container.find_child(group_name, false)
@@ -107,7 +106,7 @@ func _ensure_group(group_name: String) -> VBoxContainer:
 
 		return group_panel
 	
-	push_error("Não foi possível carregar a cena do grupo: " + group_name)
+	push_error("Could not load group scene: " + group_name)
 	return null
 
 
