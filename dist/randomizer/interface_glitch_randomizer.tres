@@ -1,4 +1,13 @@
-[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://be26e0ij8tjcc"]
+[gd_resource type="AudioStreamRandomizer" load_steps=5 format=3 uid="uid://be26e0ij8tjcc"]
+
+[ext_resource type="AudioStream" uid="uid://x8cupmq3dxle" path="res://assets/interface/glitch/glitch_001.ogg" id="1_l1ygh"]
+[ext_resource type="AudioStream" uid="uid://cthy1ry84td0u" path="res://assets/interface/glitch/glitch_002.ogg" id="2_ab5g0"]
+[ext_resource type="AudioStream" uid="uid://b4kmtawimstxj" path="res://assets/interface/glitch/glitch_003.ogg" id="3_0qvdp"]
+[ext_resource type="AudioStream" uid="uid://d3nihort5puvm" path="res://assets/interface/glitch/glitch_004.ogg" id="4_7iken"]
 
 [resource]
 streams_count = 4
+stream_0/stream = ExtResource("1_l1ygh")
+stream_1/stream = ExtResource("2_ab5g0")
+stream_2/stream = ExtResource("3_0qvdp")
+stream_3/stream = ExtResource("4_7iken")

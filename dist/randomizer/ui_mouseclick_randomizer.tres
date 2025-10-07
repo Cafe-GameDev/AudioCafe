@@ -1,4 +1,7 @@
-[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://3now231e2cu7"]
+[gd_resource type="AudioStreamRandomizer" load_steps=2 format=3 uid="uid://3now231e2cu7"]
+
+[ext_resource type="AudioStream" uid="uid://brer1l4gj8or0" path="res://assets/ui/mouseclick/mouseclick1.ogg" id="1_yhxd0"]
 
 [resource]
 streams_count = 1
+stream_0/stream = ExtResource("1_yhxd0")

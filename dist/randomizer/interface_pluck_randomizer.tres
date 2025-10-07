@@ -1,4 +1,9 @@
-[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dmkvwufub3u8u"]
+[gd_resource type="AudioStreamRandomizer" load_steps=3 format=3 uid="uid://dmkvwufub3u8u"]
+
+[ext_resource type="AudioStream" uid="uid://bbx5fdyg53pg6" path="res://assets/interface/pluck/pluck_001.ogg" id="1_jvv7w"]
+[ext_resource type="AudioStream" uid="uid://8uolpp8eivx5" path="res://assets/interface/pluck/pluck_002.ogg" id="2_sdpom"]
 
 [resource]
 streams_count = 2
+stream_0/stream = ExtResource("1_jvv7w")
+stream_1/stream = ExtResource("2_sdpom")

@@ -1,4 +1,19 @@
-[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dv6ojiks8n5yy"]
+[gd_resource type="AudioStreamRandomizer" load_steps=8 format=3 uid="uid://dv6ojiks8n5yy"]
+
+[ext_resource type="AudioStream" uid="uid://ww22a2cs6oqp" path="res://assets/interface/switch/switch_001.ogg" id="1_xfn00"]
+[ext_resource type="AudioStream" uid="uid://c1p2l2y6h6q2o" path="res://assets/interface/switch/switch_002.ogg" id="2_qnve6"]
+[ext_resource type="AudioStream" uid="uid://c13ap5skbqykf" path="res://assets/interface/switch/switch_003.ogg" id="3_oe4dj"]
+[ext_resource type="AudioStream" uid="uid://dmfvogfv6hjgg" path="res://assets/interface/switch/switch_004.ogg" id="4_qw55c"]
+[ext_resource type="AudioStream" uid="uid://d0srbgll4tf3p" path="res://assets/interface/switch/switch_005.ogg" id="5_e8qwe"]
+[ext_resource type="AudioStream" uid="uid://cmqsinflfoin1" path="res://assets/interface/switch/switch_006.ogg" id="6_tqrhj"]
+[ext_resource type="AudioStream" uid="uid://d2ngpstw2wbpy" path="res://assets/interface/switch/switch_007.ogg" id="7_8mssn"]
 
 [resource]
 streams_count = 7
+stream_0/stream = ExtResource("1_xfn00")
+stream_1/stream = ExtResource("2_qnve6")
+stream_2/stream = ExtResource("3_oe4dj")
+stream_3/stream = ExtResource("4_qw55c")
+stream_4/stream = ExtResource("5_e8qwe")
+stream_5/stream = ExtResource("6_tqrhj")
+stream_6/stream = ExtResource("7_8mssn")

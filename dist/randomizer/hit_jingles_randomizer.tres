@@ -1,4 +1,39 @@
-[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://clc3sw8bq5cmu"]
+[gd_resource type="AudioStreamRandomizer" load_steps=18 format=3 uid="uid://clc3sw8bq5cmu"]
+
+[ext_resource type="AudioStream" uid="uid://bqovx21kkojbq" path="res://assets/hit_jingles/jingles_hit_0.ogg" id="1_bypfn"]
+[ext_resource type="AudioStream" uid="uid://b6y5uboji3p7e" path="res://assets/hit_jingles/jingles_hit_1.ogg" id="2_8ogdf"]
+[ext_resource type="AudioStream" uid="uid://mupu6btrg1wx" path="res://assets/hit_jingles/jingles_hit_3.ogg" id="3_c2eqo"]
+[ext_resource type="AudioStream" uid="uid://dc2cuamwwtnim" path="res://assets/hit_jingles/jingles_hit_4.ogg" id="4_x8xad"]
+[ext_resource type="AudioStream" uid="uid://c2222slkw6amd" path="res://assets/hit_jingles/jingles_hit_5.ogg" id="5_li5v0"]
+[ext_resource type="AudioStream" uid="uid://d1so33dtuqsnu" path="res://assets/hit_jingles/jingles_hit_6.ogg" id="6_y5b3e"]
+[ext_resource type="AudioStream" uid="uid://cj0l0q007cnks" path="res://assets/hit_jingles/jingles_hit_7.ogg" id="7_qrys0"]
+[ext_resource type="AudioStream" uid="uid://oxqfh785hys8" path="res://assets/hit_jingles/jingles_hit_8.ogg" id="8_ivoq0"]
+[ext_resource type="AudioStream" uid="uid://dgt7qxmxnpmlj" path="res://assets/hit_jingles/jingles_hit_9.ogg" id="9_8ov4p"]
+[ext_resource type="AudioStream" uid="uid://bgx7448d5gho5" path="res://assets/hit_jingles/jingles_hit_10.ogg" id="10_4b36j"]
+[ext_resource type="AudioStream" uid="uid://br8blwxov8gxe" path="res://assets/hit_jingles/jingles_hit_11.ogg" id="11_3idh6"]
+[ext_resource type="AudioStream" uid="uid://bnog1qp36fofk" path="res://assets/hit_jingles/jingles_hit_12.ogg" id="12_f2h7y"]
+[ext_resource type="AudioStream" uid="uid://885nrkwd0hgf" path="res://assets/hit_jingles/jingles_hit_13.ogg" id="13_w80vs"]
+[ext_resource type="AudioStream" uid="uid://dxa4k81l5rqia" path="res://assets/hit_jingles/jingles_hit_14.ogg" id="14_s821r"]
+[ext_resource type="AudioStream" uid="uid://e7q677go2prj" path="res://assets/hit_jingles/jingles_hit_15.ogg" id="15_8it0d"]
+[ext_resource type="AudioStream" uid="uid://cypeiai2r0peo" path="res://assets/hit_jingles/jingles_hit_16.ogg" id="16_50aag"]
+[ext_resource type="AudioStream" uid="uid://dtrqxf3xb1h1n" path="res://assets/hit_jingles/jingles_hit_2.ogg" id="17_28yls"]
 
 [resource]
 streams_count = 17
+stream_0/stream = ExtResource("1_bypfn")
+stream_1/stream = ExtResource("2_8ogdf")
+stream_2/stream = ExtResource("10_4b36j")
+stream_3/stream = ExtResource("11_3idh6")
+stream_4/stream = ExtResource("12_f2h7y")
+stream_5/stream = ExtResource("13_w80vs")
+stream_6/stream = ExtResource("14_s821r")
+stream_7/stream = ExtResource("15_8it0d")
+stream_8/stream = ExtResource("16_50aag")
+stream_9/stream = ExtResource("17_28yls")
+stream_10/stream = ExtResource("3_c2eqo")
+stream_11/stream = ExtResource("4_x8xad")
+stream_12/stream = ExtResource("5_li5v0")
+stream_13/stream = ExtResource("6_y5b3e")
+stream_14/stream = ExtResource("7_qrys0")
+stream_15/stream = ExtResource("8_ivoq0")
+stream_16/stream = ExtResource("9_8ov4p")

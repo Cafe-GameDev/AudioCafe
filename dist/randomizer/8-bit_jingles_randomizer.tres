@@ -1,4 +1,39 @@
-[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://cndc4ak8ij5jd"]
+[gd_resource type="AudioStreamRandomizer" load_steps=18 format=3 uid="uid://cndc4ak8ij5jd"]
+
+[ext_resource type="AudioStream" uid="uid://bb3h4cigy5sbo" path="res://assets/8-bit_jingles/jingles_nes_0.ogg" id="1_0wf4h"]
+[ext_resource type="AudioStream" uid="uid://q1av81tt5upm" path="res://assets/8-bit_jingles/jingles_nes_1.ogg" id="2_juujo"]
+[ext_resource type="AudioStream" uid="uid://dwme1y5kadgmu" path="res://assets/8-bit_jingles/jingles_nes_3.ogg" id="3_bhtes"]
+[ext_resource type="AudioStream" uid="uid://dt1dj6ymolr4r" path="res://assets/8-bit_jingles/jingles_nes_4.ogg" id="4_l7ky7"]
+[ext_resource type="AudioStream" uid="uid://4l782xvmt3v5" path="res://assets/8-bit_jingles/jingles_nes_5.ogg" id="5_44hoo"]
+[ext_resource type="AudioStream" uid="uid://bgulvawn1cucr" path="res://assets/8-bit_jingles/jingles_nes_6.ogg" id="6_g37y8"]
+[ext_resource type="AudioStream" uid="uid://c4hno604suica" path="res://assets/8-bit_jingles/jingles_nes_7.ogg" id="7_6ywgv"]
+[ext_resource type="AudioStream" uid="uid://v4prc411kn0f" path="res://assets/8-bit_jingles/jingles_nes_8.ogg" id="8_btb4r"]
+[ext_resource type="AudioStream" uid="uid://dkpniedn3npc4" path="res://assets/8-bit_jingles/jingles_nes_9.ogg" id="9_myd1b"]
+[ext_resource type="AudioStream" uid="uid://cig3fguxsldut" path="res://assets/8-bit_jingles/jingles_nes_10.ogg" id="10_l6tfp"]
+[ext_resource type="AudioStream" uid="uid://dna11vbo206lh" path="res://assets/8-bit_jingles/jingles_nes_11.ogg" id="11_cex2d"]
+[ext_resource type="AudioStream" uid="uid://dsturks0hh2d1" path="res://assets/8-bit_jingles/jingles_nes_12.ogg" id="12_mo6xr"]
+[ext_resource type="AudioStream" uid="uid://cdtlxtg8y0csm" path="res://assets/8-bit_jingles/jingles_nes_13.ogg" id="13_4un86"]
+[ext_resource type="AudioStream" uid="uid://diki5ul61awx5" path="res://assets/8-bit_jingles/jingles_nes_14.ogg" id="14_bh4fb"]
+[ext_resource type="AudioStream" uid="uid://cfoddq8580ek" path="res://assets/8-bit_jingles/jingles_nes_15.ogg" id="15_ix66l"]
+[ext_resource type="AudioStream" uid="uid://b53j75w1n7plc" path="res://assets/8-bit_jingles/jingles_nes_16.ogg" id="16_u03g4"]
+[ext_resource type="AudioStream" uid="uid://c3hwngntytsgp" path="res://assets/8-bit_jingles/jingles_nes_2.ogg" id="17_emc7f"]
 
 [resource]
 streams_count = 17
+stream_0/stream = ExtResource("1_0wf4h")
+stream_1/stream = ExtResource("2_juujo")
+stream_2/stream = ExtResource("10_l6tfp")
+stream_3/stream = ExtResource("11_cex2d")
+stream_4/stream = ExtResource("12_mo6xr")
+stream_5/stream = ExtResource("13_4un86")
+stream_6/stream = ExtResource("14_bh4fb")
+stream_7/stream = ExtResource("15_ix66l")
+stream_8/stream = ExtResource("16_u03g4")
+stream_9/stream = ExtResource("17_emc7f")
+stream_10/stream = ExtResource("3_bhtes")
+stream_11/stream = ExtResource("4_l7ky7")
+stream_12/stream = ExtResource("5_44hoo")
+stream_13/stream = ExtResource("6_g37y8")
+stream_14/stream = ExtResource("7_6ywgv")
+stream_15/stream = ExtResource("8_btb4r")
+stream_16/stream = ExtResource("9_myd1b")

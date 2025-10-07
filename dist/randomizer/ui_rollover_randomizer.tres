@@ -1,4 +1,17 @@
-[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://bxj3y2adbsxqu"]
+[gd_resource type="AudioStreamRandomizer" load_steps=7 format=3 uid="uid://bxj3y2adbsxqu"]
+
+[ext_resource type="AudioStream" uid="uid://mum524le0x0q" path="res://assets/ui/rollover/rollover1.ogg" id="1_ma76d"]
+[ext_resource type="AudioStream" uid="uid://dbaewgshoj76j" path="res://assets/ui/rollover/rollover2.ogg" id="2_tdi5g"]
+[ext_resource type="AudioStream" uid="uid://c2nqtt8ynmcpk" path="res://assets/ui/rollover/rollover3.ogg" id="3_i80vm"]
+[ext_resource type="AudioStream" uid="uid://bsb7pmmyjafin" path="res://assets/ui/rollover/rollover4.ogg" id="4_vmpby"]
+[ext_resource type="AudioStream" uid="uid://dg2qsikgrt2m0" path="res://assets/ui/rollover/rollover5.ogg" id="5_0mobo"]
+[ext_resource type="AudioStream" uid="uid://db7h883hn681j" path="res://assets/ui/rollover/rollover6.ogg" id="6_w64mn"]
 
 [resource]
 streams_count = 6
+stream_0/stream = ExtResource("1_ma76d")
+stream_1/stream = ExtResource("2_tdi5g")
+stream_2/stream = ExtResource("3_i80vm")
+stream_3/stream = ExtResource("4_vmpby")
+stream_4/stream = ExtResource("5_0mobo")
+stream_5/stream = ExtResource("6_w64mn")
