@@ -1,3 +1,0 @@
-[gd_scene format=3 uid="uid://vultnq53k3xb"]
-
-[node name="AudioPosition3D" type="AudioStreamPlayer3D"]
