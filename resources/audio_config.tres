@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="AudioConfig" load_steps=2 format=3 uid="uid://cle813c4mnkml"]
+
+[ext_resource type="Script" uid="uid://fn37vpmv3ma7" path="res://addons/audiocafe/scripts/audio_config.gd" id="1_ufiej"]
+
+[resource]
+script = ExtResource("1_ufiej")
+is_panel_expanded = false
