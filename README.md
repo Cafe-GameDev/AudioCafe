@@ -21,14 +21,9 @@ The plugin features an intuitive **AudioPanel** directly within the Godot editor
 
 ## Documentation
 
-For detailed information on each component and how to use AudioCafe, please refer to the documentation files in the `docs/` directory:
+The complete documentation, with detailed guides, tutorials, and API reference, can be found on our official website:
 
-*   [Cafe Panel](addons/audiocafe/docs/cafe_panel.md)
-*   [Audio Panel](addons/audiocafe/docs/audio_panel.md)
-*   [Audio Config](addons/audiocafe/docs/audio_config.md)
-*   [Audio Manifest](addons/audiocafe/docs/audio_manifest.md)
-*   [Editor Plugin](addons/audiocafe/docs/editor_plugin.md)
-*   [Generate Audio Manifest](addons/audiocafe/docs/generate_audio_manifest.md)
+[https://www.cafegame.dev/cafeengine/audiocafe](https://www.cafegame.dev/cafeengine/audiocafe)
 
 ## Why Use AudioCafe?
 
