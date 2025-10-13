@@ -37,13 +37,6 @@ func _exit_tree():
 	
 	if is_instance_valid(group_panel):
 		group_panel.free()
-
-	if is_instance_valid(plugin_panel):
-		var content_container = plugin_panel.get_node_or_null("VBoxContainer")
-		if content_container and content_container.get_child_count() == 0:
-			if plugin_panel.get_parent() != null:
-				remove_control_from_docks(plugin_panel)
-			plugin_panel.free()
 	
 	_unregister_custom_types()
 
