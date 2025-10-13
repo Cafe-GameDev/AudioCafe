@@ -1,6 +1,6 @@
 # 🎵 AudioManager
 
-[![Godot Asset Library](https://img.shields.io/badge/Godot_Asset_Library-AudioManager-478cbf?style=for-the-badge&logo=godot-engine)](https://godotengine.org/asset-library/asset/link-to-asset) <!-- Placeholder -->
+[![AudioManager](https://img.shields.io/badge/Godot_Asset_Library-AudioManager-478cbf?style=for-the-badge&logo=godot-engine)](https://godotengine.org/asset-library/asset/link-to-asset)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 # AudioManager: Audio Workflow Accelerator for Godot Engine
