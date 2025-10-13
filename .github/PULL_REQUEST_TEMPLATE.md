@@ -1,6 +1,6 @@
 ### Descrição
 
-<!-- Descreva claramente as alterações que você fez no AudioCafe. -->
+<!-- Descreva claramente as alterações que você fez no AudioManager. -->
 
 ### Tipo de Mudança
 

@@ -24,16 +24,16 @@ class_name AudioPanel
 @onready var save_feedback_label: Label = $CollapsibleContent/SaveFeedbackLabel
 @onready var save_feedback_timer: Timer = $CollapsibleContent/SaveFeedbackTimer
 
-const ARROW_BIG_DOWN_DASH = preload("res://addons/audiocafe/icons/arrow-big-down-dash.svg")
-const ARROW_BIG_UP_DASH = preload("res://addons/audiocafe/icons/arrow-big-up-dash.svg")
+const ARROW_BIG_DOWN_DASH = preload("res://addons/audio_manager/icons/arrow-big-down-dash.svg")
+const ARROW_BIG_UP_DASH = preload("res://addons/audio_manager/icons/arrow-big-up-dash.svg")
 
-const AUDIO_MANIFEST_PATH = "res://addons/audiocafe/resources/audio_manifest.tres"
+const AUDIO_MANIFEST_PATH = "res://addons/audio_manager/resources/audio_manifest.tres"
 
-@export var audio_config: AudioConfig = preload("res://addons/audiocafe/resources/audio_config.tres")
+@export var audio_config: AudioConfig = preload("res://addons/audio_manager/resources/audio_config.tres")
 
-@export var audio_manifest: AudioManifest = preload("res://addons/audiocafe/resources/audio_manifest.tres")
+@export var audio_manifest: AudioManifest = preload("res://addons/audio_manager/resources/audio_manifest.tres")
 
-const DOCS : String = "https://www.cafegame.dev/cafeengine/audiocafe"
+const DOCS : String = "https://www.cafegame.dev/cafeengine/audiomanager"
 
 const VALID_COLOR = Color(1.0, 1.0, 1.0, 1.0)
 const INVALID_COLOR = Color(1.0, 0.2, 0.2, 1.0)

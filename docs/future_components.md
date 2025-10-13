@@ -1,6 +1,6 @@
 # Future Components
 
-This document outlines potential future components for the AudioCafe plugin, building upon the existing structure and functionality.
+This document outlines potential future components for the AudioManager plugin, building upon the existing structure and functionality.
 
 ## Existing Components Overview
 

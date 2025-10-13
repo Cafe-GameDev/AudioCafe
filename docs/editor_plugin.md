@@ -1,6 +1,6 @@
 # Editor Plugin
 
-The `EditorPlugin` (`editor_plugin.gd`) is the entry point for the AudioCafe plugin within the Godot editor. It extends `EditorPlugin` and is responsible for integrating the plugin's functionalities into the Godot environment.
+The `EditorPlugin` (`editor_plugin.gd`) is the entry point for the AudioManager plugin within the Godot editor. It extends `EditorPlugin` and is responsible for integrating the plugin's functionalities into the Godot environment.
 
 ## Key Responsibilities
 

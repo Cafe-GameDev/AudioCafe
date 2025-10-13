@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8u1p14dtwv4j"]
 
-[ext_resource type="Script" path="res://addons/audiocafe/panel/audio_panel.gd" id="1_bf5yf"]
-[ext_resource type="Texture2D" path="res://addons/audiocafe/icons/audio-lines.svg" id="2_27051"]
-[ext_resource type="Texture2D" path="res://addons/audiocafe/icons/arrow-big-down-dash.svg" id="2_pgqbs"]
-[ext_resource type="Texture2D" path="res://addons/audiocafe/icons/refresh-cw.svg" id="4_tsgsf"]
-[ext_resource type="Texture2D" path="res://addons/audiocafe/icons/book-open-text.svg" id="5_xx4nf"]
+[ext_resource type="Script" uid="uid://41p6xae7wfb" path="res://addons/audio_manager/panel/audio_panel.gd" id="1_bf5yf"]
+[ext_resource type="Texture2D" uid="uid://b02yikpixnoow" path="res://addons/audio_manager/icons/audio-lines.svg" id="2_27051"]
+[ext_resource type="Texture2D" uid="uid://c16qkl8201itj" path="res://addons/audio_manager/icons/arrow-big-up-dash.svg" id="2_a3xu0"]
+[ext_resource type="Texture2D" uid="uid://btqqo3iwavk5q" path="res://addons/audio_manager/icons/refresh-cw.svg" id="4_tsgsf"]
+[ext_resource type="Texture2D" uid="uid://dijiu74x50t1" path="res://addons/audio_manager/icons/book-open-text.svg" id="5_xx4nf"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_tsgsf"]
 color = Color(0.8920073, 0.3548659, 0.38118282, 1)
@@ -24,17 +24,17 @@ theme_override_styles/separator = SubResource("StyleBoxLine_tsgsf")
 [node name="HeaderButton" type="Button" parent="."]
 custom_minimum_size = Vector2(0, 38)
 layout_mode = 2
-text = "AudioCafe"
-icon = ExtResource("2_pgqbs")
+text = "AudioManager"
+icon = ExtResource("2_a3xu0")
 alignment = 0
 icon_alignment = 2
 
 [node name="Audio-lines" type="Sprite2D" parent="."]
-position = Vector2(110, 28)
+position = Vector2(150, 28)
 texture = ExtResource("2_27051")
 
 [node name="CollapsibleContent" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 213)
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CollapsibleContent"]

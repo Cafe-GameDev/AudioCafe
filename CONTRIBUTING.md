@@ -1,11 +1,11 @@
-# Como Contribuir para o AudioCafe
+# Como Contribuir para o AudioManager
 
-Obrigado pelo seu interesse em contribuir para o **AudioCafe**!
+Obrigado pelo seu interesse em contribuir para o **AudioManager**!
 
 ## Reportando Bugs
 
 -   **Verifique issues existentes:** Antes de criar uma nova, veja se o bug já não foi reportado.
--   **Seja Detalhado:** Inclua a versão do Godot, a versão do AudioCafe, passos para reproduzir o bug, e o que você esperava que acontecesse.
+-   **Seja Detalhado:** Inclua a versão do Godot, a versão do AudioManager, passos para reproduzir o bug, e o que você esperava que acontecesse.
 
 ## Sugerindo Melhorias
 

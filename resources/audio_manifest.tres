@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="AudioManifest" load_steps=2 format=3 uid="uid://bpnb5w5vftce3"]
 
-[ext_resource type="Script" path="res://addons/audiocafe/scripts/audio_manifest.gd" id="1_pq6h3"]
+[ext_resource type="Script" path="res://addons/audio_manager/scripts/audio_manifest.gd" id="1_pq6h3"]
 
 [resource]
 script = ExtResource("1_pq6h3")

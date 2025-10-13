@@ -1,7 +1,7 @@
 ---
-name: Report de Bug (AudioCafe)
-about: Crie um relatório para nos ajudar a melhorar o AudioCafe
-labels: bug, audiocafe
+name: Report de Bug (AudioManager)
+about: Crie um relatório para nos ajudar a melhorar o AudioManager
+labels: bug, audiomanager
 ---
 
 **Descreva o bug**
@@ -18,5 +18,5 @@ Uma descrição clara e concisa do que você esperava que acontecesse.
 
 **Contexto:**
  - Versão do Godot: [ex. 4.5]
- - Versão do AudioCafe: [ex. v1.0]
+ - Versão do AudioManager: [ex. v1.0]
  - OS: [ex. Windows, Linux, macOS]

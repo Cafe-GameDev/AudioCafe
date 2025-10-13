@@ -1,6 +1,6 @@
 # Audio Manifest
 
-The `AudioManifest` is a `Resource` (`.tres` file) that acts as a centralized catalog for all audio resources managed by the AudioCafe plugin. It provides a single point of access for mapping audio keys to their corresponding generated `AudioStream` resources, facilitating runtime access and export optimization.
+The `AudioManifest` is a `Resource` (`.tres` file) that acts as a centralized catalog for all audio resources managed by the AudioManager plugin. It provides a single point of access for mapping audio keys to their corresponding generated `AudioStream` resources, facilitating runtime access and export optimization.
 
 ## Key Properties
 

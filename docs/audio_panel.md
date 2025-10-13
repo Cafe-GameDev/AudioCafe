@@ -1,6 +1,6 @@
 # Audio Panel
 
-The `AudioPanel` is the core graphical user interface (GUI) component of the AudioCafe plugin, extending `VBoxContainer`. It provides an intuitive and powerful interface directly within the Godot editor for managing audio resources.
+The `AudioPanel` is the core graphical user interface (GUI) component of the AudioManager plugin, extending `VBoxContainer`. It provides an intuitive and powerful interface directly within the Godot editor for managing audio resources.
 
 ## Key Responsibilities
 

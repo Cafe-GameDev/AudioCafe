@@ -1,6 +1,6 @@
 # Audio Config
 
-The `AudioConfig` is a `Resource` (`.tres` file) that serves as the central configuration object for the AudioCafe plugin. It stores various settings and user preferences, ensuring that the plugin's behavior is persistent across editor sessions.
+The `AudioConfig` is a `Resource` (`.tres` file) that serves as the central configuration object for the AudioManager plugin. It stores various settings and user preferences, ensuring that the plugin's behavior is persistent across editor sessions.
 
 ## Key Properties
 

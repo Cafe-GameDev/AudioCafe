@@ -1,13 +1,13 @@
-# 🎵 AudioCafe
+# 🎵 AudioManager
 
-[![Godot Asset Library](https://img.shields.io/badge/Godot_Asset_Library-AudioCafe-478cbf?style=for-the-badge&logo=godot-engine)](https://godotengine.org/asset-library/asset/link-to-asset) <!-- Placeholder -->
+[![Godot Asset Library](https://img.shields.io/badge/Godot_Asset_Library-AudioManager-478cbf?style=for-the-badge&logo=godot-engine)](https://godotengine.org/asset-library/asset/link-to-asset) <!-- Placeholder -->
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-# AudioCafe: Audio Workflow Accelerator for Godot Engine
+# AudioManager: Audio Workflow Accelerator for Godot Engine
 
 ## Overview
 
-AudioCafe is a powerful Godot Engine plugin designed to streamline audio management. It automates the creation of `AudioStreamPlaylist`, `AudioStreamRandomizer`, and `AudioStreamSynchronized` resources from your raw audio files, organizing them into a centralized `AudioManifest`.
+AudioManager is a powerful Godot Engine plugin designed to streamline audio management. It automates the creation of `AudioStreamPlaylist`, `AudioStreamRandomizer`, and `AudioStreamSynchronized` resources from your raw audio files, organizing them into a centralized `AudioManifest`.
 
 The plugin features an intuitive **AudioPanel** directly within the Godot editor, allowing you to configure asset paths, define resource save locations, and generate a complete audio manifest with ease.
 
@@ -23,9 +23,9 @@ The plugin features an intuitive **AudioPanel** directly within the Godot editor
 
 The complete documentation, with detailed guides, tutorials, and API reference, can be found on our official website:
 
-[https://www.cafegame.dev/cafeengine/audiocafe](https://www.cafegame.dev/cafeengine/audiocafe)
+[https://www.cafegame.dev/cafeengine/audiomanager](https://www.cafegame.dev/cafeengine/audiomanager)
 
-## Why Use AudioCafe?
+## Why Use AudioManager?
 
 *   **Time Saving**: Automate repetitive audio setup tasks.
 *   **Impeccable Organization**: Keep your audio resources organized and easily accessible.
@@ -33,4 +33,4 @@ The complete documentation, with detailed guides, tutorials, and API reference, 
 *   **Seamless Integration**: Works natively within the Godot Engine.
 *   **Foundation for Robust Systems**: Build complex and dynamic audio systems with a solid manifest backbone.
 
-With AudioCafe, you don't just manage audio; you accelerate the creation of immersive and dynamic sound experiences in your Godot games.
+With AudioManager, you don't just manage audio; you accelerate the creation of immersive and dynamic sound experiences in your Godot games.

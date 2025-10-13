@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c16qkl8201itj"
-path="res://.godot/imported/arrow-big-up-dash.svg-fe8b695c34ceffc8d6266afaf0f2ff9b.ctex"
+path="res://.godot/imported/arrow-big-up-dash.svg-1888b1a90b5fdbc0443c6412321fe4c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/audiocafe/icons/arrow-big-up-dash.svg"
-dest_files=["res://.godot/imported/arrow-big-up-dash.svg-fe8b695c34ceffc8d6266afaf0f2ff9b.ctex"]
+source_file="res://addons/audio_manager/icons/arrow-big-up-dash.svg"
+dest_files=["res://.godot/imported/arrow-big-up-dash.svg-1888b1a90b5fdbc0443c6412321fe4c3.ctex"]
 
 [params]
 
