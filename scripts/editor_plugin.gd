@@ -13,7 +13,7 @@ const CORE_ENGINE_GITHUB_URL = "https://github.com/CafeGameDev/CafeEngine"
 
 func _enter_tree():
 	if not ProjectSettings.has_setting("autoload/" + CORE_ENGINE_AUTOLOAD_NAME):
-		var error_message = "O plugin StateMachine requer o plugin CoreEngine para funcionar corretamente. " \
+		var error_message = "O plugin AudioManager requer o plugin CoreEngine para funcionar corretamente. " \
 							+ "Por favor, certifique-se de que o CoreEngine está instalado e configurado como um Autoload com o nome '" + CORE_ENGINE_AUTOLOAD_NAME + "'. " \
 							+ "Você pode encontrar o CoreEngine em: " + CORE_ENGINE_GITHUB_URL
 		push_error(error_message)
