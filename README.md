@@ -1,6 +1,6 @@
 # 🎵 AudioManager
 
-[![DataBehavior](https://img.shields.io/badge/AudioManager-v1.0.0-478cbf?style=for-the-badge)](https://www.cafegame.dev/pt-BR/cafeengine)
+[![AudioManager](https://img.shields.io/badge/AudioManager-v1.0.0-478cbf?style=for-the-badge)](https://www.cafegame.dev/pt-BR/cafeengine)
 [![License](https://img.shields.io/badge/License-MIT-f1c40f?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 # AudioManager: Audio Workflow Accelerator for Godot Engine
