@@ -11,7 +11,15 @@ var group_panel: VBoxContainer
 const CORE_ENGINE_AUTOLOAD_NAME = "CoreEngine"
 const CORE_ENGINE_GITHUB_URL = "https://github.com/CafeGameDev/CafeEngine"
 
-func _enable_plugin():
+func _enable_plugin() -> void:
+	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
+		add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
+
+func _disable_plugin() -> void:
+	if ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
+		remove_autoload_singleton(AUTOLOAD_NAME)
+
+func _enter_tree():
 	if not ProjectSettings.has_setting("autoload/" + CORE_ENGINE_AUTOLOAD_NAME):
 		var error_message = "O plugin AudioManager requer o plugin CoreEngine para funcionar corretamente. " \
 							+ "Por favor, certifique-se de que o CoreEngine está instalado e configurado como um Autoload com o nome '" + CORE_ENGINE_AUTOLOAD_NAME + "'. " \
@@ -19,9 +27,6 @@ func _enable_plugin():
 		push_error(error_message)
 		print("ERRO: " + error_message)
 		return
-	
-	if not ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
-		add_autoload_singleton(AUTOLOAD_NAME, AUTOLOAD_PATH)
 	
 	# Aguarda o CorePanel ser instanciado pelo CoreEngine
 	await get_tree().create_timer(0.1).timeout
@@ -31,10 +36,7 @@ func _enable_plugin():
 	_create_plugin_panel()
 	_register_custom_types()
 
-func _disable_plugin():
-	if ProjectSettings.has_setting("autoload/" + AUTOLOAD_NAME):
-		remove_autoload_singleton(AUTOLOAD_NAME)
-	
+func _exit_tree():
 	if is_instance_valid(group_panel):
 		group_panel.free()
 	
